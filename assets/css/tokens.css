@@ -1,0 +1,189 @@
+/* ==========================================================================
+   tokens.css — Design tokens de la Guia de Tercero
+   Paleta inspirada en el material escolar: papel de cuaderno, tinta, regla
+   y crayon. Todos los colores se definen aqui como variables para que los
+   componentes nunca usen literales.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Papel y tinta -------------------------------------------------- */
+  --paper:        #FAF7F0;
+  --paper-grid:   #E7E0D0;
+  --surface:      #FFFFFF;
+  --surface-2:    #F4F0E7;
+  --surface-3:    #EBE5D8;
+  --ink:          #232840;
+  --ink-soft:     #4A5170;
+  --ink-muted:    #6E7590;
+  --line:         #E3DCCC;
+  --line-strong:  #CBC2AE;
+
+  /* --- Color por area -------------------------------------------------- */
+  --reading:        #4A5BD6;
+  --reading-deep:   #33409E;
+  --reading-soft:   #E9EBFB;
+  --reading-line:   #C3C9F2;
+
+  --math:           #0E9E7C;
+  --math-deep:      #0A7259;
+  --math-soft:      #DEF4EE;
+  --math-line:      #A9E1D2;
+
+  --wellbeing:      #E8506B;
+  --wellbeing-deep: #B33A50;
+  --wellbeing-soft: #FCE5EA;
+  --wellbeing-line: #F6C0CB;
+
+  /* --- Acento y estados ------------------------------------------------ */
+  --star:      #F5B417;
+  --star-soft: #FFF3D4;
+  --ok:        #0E9E7C;
+  --ok-soft:   #DEF4EE;
+  --ok-line:   #A9E1D2;
+  --no:        #E8506B;
+  --no-soft:   #FCE5EA;
+  --no-line:   #F6C0CB;
+
+  /* Color activo del area: lo sobreescribe cada pagina */
+  --area:      var(--reading);
+  --area-deep: var(--reading-deep);
+  --area-soft: var(--reading-soft);
+  --area-line: var(--reading-line);
+
+  /* --- Tipografia ------------------------------------------------------ */
+  --font-display: "Baloo 2", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-body:    "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --step--1: 0.9rem;
+  --step-0:  1.0625rem;
+  --step-1:  1.2rem;
+  --step-2:  1.45rem;
+  --step-3:  clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem);
+  --step-4:  clamp(2.1rem, 1.5rem + 3vw, 3.2rem);
+
+  --leading-body:  1.75;
+  --leading-tight: 1.2;
+
+  /* --- Espaciado ------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+
+  /* --- Formas ---------------------------------------------------------- */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(35, 40, 64, 0.06), 0 2px 6px rgba(35, 40, 64, 0.05);
+  --shadow-md: 0 2px 4px rgba(35, 40, 64, 0.06), 0 10px 24px rgba(35, 40, 64, 0.09);
+  --shadow-lg: 0 4px 8px rgba(35, 40, 64, 0.07), 0 20px 48px rgba(35, 40, 64, 0.13);
+
+  --ring: 0 0 0 3px var(--paper), 0 0 0 6px var(--area);
+
+  --wrap: 68rem;
+  --measure: 34rem;
+}
+
+/* --- Tema oscuro por preferencia del sistema (sin marca explicita) ------ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper:        #161A24;
+    --paper-grid:   #232937;
+    --surface:      #1E2432;
+    --surface-2:    #262D3D;
+    --surface-3:    #303849;
+    --ink:          #ECEFF7;
+    --ink-soft:     #C3C9DA;
+    --ink-muted:    #949CB4;
+    --line:         #313949;
+    --line-strong:  #454F65;
+
+    --reading:        #8894F5;
+    --reading-deep:   #AEB6FA;
+    --reading-soft:   #262B45;
+    --reading-line:   #3B4271;
+
+    --math:           #3FCFA8;
+    --math-deep:      #7EE2C6;
+    --math-soft:      #163A32;
+    --math-line:      #23604F;
+
+    --wellbeing:      #F5808F;
+    --wellbeing-deep: #FAA8B3;
+    --wellbeing-soft: #3A222B;
+    --wellbeing-line: #6B3441;
+
+    --star:      #FFCB4D;
+    --star-soft: #3A2F16;
+    --ok:        #3FCFA8;
+    --ok-soft:   #163A32;
+    --ok-line:   #23604F;
+    --no:        #F5808F;
+    --no-soft:   #3A222B;
+    --no-line:   #6B3441;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.32), 0 10px 24px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 48px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* --- Tema oscuro elegido explicitamente -------------------------------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:        #161A24;
+  --paper-grid:   #232937;
+  --surface:      #1E2432;
+  --surface-2:    #262D3D;
+  --surface-3:    #303849;
+  --ink:          #ECEFF7;
+  --ink-soft:     #C3C9DA;
+  --ink-muted:    #949CB4;
+  --line:         #313949;
+  --line-strong:  #454F65;
+
+  --reading:        #8894F5;
+  --reading-deep:   #AEB6FA;
+  --reading-soft:   #262B45;
+  --reading-line:   #3B4271;
+
+  --math:           #3FCFA8;
+  --math-deep:      #7EE2C6;
+  --math-soft:      #163A32;
+  --math-line:      #23604F;
+
+  --wellbeing:      #F5808F;
+  --wellbeing-deep: #FAA8B3;
+  --wellbeing-soft: #3A222B;
+  --wellbeing-line: #6B3441;
+
+  --star:      #FFCB4D;
+  --star-soft: #3A2F16;
+  --ok:        #3FCFA8;
+  --ok-soft:   #163A32;
+  --ok-line:   #23604F;
+  --no:        #F5808F;
+  --no-soft:   #3A222B;
+  --no-line:   #6B3441;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.32), 0 10px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* --- Alias de area: cada pagina marca <body data-area="..."> ------------ */
+[data-area="reading"]   { --area: var(--reading);   --area-deep: var(--reading-deep);   --area-soft: var(--reading-soft);   --area-line: var(--reading-line); }
+[data-area="math"]      { --area: var(--math);      --area-deep: var(--math-deep);      --area-soft: var(--math-soft);      --area-line: var(--math-line); }
+[data-area="wellbeing"] { --area: var(--wellbeing); --area-deep: var(--wellbeing-deep); --area-soft: var(--wellbeing-soft); --area-line: var(--wellbeing-line); }
