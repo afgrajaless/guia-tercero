@@ -22,7 +22,11 @@
     fill: 'Completa',
     match: 'Une las parejas',
     order: 'Ordena',
-    practice: 'Practica'
+    practice: 'Practica',
+    mood: 'Cómo me siento',
+    classify: 'Clasifica',
+    numericPair: 'Divide',
+    numeric: 'Resuelve'
   };
 
   /** Mensajes de animo que se rotan al acertar. */
@@ -65,13 +69,14 @@
   /**
    * Muestra un mensaje de acierto o de error dentro de una actividad.
    * @param {HTMLElement} node - Contenedor de retroalimentacion.
-   * @param {boolean} ok - true si la respuesta fue correcta.
+   * @param {string} tone - ok, no o soft (soft nunca marca acierto ni error).
    * @param {string} message - Texto a mostrar al estudiante.
    * @returns {void}
    */
-  function showFeedback(node, ok, message) {
-    node.className = 'feedback ' + (ok ? 'feedback--ok' : 'feedback--no');
-    node.innerHTML = '<span class="feedback__icon" aria-hidden="true">' + (ok ? '&#10003;' : '!') + '</span>' +
+  function showFeedback(node, tone, message) {
+    var icons = { ok: '&#10003;', no: '!', soft: '&#9679;' };
+    node.className = 'feedback feedback--' + tone;
+    node.innerHTML = '<span class="feedback__icon" aria-hidden="true">' + icons[tone] + '</span>' +
                      '<span>' + escapeHtml(message) + '</span>';
     node.hidden = false;
   }
@@ -460,6 +465,449 @@
   }
 
   /**
+   * Arma el termometro del dia: cinco opciones sin respuesta correcta.
+   * Guarda el valor por fecha y muestra el historial sin interpretarlo.
+   * @param {Object} activity - Definicion con las opciones del termometro.
+   * @param {Object} ctx - Contexto con finish, areaId y storageKey.
+   * @returns {HTMLElement} Contenedor con las opciones y el historial.
+   */
+  function buildMood(activity, ctx) {
+    var options = activity.options || [];
+    var wrap = el('div', { className: 'mood' });
+    var scale = el('div', { className: 'mood__scale' });
+    var history = el('div', { className: 'mood__history' });
+    var buttons = [];
+
+    /**
+     * Devuelve la fecha de hoy en formato AAAA-MM-DD.
+     * @returns {string} Fecha de hoy.
+     */
+    function today() {
+      var now = new Date();
+      return now.getFullYear() + '-' +
+             String(now.getMonth() + 1).padStart(2, '0') + '-' +
+             String(now.getDate()).padStart(2, '0');
+    }
+
+    /**
+     * Vuelve a pintar el historial de los ultimos dias registrados.
+     * @returns {void}
+     */
+    function paintHistory() {
+      var log = ctx.readData() || [];
+      history.innerHTML = '';
+      if (!log.length) { return; }
+      history.appendChild(el('p', { className: 'mood__history-title', text: 'Así te has sentido:' }));
+      var strip = el('div', { className: 'mood__strip' });
+      log.slice(-7).forEach(function (entry) {
+        var dot = el('span', {
+          className: 'mood__dot',
+          attrs: { title: entry.date + ': ' + (options[entry.value - 1] || entry.value) }
+        });
+        dot.style.opacity = String(0.25 + (entry.value / options.length) * 0.75);
+        strip.appendChild(dot);
+      });
+      history.appendChild(strip);
+    }
+
+    options.forEach(function (label, index) {
+      var button = el('button', {
+        className: 'mood__option',
+        attrs: { type: 'button' },
+        html: '<span class="mood__level" aria-hidden="true">' + (index + 1) + '</span>' +
+              '<span>' + escapeHtml(label) + '</span>'
+      });
+      button.addEventListener('click', function () {
+        buttons.forEach(function (other) { other.classList.remove('is-chosen'); });
+        button.classList.add('is-chosen');
+
+        var log = ctx.readData() || [];
+        var date = today();
+        var existing = log.filter(function (entry) { return entry.date === date; })[0];
+        if (existing) { existing.value = index + 1; } else { log.push({ date: date, value: index + 1 }); }
+        ctx.writeData(log);
+        paintHistory();
+
+        ctx.finish(true, activity.explain || 'Gracias por contarlo.');
+      });
+      buttons.push(button);
+      scale.appendChild(button);
+    });
+
+    wrap.appendChild(scale);
+    wrap.appendChild(history);
+    paintHistory();
+
+    /**
+     * Deja marcada la ultima eleccion cuando la actividad ya se respondio.
+     * @returns {void}
+     */
+    ctx.markSolved = function () {
+      var log = ctx.readData() || [];
+      var last = log[log.length - 1];
+      if (last && buttons[last.value - 1]) { buttons[last.value - 1].classList.add('is-chosen'); }
+    };
+
+    /**
+     * Permite volver a elegir sin borrar el historial.
+     * @returns {void}
+     */
+    ctx.reset = function () {
+      buttons.forEach(function (button) { button.classList.remove('is-chosen'); });
+    };
+
+    return wrap;
+  }
+
+  /**
+   * Arma una actividad de clasificar tarjetas en dos o mas contenedores.
+   * Con free: true no hay respuesta correcta. Con soft: true se sugiere
+   * repensar la tarjeta mal ubicada, pero nunca se marca como error.
+   * @param {Object} activity - Definicion con groups y cards.
+   * @param {Object} ctx - Contexto con feedback, finish y estado inicial.
+   * @returns {HTMLElement} Tablero de clasificacion.
+   */
+  function buildClassify(activity, ctx) {
+    var groups = activity.groups || [];
+    var cards = activity.cards || [];
+    var board = el('div', { className: 'classify' });
+    var pool = el('div', { className: 'classify__pool' });
+    var zones = el('div', { className: 'classify__zones' });
+    var selected = null;
+    var placed = 0;
+    var cardButtons = [];
+    var zoneNodes = [];
+
+    pool.appendChild(el('p', { className: 'classify__label', text: 'Toca una tarjeta y luego su lugar' }));
+
+    /**
+     * Marca visualmente la tarjeta que el estudiante tiene seleccionada.
+     * @param {HTMLElement|null} button - Tarjeta elegida, o null para limpiar.
+     * @returns {void}
+     */
+    function select(button) {
+      cardButtons.forEach(function (other) { other.classList.remove('is-active'); });
+      selected = button;
+      if (button) { button.classList.add('is-active'); }
+    }
+
+    shuffle(cards).forEach(function (card) {
+      var button = el('button', {
+        className: 'classify__card',
+        attrs: { type: 'button' },
+        text: card.text
+      });
+      button.dataset.group = String(card.group);
+      button.addEventListener('click', function () { select(button); });
+      cardButtons.push(button);
+      pool.appendChild(button);
+    });
+
+    groups.forEach(function (group) {
+      var zone = el('div', { className: 'classify__zone' });
+      zone.dataset.group = String(group.id);
+      if (group.tone) { zone.classList.add('classify__zone--' + group.tone); }
+      zone.appendChild(el('p', { className: 'classify__zone-title', text: group.title }));
+      var drop = el('div', { className: 'classify__drop' });
+      zone.appendChild(drop);
+
+      zone.addEventListener('click', function () {
+        if (!selected) {
+          ctx.showHint('Primero toca una tarjeta.');
+          return;
+        }
+        var card = selected;
+        var belongsHere = card.dataset.group === String(group.id);
+
+        if (activity.soft && !belongsHere) {
+          ctx.showHint(activity.hint || 'Piénsalo otra vez: ¿eso lo decides tú?');
+          card.classList.add('is-thinking');
+          setTimeout(function () { card.classList.remove('is-thinking'); }, 900);
+          return;
+        }
+
+        card.classList.remove('is-active', 'is-thinking');
+        card.classList.add('is-placed');
+        card.disabled = true;
+        drop.appendChild(card);
+        select(null);
+        placed += 1;
+        if (placed === cardButtons.length) {
+          ctx.finish(true, activity.explain || 'Terminaste de organizar las tarjetas.');
+        }
+      });
+
+      zoneNodes.push({ zone: zone, drop: drop, id: String(group.id) });
+      zones.appendChild(zone);
+    });
+
+    board.appendChild(pool);
+    board.appendChild(zones);
+
+    /**
+     * Reparte todas las tarjetas en su lugar cuando ya se resolvio antes.
+     * @returns {void}
+     */
+    ctx.markSolved = function () {
+      cardButtons.forEach(function (card) {
+        var target = zoneNodes.filter(function (entry) { return entry.id === card.dataset.group; })[0];
+        if (!target) { return; }
+        card.classList.add('is-placed');
+        card.disabled = true;
+        target.drop.appendChild(card);
+      });
+      placed = cardButtons.length;
+    };
+
+    /**
+     * Devuelve todas las tarjetas al monton inicial.
+     * @returns {void}
+     */
+    ctx.reset = function () {
+      placed = 0;
+      select(null);
+      shuffle(cardButtons).forEach(function (card) {
+        card.classList.remove('is-placed', 'is-active', 'is-thinking');
+        card.disabled = false;
+        pool.appendChild(card);
+      });
+    };
+
+    return board;
+  }
+
+  /**
+   * Arma una lista de ejercicios de respuesta corta. Cada renglon puede
+   * pedir un numero escrito o una eleccion entre pocas opciones (por ejemplo
+   * los signos mayor que, menor que e igual).
+   * @param {Object} activity - Definicion con items: [{text, answer, options, unit}].
+   * @param {Object} ctx - Contexto con feedback, finish y estado inicial.
+   * @returns {HTMLElement} Lista de ejercicios.
+   */
+  function buildNumeric(activity, ctx) {
+    var items = activity.items || [];
+    var list = el('div', {
+      className: 'numeric' + (activity.layout === 'stacked' ? ' numeric--stacked' : '')
+    });
+    var rows = [];
+
+    items.forEach(function (item, index) {
+      var row = el('div', { className: 'numeric__row' });
+      row.appendChild(el('span', {
+        className: 'numeric__text',
+        html: (items.length > 1 ? '<span class="numeric__num">' + (index + 1) + '</span>' : '') +
+              '<span>' + escapeHtml(item.text) + '</span>'
+      }));
+
+      var entry = { data: item, node: row, buttons: [], input: null, chosen: null };
+
+      if (item.options) {
+        var group = el('div', { className: 'numeric__options' });
+        item.options.forEach(function (option) {
+          var button = el('button', {
+            className: 'numeric__option',
+            attrs: { type: 'button', 'aria-label': item.text + ': ' + option },
+            text: option
+          });
+          button.addEventListener('click', function () {
+            entry.buttons.forEach(function (other) {
+              other.classList.remove('is-chosen', 'is-correct', 'is-wrong');
+            });
+            button.classList.add('is-chosen');
+            entry.chosen = option;
+          });
+          entry.buttons.push(button);
+          group.appendChild(button);
+        });
+        row.appendChild(group);
+      } else {
+        entry.input = el('input', {
+          className: 'fill__blank',
+          attrs: {
+            type: 'text',
+            inputmode: 'numeric',
+          size: '8',
+            size: '8',
+            autocomplete: 'off',
+            'aria-label': 'Respuesta de ' + item.text
+          }
+        });
+        row.appendChild(el('span', { className: 'numeric__answer', children: [
+          entry.input,
+          item.unit ? el('span', { className: 'numeric__unit', text: item.unit }) : null
+        ].filter(Boolean) }));
+      }
+
+      rows.push(entry);
+      list.appendChild(row);
+    });
+
+    var check = el('button', { className: 'btn btn--primary btn--sm', attrs: { type: 'button' }, text: 'Comprobar' });
+    check.addEventListener('click', function () {
+      var correct = 0;
+      rows.forEach(function (row) {
+        var ok;
+        if (row.input) {
+          ok = answerMatches(row.input.value, String(row.data.answer));
+          row.input.classList.toggle('is-correct', ok);
+          row.input.classList.toggle('is-wrong', !ok);
+        } else {
+          ok = row.chosen === row.data.answer;
+          row.buttons.forEach(function (button) {
+            var isChosen = button.textContent === row.chosen;
+            button.classList.toggle('is-correct', isChosen && ok);
+            button.classList.toggle('is-wrong', isChosen && !ok);
+          });
+        }
+        if (ok) { correct += 1; }
+      });
+
+      if (correct === rows.length) {
+        ctx.finish(true, activity.explain || 'Todas quedaron bien.');
+      } else {
+        ctx.finish(false, activity.hint ||
+          ('Van ' + correct + ' de ' + rows.length + '. Revisa las que quedaron en rojo.'));
+      }
+    });
+
+    ctx.actions.push(check);
+
+    /**
+     * Escribe las respuestas correctas cuando la actividad ya se resolvio.
+     * @returns {void}
+     */
+    ctx.markSolved = function () {
+      rows.forEach(function (row) {
+        if (row.input) {
+          row.input.value = row.data.answer;
+          row.input.disabled = true;
+          row.input.classList.add('is-correct');
+          return;
+        }
+        row.buttons.forEach(function (button) {
+          button.disabled = true;
+          button.classList.toggle('is-correct', button.textContent === String(row.data.answer));
+        });
+      });
+      check.disabled = true;
+    };
+
+    /**
+     * Limpia la lista para volver a resolverla.
+     * @returns {void}
+     */
+    ctx.reset = function () {
+      rows.forEach(function (row) {
+        if (row.input) {
+          row.input.value = '';
+          row.input.disabled = false;
+          row.input.classList.remove('is-correct', 'is-wrong');
+          return;
+        }
+        row.chosen = null;
+        row.buttons.forEach(function (button) {
+          button.disabled = false;
+          button.classList.remove('is-chosen', 'is-correct', 'is-wrong');
+        });
+      });
+      check.disabled = false;
+    };
+
+    return list;
+  }
+
+  /**
+   * Arma una division con dos campos: cociente y residuo. Ambos deben coincidir.
+   * @param {Object} activity - Definicion con operations: [{text, quotient, remainder}].
+   * @param {Object} ctx - Contexto con feedback, finish y estado inicial.
+   * @returns {HTMLElement} Lista de divisiones con sus dos campos.
+   */
+  function buildNumericPair(activity, ctx) {
+    var operations = activity.operations || [];
+    var list = el('div', { className: 'division' });
+    var rows = [];
+
+    operations.forEach(function (operation, index) {
+      var row = el('div', { className: 'division__row' });
+      row.appendChild(el('span', { className: 'division__text', text: operation.text }));
+
+      var quotient = el('input', {
+        className: 'fill__blank',
+        attrs: { type: 'text', inputmode: 'numeric', autocomplete: 'off', 'aria-label': 'Cociente de ' + operation.text }
+      });
+      var remainder = el('input', {
+        className: 'fill__blank',
+        attrs: { type: 'text', inputmode: 'numeric', autocomplete: 'off', 'aria-label': 'Residuo de ' + operation.text }
+      });
+
+      row.appendChild(el('span', { className: 'division__field', children: [
+        el('span', { className: 'division__caption', text: 'Cociente' }), quotient
+      ] }));
+      row.appendChild(el('span', { className: 'division__field', children: [
+        el('span', { className: 'division__caption', text: 'Residuo' }), remainder
+      ] }));
+
+      rows.push({ node: row, quotient: quotient, remainder: remainder, data: operation, index: index });
+      list.appendChild(row);
+    });
+
+    var check = el('button', { className: 'btn btn--primary btn--sm', attrs: { type: 'button' }, text: 'Comprobar' });
+    check.addEventListener('click', function () {
+      var correct = 0;
+      rows.forEach(function (row) {
+        var okQuotient = answerMatches(row.quotient.value, String(row.data.quotient));
+        var okRemainder = answerMatches(row.remainder.value, String(row.data.remainder));
+        row.quotient.classList.toggle('is-correct', okQuotient);
+        row.quotient.classList.toggle('is-wrong', !okQuotient);
+        row.remainder.classList.toggle('is-correct', okRemainder);
+        row.remainder.classList.toggle('is-wrong', !okRemainder);
+        if (okQuotient && okRemainder) { correct += 1; }
+      });
+      if (correct === rows.length) {
+        ctx.finish(true, activity.explain || 'Todas las divisiones quedaron bien, con su cociente y su residuo.');
+      } else {
+        ctx.finish(false, 'Van ' + correct + ' de ' + rows.length + '. Recuerda que el residuo siempre es menor que el divisor.');
+      }
+    });
+
+    ctx.actions.push(check);
+
+    /**
+     * Escribe los resultados correctos cuando la actividad ya se resolvio.
+     * @returns {void}
+     */
+    ctx.markSolved = function () {
+      rows.forEach(function (row) {
+        row.quotient.value = formatNumber(row.data.quotient);
+        row.remainder.value = formatNumber(row.data.remainder);
+        row.quotient.classList.add('is-correct');
+        row.remainder.classList.add('is-correct');
+        row.quotient.disabled = true;
+        row.remainder.disabled = true;
+      });
+      check.disabled = true;
+    };
+
+    /**
+     * Limpia los campos para volver a resolver las divisiones.
+     * @returns {void}
+     */
+    ctx.reset = function () {
+      rows.forEach(function (row) {
+        row.quotient.value = '';
+        row.remainder.value = '';
+        row.quotient.disabled = false;
+        row.remainder.disabled = false;
+        row.quotient.classList.remove('is-correct', 'is-wrong');
+        row.remainder.classList.remove('is-correct', 'is-wrong');
+      });
+      check.disabled = false;
+    };
+
+    return list;
+  }
+
+  /**
    * Generadores de ejercicios para las rondas de practica.
    * Cada uno devuelve { text, answer } con una operacion distinta.
    */
@@ -559,6 +1007,8 @@
           attrs: {
             type: 'text',
             inputmode: 'numeric',
+          size: '8',
+            size: '8',
             autocomplete: 'off',
             'aria-label': 'Resultado de ' + item.text
           }
@@ -629,7 +1079,11 @@
     fill: buildFill,
     match: buildMatch,
     order: buildOrder,
-    practice: buildPractice
+    practice: buildPractice,
+    mood: buildMood,
+    classify: buildClassify,
+    numericPair: buildNumericPair,
+    numeric: buildNumeric
   };
 
   var Activities = {
@@ -641,13 +1095,15 @@
      */
     render: function (activity, options) {
       var opts = options || {};
-      var section = el('section', { className: 'activity' });
+      // En las secciones que no califican nunca se muestra acierto ni error.
+      var neutral = opts.grades === false;
+      var section = el('section', { className: 'activity' + (neutral ? ' activity--soft' : '') });
       var feedback = createFeedback();
       var actions = el('div', { className: 'activity__actions' });
       var retry = el('button', {
         className: 'btn btn--ghost btn--sm',
         attrs: { type: 'button' },
-        text: 'Intentar de nuevo'
+        text: neutral ? 'Volver a empezar' : 'Intentar de nuevo'
       });
       retry.hidden = true;
 
@@ -661,7 +1117,28 @@
          * @param {string} message - Texto de la pista.
          * @returns {void}
          */
-        showHint: function (message) { showFeedback(feedback, false, message); },
+        showHint: function (message) { showFeedback(feedback, neutral ? 'soft' : 'no', message); },
+
+        /**
+         * Lee el dato guardado de esta actividad (historial del termometro).
+         * @returns {*} Valor guardado, o null si no hay nada.
+         */
+        readData: function () {
+          return opts.areaId && opts.storageKey
+            ? global.Progress.getData(opts.areaId, opts.storageKey)
+            : null;
+        },
+
+        /**
+         * Guarda un dato propio de esta actividad.
+         * @param {*} value - Valor a guardar (debe poder convertirse a JSON).
+         * @returns {void}
+         */
+        writeData: function (value) {
+          if (opts.areaId && opts.storageKey) {
+            global.Progress.saveData(opts.areaId, opts.storageKey, value);
+          }
+        },
 
         /**
          * Oculta la retroalimentacion, por ejemplo al empezar una ronda nueva.
@@ -679,7 +1156,7 @@
          * @returns {void}
          */
         finish: function (ok, message) {
-          showFeedback(feedback, ok, message);
+          showFeedback(feedback, neutral ? 'soft' : (ok ? 'ok' : 'no'), message);
           retry.hidden = !ok;
           if (typeof opts.onResult === 'function') { opts.onResult(ok); }
         }
@@ -707,7 +1184,7 @@
 
       if (opts.solved) {
         ctx.markSolved();
-        showFeedback(feedback, true, 'Ya resolviste esta actividad.');
+        showFeedback(feedback, neutral ? 'soft' : 'ok', neutral ? 'Ya hiciste esta parte.' : 'Ya resolviste esta actividad.');
         retry.hidden = false;
       }
 

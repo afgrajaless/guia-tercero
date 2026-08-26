@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Guía de Tercero</title>
-  <meta name="description" content="Guía interactiva para grado tercero: comprensión lectora, matemáticas y psicosocial, con actividades para resolver en el navegador.">
+  <meta name="description" content="Guía de trabajo para grado tercero, semana del 1 al 4 de septiembre de 2026: psicosocial, matemáticas y comprensión lectora.">
   <meta name="color-scheme" content="light dark">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/blocks.css">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
 </head>
@@ -32,10 +33,10 @@
         <span>Guía de Tercero</span>
       </a>
 
-      <nav class="site-nav" aria-label="Áreas de la guía">
-        <a class="site-nav__link" href="reading.html">Lectora</a>
-        <a class="site-nav__link" href="math.html">Matemáticas</a>
-        <a class="site-nav__link" href="wellbeing.html">Psicosocial</a>
+      <nav class="site-nav" aria-label="Días de la semana">
+        <a class="site-nav__link" href="wellbeing.html"><span class="site-nav__long">Martes · Psicosocial</span><span class="site-nav__short">Psicosocial</span></a>
+        <a class="site-nav__link" href="math.html"><span class="site-nav__long">Miércoles · Matemáticas</span><span class="site-nav__short">Matemáticas</span></a>
+        <a class="site-nav__link" href="reading.html"><span class="site-nav__long">Jueves · Lectora</span><span class="site-nav__short">Lectora</span></a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar entre modo claro y oscuro"></button>
       </nav>
     </div>
@@ -45,11 +46,12 @@
     <div class="wrap stack stack--loose">
 
       <section class="hero">
-        <p class="eyebrow">Grado tercero</p>
-        <h1>Aprende, practica y mira cómo avanzas</h1>
+        <p class="eyebrow">Semana del 1 al 4 de septiembre</p>
+        <h1>Esta semana trabajamos así</h1>
         <p class="hero__lead">
-          Tres áreas para trabajar durante el año. Cada unidad trae explicaciones cortas,
-          ejemplos y actividades que se revisan solas: sabrás al instante si acertaste.
+          Grado 3°B · I.E. Pablo Sexto, sede Antonio José de Sucre. Un día para cada cosa,
+          con calma y sin nota. Ten a mano tu <strong>cuaderno</strong>: aquí explicamos y
+          practicamos, y lo que hay que escribir va allá.
         </p>
         <div class="row">
           <span class="score-pill" data-summary aria-live="polite"></span>
@@ -57,52 +59,72 @@
         </div>
       </section>
 
-      <section class="stack" aria-labelledby="areas-title">
-        <h2 id="areas-title" class="visually-hidden">Áreas de la guía</h2>
+      <section class="stack" aria-labelledby="agenda-title">
+        <h2 id="agenda-title" class="visually-hidden">Agenda de la semana</h2>
         <div class="area-grid" data-area-grid></div>
       </section>
 
       <section class="stack" aria-labelledby="how-title">
-        <h2 id="how-title">Cómo usar esta guía</h2>
+        <h2 id="how-title">Cómo trabajar cada día</h2>
         <div class="how">
           <article class="how__item">
             <span class="how__step" aria-hidden="true">1</span>
-            <h3>Elige un área</h3>
-            <p>Entra a comprensión lectora, matemáticas o psicosocial. Puedes empezar por la que quieras.</p>
+            <h3>Abre el día que toca</h3>
+            <p>Martes psicosocial, miércoles matemáticas, jueves comprensión lectora. Cada día tiene sus lecciones.</p>
           </article>
           <article class="how__item">
             <span class="how__step" aria-hidden="true">2</span>
-            <h3>Lee y practica</h3>
-            <p>Cada lección explica una idea con ejemplos y luego te propone actividades para resolver.</p>
+            <h3>Ten el cuaderno al lado</h3>
+            <p>Las respuestas largas y las operaciones se escriben en el cuaderno. La profe las revisa allí.</p>
           </article>
           <article class="how__item">
             <span class="how__step" aria-hidden="true">3</span>
-            <h3>Revisa al instante</h3>
-            <p>Si te equivocas puedes volver a intentarlo las veces que necesites. No hay nota, hay práctica.</p>
+            <h3>Practica aquí</h3>
+            <p>Los ejercicios de matemáticas y las preguntas del texto se revisan solos. Puedes intentarlo otra vez sin problema.</p>
           </article>
           <article class="how__item">
             <span class="how__step" aria-hidden="true">4</span>
-            <h3>Mira tu avance</h3>
-            <p>Cada actividad resuelta llena tu barra de progreso. El avance se guarda en este dispositivo.</p>
+            <h3>Ve a tu ritmo</h3>
+            <p>No hay nota ni tiempo límite. Si algo te cuesta o te incomoda, para y cuéntale a un adulto de tu casa.</p>
           </article>
         </div>
       </section>
+
+      <aside class="notice">
+        <p class="notice__title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7.5" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16.5 11.5h5M16.5 15h5M16.5 18.5h3.5"/></svg>
+          <span>Para las familias</span>
+        </p>
+        <p>
+          Estamos trabajando en modalidad virtual tras el sismo del 10 de agosto de 2026
+          (Directiva 009 de 2026, MinEducación). Esta guía es material de apoyo: acompañen al niño
+          mientras la desarrolla y no la conviertan en una carrera.
+        </p>
+        <p>
+          El avance que se ve en las barras se guarda únicamente en este dispositivo.
+          <strong>Lo que el niño escribe va en el cuaderno</strong>, que es lo que revisa la docente.
+        </p>
+        <p>
+          Si necesitan apoyo emocional: <strong>Línea Amiga 106</strong> (gratuita, 24 horas) ·
+          <strong>Risaralda 606 333 9610</strong>.
+        </p>
+      </aside>
 
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="wrap site-footer__inner">
-      <p>Guía de Tercero · Material de apoyo escolar · <span data-year></span></p>
+      <p>Grado 3°B · Periodo III · Docente Lina Marcela Ortiz Zúñiga · <span data-year></span></p>
       <p>Tu avance se guarda solo en este navegador.</p>
     </div>
   </footer>
 
   <script src="assets/js/core.js" defer></script>
   <script src="assets/js/progress.js" defer></script>
-  <script src="data/reading.js" defer></script>
-  <script src="data/math.js" defer></script>
   <script src="data/wellbeing.js" defer></script>
+  <script src="data/math.js" defer></script>
+  <script src="data/reading.js" defer></script>
   <script src="assets/js/home.js" defer></script>
 </body>
 </html>

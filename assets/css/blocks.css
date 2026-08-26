@@ -1,0 +1,809 @@
+/* ==========================================================================
+   blocks.css — Estilos de los bloques de contenido de las lecciones:
+   avisos, cuaderno, checklist, respiración, termómetro, clasificar,
+   división, procedimiento, enlaces, tablas y panel del texto de lectura.
+   ========================================================================== */
+
+/* --- Avisos que se pueden cerrar (familia / antes de leer) ---------------- */
+
+.notice {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  font-size: var(--step--1);
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.notice--family {
+  border-color: var(--area-line);
+  background: var(--area-soft);
+}
+
+.notice__title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.notice__title svg { flex: none; width: 1.3rem; height: 1.3rem; }
+
+/* --- Bloque fijo de ayuda ------------------------------------------------ */
+
+.help {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border-radius: var(--r-xl);
+  border: 2px solid var(--area);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.help__title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: var(--area-deep);
+}
+
+.help__title svg { flex: none; width: 1.5rem; height: 1.5rem; }
+
+.help__list { display: grid; gap: var(--sp-2); font-size: var(--step-0); }
+
+.help__list li {
+  position: relative;
+  padding-inline-start: 1.4rem;
+}
+
+.help__list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.25rem;
+  top: 0.7em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: var(--r-pill);
+  background: var(--area);
+}
+
+.help__note { font-size: var(--step--1); color: var(--ink-muted); }
+
+/* --- Consigna de cuaderno ------------------------------------------------ */
+
+.notebook {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border: 2px dashed var(--area-line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.notebook__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--area-deep);
+}
+
+.notebook__tag svg { flex: none; width: 1.1rem; height: 1.1rem; }
+.notebook__title { font-size: var(--step-1); }
+.notebook__intro { color: var(--ink-soft); }
+
+.notebook__items {
+  display: grid;
+  gap: var(--sp-2);
+  counter-reset: notebook;
+}
+
+.notebook__items li {
+  position: relative;
+  padding-inline-start: 2.1rem;
+  line-height: 1.8;
+}
+
+.notebook__items li::before {
+  counter-increment: notebook;
+  content: counter(notebook);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.15em;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--r-pill);
+  background: var(--area-soft);
+  color: var(--area-deep);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.notebook__status { font-size: var(--step--1); font-weight: 700; color: var(--ink-muted); }
+.notebook__status.is-done { color: var(--ok); }
+
+.notebook__key {
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.notebook__key-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  margin-bottom: var(--sp-2);
+  color: var(--ink);
+}
+
+.notebook__key ul { display: grid; gap: var(--sp-2); }
+
+.notebook__key li {
+  position: relative;
+  padding-inline-start: 1.2rem;
+}
+
+.notebook__key li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.2rem;
+  top: 0.65em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--r-pill);
+  background: var(--line-strong);
+}
+
+/* --- Checklist ----------------------------------------------------------- */
+
+.checklist {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+
+.checklist__title { font-size: var(--step-1); }
+.checklist__intro { font-size: var(--step--1); color: var(--ink-soft); }
+
+.checklist__items {
+  display: grid;
+  gap: var(--sp-2);
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+
+.checklist__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.checklist__item input {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--area);
+  flex: none;
+}
+
+.checklist__item.is-checked { border-color: var(--area); background: var(--area-soft); }
+.checklist__note { font-size: var(--step--1); color: var(--ink-muted); font-style: italic; }
+
+/* --- Respiración cuadrada ------------------------------------------------ */
+
+.breathing {
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border: 1px solid var(--area-line);
+  border-radius: var(--r-lg);
+  background: var(--area-soft);
+}
+
+.breathing__title { font-size: var(--step-1); color: var(--area-deep); }
+
+.breathing__stage {
+  display: grid;
+  gap: var(--sp-4);
+  align-items: center;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+}
+
+@media (max-width: 34rem) {
+  .breathing__stage { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+}
+
+.breathing__svg { width: 100%; max-width: 12rem; height: auto; }
+.breathing__path { fill: none; stroke: var(--area-line); stroke-width: 4; }
+
+.breathing__dot {
+  fill: var(--area);
+  stroke: var(--surface);
+  stroke-width: 3;
+}
+
+.breathing__readout { display: grid; gap: var(--sp-1); }
+
+.breathing__phase {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 800;
+  color: var(--area-deep);
+  letter-spacing: 0.02em;
+}
+
+.breathing__count {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.breathing__hint { color: var(--ink-soft); }
+.breathing__note { font-size: var(--step--1); color: var(--ink-muted); }
+.breathing.is-running .breathing__dot { filter: drop-shadow(0 0 6px var(--area)); }
+
+/* --- Termómetro de ánimo ------------------------------------------------- */
+
+.mood { display: grid; gap: var(--sp-4); }
+
+.mood__scale {
+  display: grid;
+  gap: var(--sp-2);
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+}
+
+.mood__option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  text-align: start;
+  font-weight: 600;
+  transition: border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.mood__option:hover { border-color: var(--area); }
+.mood__option.is-chosen { border-color: var(--area); background: var(--area-soft); }
+
+.mood__level {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--r-pill);
+  background: var(--area-soft);
+  color: var(--area-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.mood__option.is-chosen .mood__level { background: var(--area); color: var(--surface); }
+
+.mood__history { display: grid; gap: var(--sp-2); }
+
+.mood__history-title {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.mood__strip { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+.mood__dot {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: var(--r-sm);
+  background: var(--area);
+}
+
+/* --- Clasificar en contenedores ------------------------------------------ */
+
+.classify { display: grid; gap: var(--sp-4); }
+
+.classify__label {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.classify__pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  padding: var(--sp-3);
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  min-height: 4rem;
+}
+
+.classify__pool .classify__label { width: 100%; }
+
+.classify__card {
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  font-weight: 600;
+  font-size: var(--step--1);
+  transition: transform 0.12s ease, border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.classify__card:hover:not([disabled]) { border-color: var(--area); transform: translateY(-2px); }
+.classify__card.is-active { border-color: var(--area); background: var(--area-soft); }
+.classify__card.is-placed { border-color: var(--area-line); background: var(--area-soft); cursor: default; }
+.classify__card.is-thinking { border-color: var(--star); background: var(--star-soft); }
+
+.classify__zones {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.classify__zone {
+  display: grid;
+  gap: var(--sp-3);
+  align-content: start;
+  padding: var(--sp-4);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  cursor: pointer;
+  min-height: 8rem;
+  transition: border-color 0.14s ease;
+}
+
+.classify__zone:hover { border-color: var(--area); }
+.classify__zone--yes { border-color: var(--ok-line); background: var(--ok-soft); }
+.classify__zone--neutral { border-color: var(--line-strong); background: var(--surface-2); }
+
+.classify__zone-title {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.classify__drop { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-content: start; }
+
+/* --- División con cociente y residuo ------------------------------------- */
+
+.division { display: grid; gap: var(--sp-3); }
+
+.division__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.division__text {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 9rem;
+}
+
+.division__field { display: inline-flex; align-items: center; gap: var(--sp-2); }
+
+.division__caption {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.division .fill__blank { min-width: 5rem; }
+
+/* --- Procedimiento desplegable ------------------------------------------- */
+
+.steps {
+  border: 1px solid var(--area-line);
+  border-radius: var(--r-lg);
+  background: var(--area-soft);
+}
+
+.steps__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--area-deep);
+  list-style: none;
+}
+
+.steps__summary::-webkit-details-marker { display: none; }
+
+.steps__summary::after {
+  content: "+";
+  margin-inline-start: auto;
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+.steps[open] .steps__summary::after { content: "–"; }
+.steps__summary svg { flex: none; width: 1.2rem; height: 1.2rem; }
+
+.steps__body {
+  display: grid;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-4) var(--sp-4);
+  font-size: var(--step--1);
+  line-height: 1.8;
+}
+
+/* --- Listas numeradas dentro del contenido -------------------------------- */
+
+.prose__steps {
+  display: grid;
+  gap: var(--sp-2);
+  counter-reset: step;
+}
+
+.prose__steps li {
+  position: relative;
+  padding-inline-start: 2.1rem;
+  line-height: 1.8;
+}
+
+.prose__steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.15em;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--r-pill);
+  background: var(--area);
+  color: var(--surface);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+/* --- Enlaces externos ----------------------------------------------------- */
+
+.links {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+
+.links__title { font-size: var(--step-1); }
+.links__list { display: grid; gap: var(--sp-2); }
+
+.links__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 700;
+  color: var(--area-deep);
+}
+
+.links__link svg { flex: none; width: 1rem; height: 1rem; }
+.links__note { display: block; font-size: var(--step--1); color: var(--ink-muted); }
+
+/* --- Tablas de contenido -------------------------------------------------- */
+
+.data-table { display: grid; gap: var(--sp-3); }
+
+.data-table__grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--step--1);
+}
+
+.data-table__grid th,
+.data-table__grid td {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  text-align: start;
+}
+
+.data-table__grid th {
+  background: var(--area-soft);
+  color: var(--area-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.data-table__grid tbody tr:nth-child(even) { background: var(--surface-2); }
+.data-table__note { font-size: var(--step--1); color: var(--ink-muted); }
+
+/* --- Panel con el texto de lectura siempre accesible ---------------------- */
+
+.text-toggle {
+  position: fixed;
+  inset-block-end: var(--sp-5);
+  inset-inline-end: var(--sp-5);
+  z-index: 55;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.8em 1.3em;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--area);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  box-shadow: var(--shadow-lg);
+}
+
+.text-toggle svg { flex: none; width: 1.2rem; height: 1.2rem; }
+
+:root[data-theme="dark"] .text-toggle { color: #12151E; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .text-toggle { color: #12151E; }
+}
+
+.text-panel {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 56;
+  width: min(100%, 34rem);
+  padding: var(--sp-5) var(--sp-5) 7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  border-inline-start: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+}
+
+.text-panel__close {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-inline-start: auto;
+  margin-bottom: var(--sp-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.text-panel__body .reading-text {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+@media (max-width: 34rem) {
+  .text-toggle {
+    inset-inline: var(--sp-4);
+    inset-block-end: var(--sp-4);
+    justify-content: center;
+  }
+}
+
+/* --- Texto de lectura: variantes ------------------------------------------ */
+
+.reading-text__lead { font-style: italic; color: var(--ink-soft); }
+
+.reading-text__step {
+  margin-top: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--area-deep);
+}
+
+/* --- Retroalimentación neutra (secciones que no califican) ---------------- */
+
+.feedback--soft {
+  background: var(--area-soft);
+  border: 1px solid var(--area-line);
+  color: var(--ink);
+}
+
+.feedback--soft .feedback__icon { background: var(--area); }
+.activity--soft .activity__tag { background: var(--area-deep); }
+
+/* --- Navegación: día completo en pantalla ancha, solo el área en angosta --- */
+
+.site-nav__short { display: none; }
+
+@media (max-width: 62rem) {
+  .site-nav__long { display: none; }
+  .site-nav__short { display: inline; }
+}
+
+/* --- Lista de ejercicios de respuesta corta ------------------------------- */
+
+.numeric { display: grid; gap: var(--sp-3); }
+
+.numeric__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+/* En columna, flex-wrap: wrap crearia una segunda COLUMNA y empujaria el
+   contenido hacia el lado. Por eso aqui se desactiva el ajuste. */
+.numeric--stacked .numeric__row {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.numeric__text {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  flex: 1 1 12rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.7;
+}
+
+.numeric--stacked .numeric__text { flex: 1 1 100%; }
+
+.numeric__num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--r-pill);
+  background: var(--area-soft);
+  color: var(--area-deep);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.numeric__answer { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.numeric__answer .fill__blank { min-width: 6rem; }
+.numeric__unit { font-size: var(--step--1); color: var(--ink-muted); font-weight: 700; }
+.numeric__options { display: inline-flex; gap: var(--sp-2); }
+
+.numeric__option {
+  min-width: 3rem;
+  padding: 0.35em 0.8em;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  transition: border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.numeric__option:hover:not([disabled]) { border-color: var(--area); }
+.numeric__option.is-chosen { border-color: var(--area); background: var(--area-soft); }
+.numeric__option.is-correct { border-color: var(--ok); background: var(--ok-soft); }
+.numeric__option.is-wrong { border-color: var(--no); background: var(--no-soft); }
+
+/* --- Tarjeta de día en la agenda de la portada ---------------------------- */
+
+.area-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.area-card__day {
+  padding: 0.3em 0.85em;
+  border-radius: var(--r-pill);
+  background: var(--area-soft);
+  color: var(--area-deep);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.area-card__subject {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.area-card--pending {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: var(--line-strong);
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+.area-card--pending::after { background: var(--line-strong); }
+.area-card--pending:hover { transform: none; box-shadow: none; border-color: var(--line-strong); }
+.area-card--pending .area-card__icon { background: var(--surface-3); color: var(--ink-muted); }
+.area-card--pending .area-card__day { background: var(--surface-3); color: var(--ink-muted); }
+.area-card--pending .area-card__title { color: var(--ink-muted); }
+.area-card--pending .area-card__foot { color: var(--ink-muted); }
+
+/* --- Regla general: ningun campo puede empujar el ancho de la pagina ------ */
+
+/* Los input tienen un ancho intrinseco propio (atributo size). Dentro de un
+   flex o un grid eso impide que el contenedor se encoja y termina
+   desbordando la pagina en pantallas angostas. */
+.fill__blank {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.numeric__row,
+.numeric__text,
+.division__row,
+.practice__row { min-width: 0; }
+
+.numeric__answer {
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.numeric__answer .fill__blank { min-width: 4.5rem; max-width: 9rem; }
+.division .fill__blank { min-width: 4rem; max-width: 7rem; }
+.practice .fill__blank { min-width: 3.5rem; }

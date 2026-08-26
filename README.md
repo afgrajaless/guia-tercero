@@ -1,142 +1,168 @@
 # Guía de Tercero
 
-Guía interactiva para grado tercero con tres áreas: **comprensión lectora**, **matemáticas** y **psicosocial**.
-Es un sitio estático (HTML, CSS y JavaScript sin dependencias) pensado para publicarse en GitHub Pages.
+Guía de trabajo para grado **3°B** de la I.E. Pablo Sexto, sede Antonio José de Sucre.
+**Semana del 1 al 4 de septiembre de 2026**, en modalidad virtual tras el sismo del 10 de agosto
+(Directiva 009 de 2026, MinEducación). Docente: Lina Marcela Ortiz Zúñiga.
 
-- Explicaciones cortas con ejemplos.
-- Actividades que se revisan solas: opción múltiple, verdadero/falso, completar, unir parejas y ordenar.
-- Progreso por área guardado en el navegador del estudiante (`localStorage`).
-- Modo claro y oscuro, diseño responsive y navegación por teclado.
+Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pages:
+**https://afgrajaless.github.io/guia-tercero/**
+
+## La semana
+
+| Día | Área | Página |
+|---|---|---|
+| Martes 1 | Psicosocial — *Hablemos de cómo nos sentimos* | `wellbeing.html` |
+| Miércoles 2 | Matemáticas — *Analizo, calculo, reparto* | `math.html` |
+| Jueves 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
+| Viernes 4 | Aún por definir | tarjeta reservada en la portada |
+
+## Dos reglas que rigen todo el sitio
+
+1. **Las respuestas abiertas se escriben en el cuaderno**, no en el sitio. El sitio explica,
+   propone la consigna y deja marcar "Ya lo escribí". La docente revisa el cuaderno físico.
+   Solo se autocorrige lo que tiene una respuesta única: operaciones, preguntas literales,
+   ordenar, unir y clasificar.
+2. **La sección psicosocial no califica.** Ningún ítem muestra ✓ ni ✗ ni suma puntaje. Todos
+   sus bloques ofrecen "Prefiero no responder", que completa el ítem sin escribir nada.
+   Esto se declara con `grades: false` en `data/wellbeing.js` y el validador lo hace cumplir.
 
 ## Estructura
 
 ```
-index.html            Portada con las tres áreas y el avance general
-reading.html          Comprensión lectora
-math.html             Matemáticas
-wellbeing.html        Psicosocial
+index.html            Agenda de la semana con el avance de cada día
+wellbeing.html        Martes · Psicosocial
+math.html             Miércoles · Matemáticas
+reading.html          Jueves · Comprensión lectora
 
 assets/css/
-  tokens.css          Colores, tipografía y espaciados (design tokens)
+  tokens.css          Colores, tipografía y espaciados
   base.css            Reset, tipografía base y utilidades de layout
-  components.css      Tarjetas, actividades, barras de progreso, etc.
+  components.css      Cabecera, tarjetas, actividades, progreso
+  blocks.css          Bloques de contenido y panel del texto de lectura
 
 assets/js/
   core.js             Registro de contenido, iconos y utilidades
-  progress.js         Avance del estudiante en localStorage
-  activities.js       Motor de actividades interactivas
-  area.js             Arma la página de un área
-  home.js             Arma la portada
+  progress.js         Avance y datos guardados en localStorage
+  activities.js       Motor de actividades (10 tipos)
+  figures.js          Diagramas SVG generados por parámetros
+  blocks.js           Renderizado de los bloques de contenido
+  area.js             Arma la página de un día
+  home.js             Arma la agenda de la portada
 
 data/
-  reading.js          Contenido de comprensión lectora
-  math.js             Contenido de matemáticas
-  wellbeing.js        Contenido psicosocial
+  wellbeing.js        Contenido del martes
+  math.js             Contenido del miércoles
+  reading.js          Contenido del jueves
 
-_local/               Scripts de desarrollo y pruebas (no se sube a origin)
+CONTENIDO_GUIA_TERCERO.md   Documento fuente del contenido
+_local/                     Scripts de desarrollo y pruebas (no se sube a origin)
 ```
 
 ## Cómo editar el contenido
 
-Todo el contenido vive en `data/`. **No hace falta tocar HTML ni CSS para agregar lecciones.**
-
-Cada archivo registra un área con sus unidades y lecciones:
+Todo vive en `data/`. **No hace falta tocar HTML ni CSS.**
 
 ```js
-window.Guide.register('reading', {
-  title: 'Comprensión lectora',
-  kicker: 'Área 1',
-  icon: 'book',            // book | numbers | heart
-  href: 'reading.html',
-  description: 'Texto que aparece en la tarjeta de la portada.',
-  units: [
-    {
-      id: 'u1',
-      title: 'Antes de leer',
-      summary: 'Frase corta que describe la unidad.',
-      lessons: [
-        {
-          id: 'l1',
-          title: 'Título de la lección',
-          goal: 'lo que el estudiante va a aprender.',
-          blocks: [ /* ver abajo */ ]
-        }
-      ]
-    }
-  ]
+window.Guide.register('math', {
+  title: 'Analizo, calculo, reparto',
+  short: 'Matemáticas',
+  icon: 'numbers',              // book | numbers | heart | compass
+  href: 'math.html',
+  grades: false,                // opcional: la sección no califica
+  day: { label: 'Miércoles 2 de septiembre', short: 'Miércoles 2' },
+  description: '...',
+  learning: '...',              // el aprendizaje del DBA
+  notice: { title, paragraphs },// aviso que se puede cerrar
+  banner: { title, paragraphs },// banner para la familia
+  help:   { title, lines },     // bloque fijo al pie
+  units: [ { id, title, summary, lessons: [ { id, code, title, goal, blocks: [] } ] } ]
 });
 ```
 
-Los `id` de unidad, lección y actividad deben ser únicos dentro de su área: con ellos se guarda el avance.
-Si cambias un `id`, el estudiante pierde el avance de esa actividad.
+Los `id` de unidad, lección, actividad y bloque deben ser únicos dentro del área: con ellos se
+guarda el avance. Si cambias un `id`, el estudiante pierde el avance de ese ítem.
 
 ### Bloques de contenido
 
 | Tipo | Campos | Para qué sirve |
 |---|---|---|
-| `text` | `paragraphs: []` | Explicación en párrafos. Admite `**negrita**`. |
-| `list` | `title`, `items: []` | Lista de pasos o ideas. |
-| `callout` | `title`, `paragraphs: []` | Recuadro destacado ("Truco del lector", "Recuerda"). |
-| `reading` | `title`, `paragraphs: []`, `source` | Texto de lectura con tipografía más grande. |
-| `example` | `title`, `lines: []` | Ejemplo resuelto paso a paso. |
+| `text` | `paragraphs[]` | Explicación. Admite `**negrita**`. |
+| `list` | `title`, `items[]`, `ordered` | Lista de ideas o de pasos numerados. |
+| `callout` | `title`, `paragraphs[]` | Recuadro destacado. |
+| `reading` | `title`, `lead`, `paragraphs[]`, `source` | Texto de lectura. Se pone también en el panel flotante. |
+| `example` | `title`, `lines[]` | Ejemplo resuelto. |
+| `table` | `title`, `headers[]`, `rows[][]`, `note` | Tabla (posicional, comparativa). |
+| `steps` | `title`, `lines[]`, `note` | "Ver el procedimiento", desplegable. |
+| `links` | `title`, `items[{label, href, note}]` | Enlaces externos, abren en pestaña nueva. |
+| `figure` | `figure`, `alt`, + parámetros | Diagrama SVG: `numberLine`, `fraction`, `shape`, `pictogram`. |
+| `adult` | `title`, `paragraphs[]`, `items[]` | Nota para el docente o acudiente, colapsada. |
+| `notebook` | `id`, `title`, `intro`, `items[]`, `key[]`, `optOut` | **Consigna para el cuaderno.** `key` se revela al marcar. |
+| `checklist` | `id`, `title`, `items[]` | Casillas persistentes, sin puntaje. |
+| `breathing` | `id`, `cycles`, `closing` | Guía animada de respiración cuadrada. |
 | `activity` | `activity: {}` | Actividad interactiva. |
 
 ### Tipos de actividad
 
 ```js
-// Opción múltiple — answer es el índice de la opción correcta
-{ id: 'a1', kind: 'choice', question: '¿...?',
-  options: ['A', 'B', 'C'], answer: 1, hint: '...', explain: '...' }
-
-// Verdadero o falso
-{ id: 'a2', kind: 'truefalse', question: '...', answer: true, explain: '...' }
-
-// Completar — cada {{respuesta}} es un espacio; usa | para alternativas
-{ id: 'a3', kind: 'fill', question: 'Completa.',
-  text: 'El sol {{sale|aparece}} por el {{oriente}}.', explain: '...' }
-
-// Unir parejas — la columna derecha se baraja sola
-{ id: 'a4', kind: 'match', question: 'Une cada palabra con su significado.',
-  leftLabel: 'Palabra', rightLabel: 'Significado',
-  pairs: [{ left: 'Veloz', right: 'Que va muy rápido' }] }
-
-// Ordenar — items va en el orden CORRECTO; se baraja al mostrarse
-{ id: 'a5', kind: 'order', question: 'Ordena los hechos.',
-  items: ['Primero', 'Después', 'Al final'] }
+{ kind: 'choice',      question, options[], answer: 1, hint, explain }
+{ kind: 'truefalse',   question, answer: true, explain }
+{ kind: 'fill',        question, text: 'El sol {{sale|aparece}} temprano.' }
+{ kind: 'match',       question, leftLabel, rightLabel, pairs: [{left, right}] }
+{ kind: 'order',       question, items: [] }          // en el orden CORRECTO; se baraja solo
+{ kind: 'numeric',     question, layout: 'stacked',
+                       items: [{ text, answer, unit }, { text, options: ['<','>','='], answer: '<' }] }
+{ kind: 'numericPair', question, operations: [{ text: '9.135 ÷ 35', quotient: 261, remainder: 0 }] }
+{ kind: 'mood',        question, options: [] }        // sin respuesta correcta, guarda historial
+{ kind: 'classify',    question, soft: true, groups: [{id, title, tone}], cards: [{text, group}] }
+{ kind: 'practice',    question, generator: 'times', count: 5, options: { table: 7 } }
 ```
 
-`hint` se muestra cuando la respuesta es incorrecta y `explain` cuando es correcta. Ambos son opcionales.
-
-Las respuestas de `fill` se comparan sin distinguir mayúsculas, tildes ni espacios sobrantes
-(`BOGOTA` se acepta para `bogotá`). La `ñ` también se compara como `n`.
+- `soft: true` en `classify` invita a repensar la tarjeta mal ubicada, sin marcarla como error.
+  Sin `soft`, cualquier ubicación se acepta.
+- Los números se comparan ignorando los puntos de miles: `424.002` y `424002` valen igual.
+- El texto se compara sin distinguir mayúsculas, tildes ni espacios sobrantes.
 
 ## Desarrollo local
 
-Necesitas Node.js instalado. Desde la raíz del proyecto:
+Necesitas Node.js. Desde la raíz del proyecto:
 
 ```bash
 node _local/serve.js 4321      # abre http://localhost:4321
 ```
 
-También puedes abrir `index.html` directamente con doble clic: el contenido se carga
-como archivos `.js`, no por `fetch`, así que funciona sin servidor.
+También funciona abriendo `index.html` con doble clic: el contenido son archivos `.js`, no `fetch`.
 
-### Verificaciones
+### Verificaciones antes de publicar
 
 ```bash
-node _local/validate-content.js   # revisa la estructura de data/ (ids repetidos, respuestas fuera de rango, etc.)
-node _local/build-pages.js        # regenera reading.html, math.html y wellbeing.html desde la plantilla común
+node _local/validate-content.js   # estructura, ids repetidos y RECALCULA toda la aritmética
+node _local/build-pages.js        # regenera las tres páginas desde la plantilla común
 ```
 
-En el navegador, con el servidor levantado:
+Con el servidor levantado:
 
-- `http://localhost:4321/_local/test.html` — pruebas del motor de actividades y del progreso.
-- `http://localhost:4321/_local/overflow-check.html` — revisa que ninguna página se desborde horizontalmente.
+- `/_local/test.html` — 98 pruebas del motor de actividades, bloques y progreso.
+- `/_local/overflow-check.html` — las 4 páginas a 360, 390, 768 y 1280 px sin desbordamiento horizontal.
+- `/_local/find-overflow.html` — diagnostica qué elemento desborda, si alguno lo hace.
 
-## Publicar en GitHub Pages
+> **Nota sobre desbordamientos.** Es el error que más ha aparecido en este proyecto. La causa
+> siempre es la misma: un hijo de `flex` o `grid` con `min-width: auto` que no puede encogerse
+> (rieles, tablas, campos `input`), o un `flex-wrap: wrap` combinado con `flex-direction: column`,
+> que envuelve creando columnas nuevas hacia el lado. Ante cualquier cambio de layout, corre
+> `overflow-check` antes de publicar.
 
-1. Sube el repositorio a GitHub.
-2. En **Settings → Pages**, elige *Deploy from a branch*, rama `main` y carpeta `/ (root)`.
-3. El archivo `.nojekyll` ya está incluido para que GitHub sirva los archivos tal cual.
+## Publicar
 
-La guía queda disponible en `https://<usuario>.github.io/<repositorio>/`.
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+GitHub Pages reconstruye solo en aproximadamente un minuto.
+
+## Criterios de contenido que no se cambian sin consultar a la docente
+
+- No se usan cifras de personas fallecidas, heridas ni de edificios colapsados en ningún
+  enunciado. Los contextos de ayuda y reconstrucción sí se conservan.
+- No se incluyen imágenes de escombros ni de rescates.
+- Los cuentos de apoyo se **enlazan**, no se copian: tienen condiciones de uso propias.
+- El bloque de Línea Amiga 106 permanece siempre visible al pie de la sección psicosocial.

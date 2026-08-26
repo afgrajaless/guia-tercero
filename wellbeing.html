@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Psicosocial | Guía de Tercero</title>
-  <meta name="description" content="Psicosocial para grado tercero: explicaciones, ejemplos y actividades interactivas con revisión inmediata.">
+  <meta name="description" content="Hablemos de cómo nos sentimos para grado tercero: explicaciones, ejemplos y actividades interactivas con revisión inmediata.">
   <meta name="color-scheme" content="light dark">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/blocks.css">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
 </head>
@@ -32,10 +33,10 @@
         <span>Guía de Tercero</span>
       </a>
 
-      <nav class="site-nav" aria-label="Áreas de la guía">
-        <a class="site-nav__link" href="reading.html">Lectora</a>
-        <a class="site-nav__link" href="math.html">Matemáticas</a>
-        <a class="site-nav__link" href="wellbeing.html" aria-current="page">Psicosocial</a>
+      <nav class="site-nav" aria-label="Días de la semana">
+        <a class="site-nav__link" href="wellbeing.html" aria-current="page"><span class="site-nav__long">Martes · Psicosocial</span><span class="site-nav__short">Psicosocial</span></a>
+        <a class="site-nav__link" href="math.html"><span class="site-nav__long">Miércoles · Matemáticas</span><span class="site-nav__short">Matemáticas</span></a>
+        <a class="site-nav__link" href="reading.html"><span class="site-nav__long">Jueves · Lectora</span><span class="site-nav__short">Lectora</span></a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar entre modo claro y oscuro"></button>
       </nav>
     </div>
@@ -47,9 +48,11 @@
       <header class="area-head stack" data-area-head></header>
 
       <div class="area-layout">
-        <nav class="unit-rail" data-unit-rail role="tablist" aria-label="Unidades del área"></nav>
+        <nav class="unit-rail" data-unit-rail role="tablist" aria-label="Lecciones del día"></nav>
         <div class="stack" data-lessons></div>
       </div>
+
+      <div class="stack" data-extras></div>
 
     </div>
   </main>

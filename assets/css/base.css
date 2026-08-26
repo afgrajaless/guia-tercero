@@ -140,4 +140,6 @@ p { text-wrap: pretty; }
 .scroll-x {
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  /* Sin esto, dentro de un grid o flex el contenido ancho empuja la pagina. */
+  min-width: 0;
 }

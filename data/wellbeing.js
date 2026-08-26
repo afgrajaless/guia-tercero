@@ -1,117 +1,159 @@
 /* ==========================================================================
-   data/wellbeing.js — Contenido del área Psicosocial
-   BORRADOR: la estructura es definitiva, las situaciones son de ejemplo y se
-   reemplazarán cuando definamos el contenido real del curso.
+   data/wellbeing.js — Martes 1 de septiembre · Psicosocial
+   Ética y Valores / Orientación de grupo.
+
+   REGLA DE ESTA SECCIÓN: no se autocorrige y no suma puntaje.
+   Ningún ítem muestra acierto ni error. Las respuestas abiertas se escriben
+   en el cuaderno; aquí solo se marca que ya se hicieron.
    ========================================================================== */
 
 window.Guide.register('wellbeing', {
-  title: 'Psicosocial',
-  kicker: 'Área 3',
+  title: 'Hablemos de cómo nos sentimos',
+  short: 'Psicosocial',
   icon: 'heart',
   href: 'wellbeing.html',
-  description: 'Reconocer lo que siento, convivir con los demás y saber a quién pedir ayuda. Situaciones cotidianas para pensar y conversar.',
+  grades: false,
+  day: { label: 'Martes 1 de septiembre', short: 'Martes 1', weekday: 'Martes' },
+  subject: 'Ética y Valores · Orientación de grupo',
+  description: 'Reconocer lo que siento después del temblor, aprender a calmar mi cuerpo y saber a quién puedo pedir ayuda. Aquí no hay nota ni respuestas malas.',
+  learning: 'Reconozco y nombro lo que siento después de una situación difícil, aplico estrategias sencillas para calmar mi cuerpo y sé a quién puedo pedir ayuda.',
+
+  banner: {
+    title: 'Para la familia: léalo antes de empezar',
+    dismissLabel: 'Ya lo leí',
+    paragraphs: [
+      'Esta guía no es una tarea que se califica con nota. Es un espacio para que su hijo o hija pueda contar cómo se ha sentido después de lo que vivimos el 10 de agosto.',
+      'Acompáñelo mientras la desarrolla. No hace falta que sepa qué decir: basta con estar al lado, escuchar sin interrumpir y no apurar la conversación.',
+      'Si el niño o la niña no quiere hablar de algo, no insista. Puede dejar el punto en blanco y volver a él otro día. Todo lo que escriba está bien.',
+      'Evite dejarlo viendo noticias o videos del rescate. A esta edad, las imágenes repetidas aumentan el miedo en lugar de explicarlo.',
+      'Si nota que hace más de un mes no duerme, no juega, no come o no quiere separarse de usted, comuníquese con la docente y llame a la **Línea Amiga 106**.'
+    ]
+  },
+
+  help: {
+    title: 'Si necesitas ayuda',
+    lines: [
+      '**Línea Amiga 106** — gratuita, confidencial, 24 horas, desde cualquier teléfono.',
+      '**Risaralda: 606 333 9610** — Ruta de Atención en Salud Mental.',
+      'También puedes escribirle a tu profe o contarle a un adulto de tu casa.'
+    ]
+  },
 
   units: [
     {
       id: 'u1',
-      title: 'Conozco mis emociones',
-      summary: 'Ponerle nombre a lo que siento es el primer paso para manejarlo.',
+      title: 'Mis emociones tienen nombre',
+      summary: 'Ponerle nombre a lo que siento es el primer paso para entenderlo.',
       lessons: [
         {
           id: 'l1',
-          title: 'Todas las emociones sirven',
-          goal: 'nombrar tus emociones y entender para qué sirve cada una.',
+          code: '1.A',
+          title: 'Las emociones son avisos del cuerpo',
+          goal: 'nombrar lo que sientes y entender para qué sirve cada emoción.',
           blocks: [
+            {
+              type: 'callout',
+              title: 'Un mensaje de tu profe',
+              paragraphs: ['Hola. Soy tu profe y quiero contarte algo: el 10 de agosto todos vivimos un temblor muy fuerte. Muchos adultos también sentimos miedo ese día. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
+            },
             {
               type: 'text',
               paragraphs: [
-                'Las emociones son señales que nos manda el cuerpo. No hay emociones **buenas** ni **malas**: todas nos avisan algo importante.',
-                'La alegría nos dice que algo nos gusta. El miedo nos protege del peligro. La rabia aparece cuando sentimos que algo es injusto. La tristeza nos pide compañía.'
+                'Las emociones son señales. No son buenas ni malas: son avisos que nos manda el cuerpo para cuidarnos.'
+              ]
+            },
+            {
+              type: 'list',
+              title: 'Qué nos avisa cada una',
+              items: [
+                '**MIEDO:** nos avisa que algo puede ser peligroso, para protegernos.',
+                '**TRISTEZA:** nos avisa que perdimos algo o a alguien importante, y que necesitamos consuelo.',
+                '**RABIA:** nos avisa que algo nos parece injusto.',
+                '**SORPRESA:** nos avisa que pasó algo que no esperábamos.',
+                '**CALMA:** nos avisa que estamos a salvo.',
+                '**ALEGRÍA:** nos avisa que estamos bien y con ganas de compartir.'
               ]
             },
             {
               type: 'callout',
-              title: 'Recuerda',
+              title: 'Algo importante',
               paragraphs: [
-                'Sentir rabia no está mal. Lo que puede estar mal es lo que hago cuando tengo rabia, por ejemplo, golpear o gritar.'
+                'Las emociones vienen en olas. Suben, se quedan un rato y bajan. Ninguna se queda para siempre, aunque a veces parezca.',
+                'También es normal que después de un temblor uno sienta cosas que antes no sentía: querer dormir con los papás, sobresaltarse con un ruido fuerte, no tener ganas de jugar, tener pesadillas o dolor de barriga. No estás enfermo ni te estás portando mal. Tu cuerpo está aprendiendo a sentirse seguro otra vez.'
               ]
             },
             {
               type: 'activity',
               activity: {
-                id: 'a1',
-                kind: 'match',
-                question: 'Une cada situación con la emoción que suele producir.',
-                leftLabel: 'Situación',
-                rightLabel: 'Emoción',
-                pairs: [
-                  { left: 'Me eligieron para el equipo', right: 'Alegría' },
-                  { left: 'Se burlaron de mi cuaderno', right: 'Tristeza' },
-                  { left: 'Alguien me quitó el turno', right: 'Rabia' },
-                  { left: 'Me perdí en un lugar grande', right: 'Miedo' }
-                ],
-                explain: 'Cada emoción tiene una razón de ser.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: 'a2',
-                kind: 'truefalse',
-                question: 'Los niños grandes no deberían sentir miedo.',
-                answer: false,
-                hint: 'Piensa para qué sirve el miedo.',
-                explain: 'Todas las personas sienten miedo a cualquier edad. El miedo nos cuida.'
-              }
-            }
-          ]
-        },
-        {
-          id: 'l2',
-          title: 'Calmarme cuando me sube la rabia',
-          goal: 'usar una técnica sencilla para calmarte antes de reaccionar.',
-          blocks: [
-            {
-              type: 'list',
-              title: 'La técnica de la tortuga',
-              items: [
-                'Me detengo. No hago ni digo nada todavía.',
-                'Respiro hondo tres veces, despacio.',
-                'Pienso qué me pasó y qué quiero decir.',
-                'Hablo diciendo lo que siento, sin gritar ni golpear.'
-              ]
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: 'a3',
-                kind: 'order',
-                question: 'Ordena los pasos de la técnica de la tortuga.',
-                items: [
-                  'Me detengo',
-                  'Respiro hondo tres veces',
-                  'Pienso qué me pasó',
-                  'Hablo sin gritar'
-                ],
-                hint: 'Lo primero es frenar; lo último, hablar.',
-                explain: 'Ese es el orden: parar, respirar, pensar y hablar.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: 'a4',
-                kind: 'choice',
-                question: 'Un compañero te empujó sin querer y te dio mucha rabia. ¿Qué haces primero?',
+                id: '1A1',
+                kind: 'mood',
+                question: 'Mi termómetro de hoy: ¿cómo te sientes hoy?',
                 options: [
-                  'Lo empujo de vuelta para que sienta lo mismo',
-                  'Respiro hondo y le digo que me molestó',
-                  'Me quedo callado y guardo la rabia todo el día'
+                  'Muy tranquilo o tranquila',
+                  'Tranquilo o tranquila',
+                  'Más o menos',
+                  'Nervioso o nerviosa',
+                  'Muy nervioso o nerviosa'
                 ],
-                answer: 1,
-                hint: 'Ni devolver el golpe ni callar: hay una tercera opción.',
-                explain: 'Respirar y decir lo que sientes te permite resolver sin lastimar y sin quedarte cargado.'
+                explain: 'Gracias por contarlo.'
               }
+            },
+            {
+              type: 'activity',
+              activity: {
+                id: '1A2',
+                kind: 'classify',
+                question: 'Mi cuerpo también habla: lleva cada señal a la emoción con la que la sientes.',
+                explain: 'Cada cuerpo es distinto. Todas tus uniones valen.',
+                groups: [
+                  { id: 'miedo', title: 'Miedo', tone: 'neutral' },
+                  { id: 'tristeza', title: 'Tristeza', tone: 'neutral' },
+                  { id: 'rabia', title: 'Rabia', tone: 'neutral' },
+                  { id: 'calma', title: 'Calma', tone: 'neutral' }
+                ],
+                cards: [
+                  { text: 'El corazón late rápido', group: 'miedo' },
+                  { text: 'Me tiemblan las manos', group: 'miedo' },
+                  { text: 'Me dan ganas de esconderme', group: 'miedo' },
+                  { text: 'Me pesa el pecho', group: 'tristeza' },
+                  { text: 'Me dan ganas de llorar', group: 'tristeza' },
+                  { text: 'No quiero hablar', group: 'tristeza' },
+                  { text: 'Me pongo caliente', group: 'rabia' },
+                  { text: 'Aprieto los puños', group: 'rabia' },
+                  { text: 'Hablo fuerte', group: 'rabia' },
+                  { text: 'Respiro despacio', group: 'calma' },
+                  { text: 'Los hombros están sueltos', group: 'calma' },
+                  { text: 'Me dan ganas de jugar', group: 'calma' }
+                ]
+              }
+            },
+            {
+              type: 'notebook',
+              id: '1A3',
+              title: 'Completo las frases',
+              intro: 'Copia estas frases en tu cuaderno y complétalas. Si alguna no quieres responderla, déjala en blanco y sigue.',
+              optOut: true,
+              items: [
+                'El día del temblor yo estaba en…',
+                'Lo primero que pensé fue…',
+                'Después del temblor me he sentido…',
+                'Algo que me da miedo ahora es…',
+                'Algo que me hace sentir seguro o segura es…',
+                'Alguien que me ayudó ese día fue…',
+                'Algo bonito que vi hacer a la gente fue…'
+              ]
+            },
+            {
+              type: 'notebook',
+              id: '1A4',
+              title: 'Mi diccionario de emociones',
+              intro: 'Escribe en tu cuaderno tres frases con este formato: **Sentí ______ cuando ______.**',
+              optOut: true,
+              items: [
+                'Sentí ______ cuando ______',
+                'Sentí ______ cuando ______',
+                'Sentí ______ cuando ______'
+              ]
             }
           ]
         }
@@ -120,95 +162,63 @@ window.Guide.register('wellbeing', {
 
     {
       id: 'u2',
-      title: 'Convivo con los demás',
-      summary: 'Acuerdos, respeto y solución de conflictos en el salón.',
+      title: 'Lo que puedo controlar y lo que no',
+      summary: 'Dedicar la energía a lo que sí decido yo me hace sentir más tranquilo.',
       lessons: [
         {
-          id: 'l3',
-          title: 'Resolver un conflicto sin pelear',
-          goal: 'usar palabras para resolver un desacuerdo.',
+          id: 'l2',
+          code: '1.B',
+          title: 'Mis dos círculos',
+          goal: 'distinguir lo que está en tus manos de lo que no depende de nadie.',
           blocks: [
             {
               type: 'text',
               paragraphs: [
-                'Un **conflicto** es cuando dos personas quieren cosas distintas al mismo tiempo. Los conflictos son normales; lo importante es cómo los resolvemos.'
+                'Hay cosas que están DENTRO de nuestro círculo: podemos decidirlas. Y hay cosas que están FUERA: nadie las puede decidir, ni los niños ni los adultos.',
+                'Cuando pasamos mucho tiempo pensando en lo de afuera, la preocupación crece. Cuando dedicamos nuestra energía a lo de adentro, nos sentimos más tranquilos y más fuertes. Eso no significa que lo de afuera no importe: significa que no es nuestra responsabilidad.'
               ]
             },
             {
-              type: 'reading',
-              title: 'El balón del descanso',
+              type: 'callout',
+              title: 'Un dato que ayuda',
               paragraphs: [
-                'Samuel y Valeria llegaron al mismo tiempo por el único balón del salón. Samuel lo agarró primero y dijo que era suyo porque lo vio antes. Valeria se cruzó de brazos y dijo que ella lo había pedido prestado el día anterior.',
-                'Los dos se quedaron mirando el balón sin jugar. El descanso pasaba y ninguno cedía. Entonces Valeria propuso algo: jugar juntos y turnarse cada cinco minutos.',
-                'Al final del descanso los dos habían jugado y además se rieron un rato.'
+                'Nadie en el mundo, en ningún país, puede saber el día ni la hora en que va a temblar. Ni los científicos más estudiados. Por eso lo importante no es adivinar, sino estar preparados. Y eso sí lo podemos hacer.'
               ]
             },
             {
               type: 'activity',
               activity: {
-                id: 'a5',
-                kind: 'choice',
-                question: '¿Qué hizo que el conflicto se resolviera?',
-                options: [
-                  'Que Samuel se rindiera',
-                  'Que Valeria propusiera una solución para los dos',
-                  'Que llegara un profesor a regañarlos'
+                id: '1B1',
+                kind: 'classify',
+                soft: true,
+                question: 'Dos círculos: lleva cada tarjeta al lugar que le corresponde.',
+                hint: 'Piénsalo otra vez: ¿eso lo decides tú?',
+                explain: 'Fíjate en todo lo que sí está en tus manos. Ahí es donde vale la pena poner tu energía.',
+                groups: [
+                  { id: 'si', title: 'Lo que sí puedo controlar', tone: 'yes' },
+                  { id: 'no', title: 'Lo que no puedo controlar', tone: 'neutral' }
                 ],
-                answer: 1,
-                hint: 'Fíjate en el segundo párrafo.',
-                explain: 'Valeria propuso una solución en la que ambos ganaban. Eso es negociar.'
+                cards: [
+                  { text: 'Que vuelva a temblar', group: 'no' },
+                  { text: 'Saber qué hacer si tiembla', group: 'si' },
+                  { text: 'Cuánto duró el temblor', group: 'no' },
+                  { text: 'Tener mi maleta lista', group: 'si' },
+                  { text: 'Lo que dicen las noticias', group: 'no' },
+                  { text: 'Ayudar a mi hermanito', group: 'si' },
+                  { text: 'Cuándo arreglan mi colegio', group: 'no' },
+                  { text: 'Avisarle a un adulto si tengo miedo', group: 'si' },
+                  { text: 'Lo que hizo la tierra', group: 'no' },
+                  { text: 'Cómo trato a mis compañeros', group: 'si' }
+                ]
               }
             },
             {
-              type: 'activity',
-              activity: {
-                id: 'a6',
-                kind: 'fill',
-                question: 'Completa la frase para pedir algo sin pelear.',
-                text: 'Cuando me quitan el turno me siento {{mal|triste|con rabia}}, por eso te pido que esperemos por {{turnos}}.',
-                hint: 'Primero digo cómo me siento, después pido lo que quiero.',
-                explain: 'Decir cómo me siento y pedir con claridad evita muchas peleas.'
-              }
-            }
-          ]
-        },
-        {
-          id: 'l4',
-          title: 'Cuando alguien molesta a otro',
-          goal: 'reconocer el maltrato entre compañeros y saber qué hacer.',
-          blocks: [
-            {
-              type: 'text',
-              paragraphs: [
-                'Una broma deja de ser broma cuando **se repite** y cuando a la otra persona **le hace daño**. Eso ya no es un juego.'
-              ]
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: 'a7',
-                kind: 'truefalse',
-                question: 'Si veo que molestan a un compañero y me quedo callado, no estoy haciendo nada malo.',
-                answer: false,
-                hint: 'Piensa en cómo se siente quien está siendo molestado.',
-                explain: 'Callar deja solo al que sufre. Avisar a un adulto de confianza sí ayuda.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: 'a8',
-                kind: 'choice',
-                question: 'Un compañero le esconde la maleta a otro todos los días y todos se ríen. ¿Qué es lo mejor que puedes hacer?',
-                options: [
-                  'Reírme también para no quedar mal',
-                  'Contarle a un adulto de confianza lo que está pasando',
-                  'Esconder yo también algo para que se den cuenta'
-                ],
-                answer: 1,
-                hint: 'Buscar ayuda no es acusar: es cuidar.',
-                explain: 'Contarle a un adulto de confianza es la forma más segura de detenerlo.'
-              }
+              type: 'notebook',
+              id: '1B2',
+              title: 'Mis tres acciones',
+              intro: 'Escribe en tu cuaderno tres cosas que tú sí puedes hacer esta semana para sentirte más tranquilo o tranquila.',
+              optOut: true,
+              items: ['Esta semana yo puedo…', 'También puedo…', 'Y puedo…']
             }
           ]
         }
@@ -217,59 +227,152 @@ window.Guide.register('wellbeing', {
 
     {
       id: 'u3',
-      title: 'Me cuido y pido ayuda',
-      summary: 'Mi cuerpo, mis límites y las personas de confianza.',
+      title: 'Mi rincón de la calma',
+      summary: 'Enseñarle al cuerpo a respirar despacio es un truco real, no un cuento.',
       lessons: [
         {
-          id: 'l5',
-          title: 'Mis límites y mis personas de confianza',
-          goal: 'identificar situaciones que debes contarle a un adulto de confianza.',
+          id: 'l3',
+          code: '1.C',
+          title: 'La respiración cuadrada',
+          goal: 'usar la respiración y el juego 5–4–3–2–1 para calmarte.',
           blocks: [
             {
               type: 'text',
               paragraphs: [
-                'Tu cuerpo es tuyo. Nadie puede tocarte de una forma que te haga sentir incómodo, ni pedirte que guardes un secreto que te preocupa.',
-                'Una **persona de confianza** es un adulto que te escucha, te cree y te cuida: tu mamá, tu papá, un cuidador, tu profesora, la orientadora del colegio.'
+                'Cuando nos asustamos, el cuerpo respira rápido y corto, como si tuviéramos que salir corriendo. Si le enseñamos al cuerpo a respirar despacio, el cerebro entiende el mensaje: "ya estamos a salvo". Es un truco real, no un cuento.'
+              ]
+            },
+            {
+              type: 'list',
+              title: 'La respiración cuadrada, paso a paso',
+              ordered: true,
+              items: [
+                'Lado 1 — **TOMO** aire por la nariz mientras cuento 1, 2, 3, 4.',
+                'Lado 2 — **GUARDO** el aire mientras cuento 1, 2, 3, 4.',
+                'Lado 3 — **SUELTO** el aire por la boca mientras cuento 1, 2, 3, 4.',
+                'Lado 4 — **ESPERO** sin aire mientras cuento 1, 2, 3, 4.'
+              ]
+            },
+            {
+              type: 'breathing',
+              id: '1C1',
+              title: 'Practica aquí conmigo',
+              cycles: 4,
+              closing: 'Si quieres, dime en el termómetro de arriba cómo te sientes ahora.'
+            },
+            {
+              type: 'callout',
+              title: 'El juego 5–4–3–2–1',
+              paragraphs: [
+                'Para cuando la cabeza va muy rápido: mira a tu alrededor y busca, en voz baja, **5** cosas que puedes VER, **4** que puedes TOCAR, **3** que puedes OÍR, **2** que puedes OLER y **1** que te guste de ti.',
+                'Este juego trae la mente de vuelta al lugar donde estás ahora, que es un lugar seguro.'
+              ]
+            },
+            {
+              type: 'notebook',
+              id: '1C2',
+              title: 'Mi rincón de la calma',
+              intro: 'Escoge un lugar de tu casa (una esquina, un cojín, debajo de la mesa) y pon allí tres cosas que te ayuden a calmarte. Escribe en tu cuaderno cuál lugar escogiste y qué pusiste.',
+              optOut: true,
+              items: ['Mi rincón de la calma está en…', 'Puse allí estas tres cosas…']
+            },
+            {
+              type: 'checklist',
+              id: '1C3',
+              title: 'Mi registro de la semana',
+              intro: 'Marca el día que practicaste la respiración cuadrada.',
+              items: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+              note: 'Se guarda en este dispositivo. No hay puntaje, ni racha, ni penalización por los días en blanco.'
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'u4',
+      title: 'Mi red de apoyo',
+      summary: 'Pedir ayuda no es ser débil ni ser cansón: es ser inteligente.',
+      lessons: [
+        {
+          id: 'l4',
+          code: '1.D',
+          title: 'Pedir ayuda es de valientes',
+          goal: 'saber a quién acudir cuando algo te preocupa.',
+          blocks: [
+            {
+              type: 'text',
+              paragraphs: [
+                'Nadie sale solo de las cosas difíciles. Los adultos también pedimos ayuda: los bomberos piden ayuda a otros bomberos, los médicos a otros médicos. Pedir ayuda no es ser débil ni ser cansón: es ser inteligente.'
               ]
             },
             {
               type: 'callout',
-              title: 'Regla clara',
+              title: 'Una regla útil',
               paragraphs: [
-                'Ningún secreto que te haga sentir mal debe guardarse. Si alguien te pide que no cuentes algo así, cuéntalo de todas formas.'
+                'Si algo te preocupa tanto que no te deja dormir, jugar o comer, eso ya es motivo suficiente para contárselo a un adulto de confianza. No tienes que esperar a que sea "grave".'
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: 'a9',
-                kind: 'choice',
-                question: 'Alguien te pide guardar un secreto que te hace sentir incómodo. ¿Qué haces?',
-                options: [
-                  'Lo guardo porque lo prometí',
-                  'Se lo cuento a un adulto de confianza',
-                  'Se lo cuento solo a un amigo del salón'
-                ],
-                answer: 1,
-                hint: 'Piensa quién puede realmente ayudarte.',
-                explain: 'Los secretos que incomodan siempre se cuentan a un adulto de confianza.'
-              }
+              type: 'notebook',
+              id: '1D1',
+              title: 'La mano de la ayuda',
+              intro: 'Dibuja tu mano en el cuaderno y escribe, en cada dedo, el nombre de una persona a la que puedes acudir cuando te sientas mal. Pueden ser de tu casa, del colegio o del barrio.',
+              optOut: true,
+              items: ['Dedo 1', 'Dedo 2', 'Dedo 3', 'Dedo 4', 'Dedo 5']
             },
             {
-              type: 'activity',
-              activity: {
-                id: 'a10',
-                kind: 'match',
-                question: 'Une cada situación con la mejor respuesta.',
-                leftLabel: 'Situación',
-                rightLabel: 'Qué hago',
-                pairs: [
-                  { left: 'Me siento triste hace varios días', right: 'Le cuento a un adulto de confianza' },
-                  { left: 'Un juego me hace sentir incómodo', right: 'Digo "no quiero" y me retiro' },
-                  { left: 'Vi que un compañero está siendo maltratado', right: 'Aviso a la profesora' }
-                ],
-                explain: 'Pedir ayuda es una manera valiente de cuidarte y cuidar a otros.'
-              }
+              type: 'notebook',
+              id: '1D2',
+              title: 'Una carta que abraza',
+              intro: 'Escribe en tu cuaderno una carta corta para un niño o una niña de otra ciudad que también vivió el temblor. Cuéntale algo que a ti te haya ayudado.',
+              optOut: true,
+              items: ['Querido amigo o amiga: …']
+            },
+            {
+              type: 'notebook',
+              id: '1D3',
+              title: 'Nuestro plan familiar',
+              intro: 'Con un adulto de tu casa, respondan en el cuaderno estas tres preguntas. El jueves vas a leer un texto que explica cómo hacerlo paso a paso.',
+              optOut: true,
+              items: [
+                '¿Dónde nos encontramos si estamos separados?',
+                '¿Qué llevamos en la maleta de emergencia?',
+                '¿A quién llamamos?'
+              ]
+            },
+            {
+              type: 'links',
+              title: 'Cuentos para leer en familia',
+              items: [
+                {
+                  label: 'Cuando la tierra se movió',
+                  href: 'http://www.buentrato.cl/pdf/Cuando_la_Tierra_se_Movio.pdf',
+                  note: 'Josefina Martínez, Elena Sepúlveda y Rossana Culaciati · Pontificia Universidad Católica de Chile.'
+                },
+                {
+                  label: 'Trinka y Juan: el día que la Tierra se movió',
+                  href: 'https://piploproductions.com/nuestros-cuentos/trinka-y-juan-terremotos/',
+                  note: 'Piplo Productions · descarga gratuita, incluye guía para adultos.'
+                },
+                {
+                  label: 'El día que todo se movió',
+                  href: 'https://aprendeencasa.sep.gob.mx/multimedia/RSC/Documento/202010/202010-RSC-vB6veFy91v-El_da_que_todo_se_movio.pdf',
+                  note: 'Festival Pixelatl / SEP México · versión en blanco y negro, fácil de imprimir.'
+                }
+              ]
+            },
+            {
+              type: 'adult',
+              title: 'Para el adulto que acompaña',
+              paragraphs: [
+                'Esta sección no tiene calificación y ningún ítem se marca como correcto o incorrecto. El botón "Prefiero no responder" es una función pedagógica, no un atajo: permite al niño poner un límite y seguir adelante sin sentir que falló.'
+              ],
+              items: [
+                'Lo que el niño escriba queda en el cuaderno, no en este sitio. Revíselo con él sin corregir la ortografía primero.',
+                'Si aparecen respuestas que preocupan, comuníquese con la docente antes de hablarlas con el niño.',
+                'No insista en las preguntas que deje en blanco: volver otro día es parte del proceso.'
+              ]
             }
           ]
         }

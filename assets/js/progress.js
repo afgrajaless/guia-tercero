@@ -7,6 +7,9 @@
 
   var STORAGE_KEY = 'guia-tercero:progress:v1';
 
+  /** Bloques que, sin ser actividades, cuentan dentro del avance de la leccion. */
+  var COUNTED_BLOCKS = ['notebook', 'checklist', 'breathing'];
+
   /** Cache en memoria para no leer localStorage en cada consulta. */
   var cache = null;
 
@@ -18,13 +21,13 @@
     if (cache) { return cache; }
     var raw = null;
     try { raw = localStorage.getItem(STORAGE_KEY); } catch (error) { raw = null; }
-    if (!raw) { cache = { areas: {}, notes: {} }; return cache; }
+    if (!raw) { cache = { areas: {}, data: {} }; return cache; }
     try {
       var parsed = JSON.parse(raw);
-      cache = parsed && typeof parsed === 'object' && parsed.areas ? parsed : { areas: {}, notes: {} };
-      if (!cache.notes) { cache.notes = {}; }
+      cache = parsed && typeof parsed === 'object' && parsed.areas ? parsed : { areas: {}, data: {} };
+      if (!cache.data) { cache.data = {}; }
     } catch (error) {
-      cache = { areas: {}, notes: {} };
+      cache = { areas: {}, data: {} };
     }
     return cache;
   }
@@ -64,8 +67,8 @@
       if (block.type === 'activity') {
         keys.push(activityKey(unit, lesson, (block.activity && block.activity.id) || ('a' + index)));
       }
-      if (block.type === 'reflect') {
-        keys.push(activityKey(unit, lesson, block.id || ('r' + index)));
+      if (COUNTED_BLOCKS.indexOf(block.type) !== -1) {
+        keys.push(activityKey(unit, lesson, block.id || ('b' + index)));
       }
     });
     return keys;
@@ -117,31 +120,40 @@
     },
 
     /**
-     * Recupera lo que el estudiante escribio en un bloque de reflexion.
+     * Recupera un dato guardado de un bloque (checklist, termometro, etc.).
      * @param {string} areaId - Identificador del area.
-     * @param {string} key - Clave del bloque de reflexion.
-     * @returns {string} Texto guardado, o cadena vacia si no hay nada.
+     * @param {string} key - Clave del bloque.
+     * @returns {*} Valor guardado, o null si no hay nada.
      */
-    getNote: function (areaId, key) {
-      var notes = read().notes || {};
-      return (notes[areaId] && notes[areaId][key]) || '';
+    getData: function (areaId, key) {
+      var data = read().data || {};
+      return (data[areaId] && data[areaId][key] !== undefined) ? data[areaId][key] : null;
     },
 
     /**
-     * Guarda lo que el estudiante escribio en un bloque de reflexion.
-     * Las reflexiones nunca se califican: solo se registran como completadas.
+     * Guarda un dato de un bloque sin marcarlo como resuelto.
      * @param {string} areaId - Identificador del area.
-     * @param {string} key - Clave del bloque de reflexion.
-     * @param {string} text - Texto escrito por el estudiante.
-     * @returns {boolean} true si con este guardado el bloque queda completado por primera vez.
+     * @param {string} key - Clave del bloque.
+     * @param {*} value - Valor a guardar (debe poder convertirse a JSON).
+     * @returns {void}
      */
-    saveNote: function (areaId, key, text) {
+    saveData: function (areaId, key, value) {
       var state = read();
-      if (!state.notes) { state.notes = {}; }
-      if (!state.notes[areaId]) { state.notes[areaId] = {}; }
-      state.notes[areaId][key] = String(text || '');
+      if (!state.data) { state.data = {}; }
+      if (!state.data[areaId]) { state.data[areaId] = {}; }
+      state.data[areaId][key] = value;
       write();
-      return Progress.record(areaId, key, String(text || '').trim().length >= 10);
+    },
+
+    /**
+     * Marca un bloque como hecho sin evaluarlo. Se usa en las consignas de
+     * cuaderno y en los bloques que no tienen respuesta correcta.
+     * @param {string} areaId - Identificador del area.
+     * @param {string} key - Clave del bloque.
+     * @returns {boolean} true si el bloque pasa de pendiente a hecho.
+     */
+    markDone: function (areaId, key) {
+      return Progress.record(areaId, key, true);
     },
 
     /**
@@ -202,7 +214,7 @@
     resetArea: function (areaId) {
       var state = read();
       delete state.areas[areaId];
-      if (state.notes) { delete state.notes[areaId]; }
+      if (state.data) { delete state.data[areaId]; }
       write();
     },
 
@@ -211,7 +223,7 @@
      * @returns {void}
      */
     resetAll: function () {
-      cache = { areas: {}, notes: {} };
+      cache = { areas: {}, data: {} };
       write();
     }
   };
