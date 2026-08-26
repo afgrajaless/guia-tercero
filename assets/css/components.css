@@ -903,3 +903,196 @@
 }
 
 .reveal.is-visible { opacity: 1; transform: none; }
+
+/* --- Figuras y diagramas ---------------------------------------------------------- */
+
+.figure {
+  display: grid;
+  gap: var(--sp-3);
+  margin: 0;
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.figure__canvas { overflow-x: auto; }
+
+.figure__svg {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  margin-inline: auto;
+}
+
+.figure__caption {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.fig-axis   { stroke: var(--ink-soft); stroke-width: 2.5; color: var(--ink-soft); }
+.fig-tick   { stroke: var(--line-strong); stroke-width: 2; }
+.fig-label  { fill: var(--ink-muted); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+.fig-label--strong { fill: var(--area-deep); font-weight: 800; }
+.fig-point  { fill: var(--area); stroke: var(--surface); stroke-width: 3; }
+.fig-slice  { fill: var(--surface); stroke: var(--area); stroke-width: 2.5; }
+.fig-slice.is-filled { fill: var(--area); }
+.fig-shape  { fill: var(--area-soft); stroke: var(--area); stroke-width: 3; }
+.fig-vertex { fill: var(--area); }
+.fig-unit   { fill: var(--area); }
+
+/* --- Nota para el adulto ----------------------------------------------------------- */
+
+.adult {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+
+.adult__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  list-style: none;
+}
+
+.adult__summary::-webkit-details-marker { display: none; }
+
+.adult__summary::after {
+  content: "+";
+  margin-inline-start: auto;
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--ink-muted);
+}
+
+.adult[open] .adult__summary::after { content: "–"; }
+
+.adult__summary svg { flex: none; width: 1.2rem; height: 1.2rem; }
+
+.adult__body {
+  display: grid;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-4) var(--sp-4);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.adult__body ul { display: grid; gap: var(--sp-2); }
+
+.adult__body li {
+  position: relative;
+  padding-inline-start: 1.2rem;
+}
+
+.adult__body li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.2rem;
+  top: 0.6em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--r-pill);
+  background: var(--line-strong);
+}
+
+/* --- Reflexión (nunca se califica) ------------------------------------------------- */
+
+.reflect {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border: 2px dashed var(--area-line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.reflect__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--area-deep);
+}
+
+.reflect__tag svg { flex: none; width: 1.1rem; height: 1.1rem; }
+
+.reflect__question {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+}
+
+.reflect__help { font-size: var(--step--1); color: var(--ink-muted); }
+
+.reflect__input {
+  width: 100%;
+  padding: var(--sp-3);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.reflect__input:focus-visible { border-color: var(--area); }
+
+.reflect__status { font-size: var(--step--1); font-weight: 700; }
+.reflect__status.is-saved { color: var(--ok); }
+.reflect__status.is-pending { color: var(--ink-muted); }
+
+.reflect__note { font-size: var(--step--1); color: var(--ink-muted); font-style: italic; }
+
+/* --- Ronda de práctica -------------------------------------------------------------- */
+
+.practice {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.practice__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.practice__text {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.practice .fill__blank { flex: 1; min-width: 4rem; }
+
+/* --- Fuente de un texto de lectura --------------------------------------------------- */
+
+.reading-text__source {
+  margin-top: var(--sp-4);
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  font-style: italic;
+}

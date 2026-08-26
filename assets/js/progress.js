@@ -18,12 +18,13 @@
     if (cache) { return cache; }
     var raw = null;
     try { raw = localStorage.getItem(STORAGE_KEY); } catch (error) { raw = null; }
-    if (!raw) { cache = { areas: {} }; return cache; }
+    if (!raw) { cache = { areas: {}, notes: {} }; return cache; }
     try {
       var parsed = JSON.parse(raw);
-      cache = parsed && typeof parsed === 'object' && parsed.areas ? parsed : { areas: {} };
+      cache = parsed && typeof parsed === 'object' && parsed.areas ? parsed : { areas: {}, notes: {} };
+      if (!cache.notes) { cache.notes = {}; }
     } catch (error) {
-      cache = { areas: {} };
+      cache = { areas: {}, notes: {} };
     }
     return cache;
   }
@@ -60,9 +61,12 @@
   function lessonKeys(unit, lesson) {
     var keys = [];
     (lesson.blocks || []).forEach(function (block, index) {
-      if (block.type !== 'activity') { return; }
-      var id = (block.activity && block.activity.id) || ('a' + index);
-      keys.push(activityKey(unit, lesson, id));
+      if (block.type === 'activity') {
+        keys.push(activityKey(unit, lesson, (block.activity && block.activity.id) || ('a' + index)));
+      }
+      if (block.type === 'reflect') {
+        keys.push(activityKey(unit, lesson, block.id || ('r' + index)));
+      }
     });
     return keys;
   }
@@ -110,6 +114,34 @@
       state.areas[areaId][key] = entry;
       write();
       return !wasSolved && entry.solved;
+    },
+
+    /**
+     * Recupera lo que el estudiante escribio en un bloque de reflexion.
+     * @param {string} areaId - Identificador del area.
+     * @param {string} key - Clave del bloque de reflexion.
+     * @returns {string} Texto guardado, o cadena vacia si no hay nada.
+     */
+    getNote: function (areaId, key) {
+      var notes = read().notes || {};
+      return (notes[areaId] && notes[areaId][key]) || '';
+    },
+
+    /**
+     * Guarda lo que el estudiante escribio en un bloque de reflexion.
+     * Las reflexiones nunca se califican: solo se registran como completadas.
+     * @param {string} areaId - Identificador del area.
+     * @param {string} key - Clave del bloque de reflexion.
+     * @param {string} text - Texto escrito por el estudiante.
+     * @returns {boolean} true si con este guardado el bloque queda completado por primera vez.
+     */
+    saveNote: function (areaId, key, text) {
+      var state = read();
+      if (!state.notes) { state.notes = {}; }
+      if (!state.notes[areaId]) { state.notes[areaId] = {}; }
+      state.notes[areaId][key] = String(text || '');
+      write();
+      return Progress.record(areaId, key, String(text || '').trim().length >= 10);
     },
 
     /**
@@ -170,6 +202,7 @@
     resetArea: function (areaId) {
       var state = read();
       delete state.areas[areaId];
+      if (state.notes) { delete state.notes[areaId]; }
       write();
     },
 
@@ -178,7 +211,7 @@
      * @returns {void}
      */
     resetAll: function () {
-      cache = { areas: {} };
+      cache = { areas: {}, notes: {} };
       write();
     }
   };

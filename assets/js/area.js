@@ -7,102 +7,9 @@
 
   var Guide = global.Guide;
   var Progress = global.Progress;
-  var Activities = global.Activities;
+  var Blocks = global.Blocks;
   var el = Guide.el;
-  var escapeHtml = Guide.escapeHtml;
   var ICONS = Guide.ICONS;
-
-  /**
-   * Convierte marcas sencillas de autor (**negrita**) en HTML seguro.
-   * @param {string} text - Texto escrito en el archivo de contenido.
-   * @returns {string} HTML con el texto escapado y las negritas aplicadas.
-   */
-  function inline(text) {
-    return escapeHtml(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  }
-
-  /**
-   * Crea una lista de parrafos a partir de un arreglo de textos.
-   * @param {Array<string>} paragraphs - Textos a convertir en parrafos.
-   * @returns {Array<HTMLElement>} Parrafos listos para insertar.
-   */
-  function paragraphs(list) {
-    return (list || []).map(function (text) {
-      return el('p', { html: inline(text) });
-    });
-  }
-
-  /**
-   * Dibuja un bloque de contenido segun su tipo.
-   * @param {Object} block - Bloque definido en el archivo de contenido.
-   * @param {Object} ctx - Contexto con areaId, unit, lesson e indice del bloque.
-   * @returns {HTMLElement|null} Elemento del bloque, o null si el tipo no existe.
-   */
-  function renderBlock(block, ctx) {
-    if (block.type === 'text') {
-      return el('div', { className: 'prose', children: paragraphs(block.paragraphs) });
-    }
-
-    if (block.type === 'list') {
-      var items = (block.items || []).map(function (text) {
-        return el('li', { html: inline(text) });
-      });
-      var wrap = el('div', { className: 'prose' });
-      if (block.title) { wrap.appendChild(el('h4', { text: block.title })); }
-      wrap.appendChild(el('ul', { children: items }));
-      return wrap;
-    }
-
-    if (block.type === 'callout') {
-      var callout = el('aside', { className: 'callout' });
-      callout.appendChild(el('p', {
-        className: 'callout__title',
-        html: ICONS.compass + '<span>' + escapeHtml(block.title || 'Para recordar') + '</span>'
-      }));
-      paragraphs(block.paragraphs).forEach(function (node) { callout.appendChild(node); });
-      return callout;
-    }
-
-    if (block.type === 'reading') {
-      var reading = el('article', { className: 'reading-text' });
-      if (block.title) { reading.appendChild(el('h4', { text: block.title })); }
-      paragraphs(block.paragraphs).forEach(function (node) { reading.appendChild(node); });
-      if (block.source) {
-        reading.appendChild(el('p', {
-          className: 'area-card__text',
-          text: block.source
-        }));
-      }
-      return reading;
-    }
-
-    if (block.type === 'example') {
-      var example = el('div', { className: 'example' });
-      if (block.title) { example.appendChild(el('h4', { text: block.title })); }
-      (block.lines || []).forEach(function (line) {
-        example.appendChild(el('p', { html: inline(line) }));
-      });
-      return example;
-    }
-
-    if (block.type === 'activity') {
-      var activity = block.activity || {};
-      var id = activity.id || ('a' + ctx.index);
-      var key = Progress.activityKey(ctx.unit, ctx.lesson, id);
-      return Activities.render(activity, {
-        solved: Progress.isSolved(ctx.areaId, key),
-        onResult: function (ok) {
-          var isNew = Progress.record(ctx.areaId, key, ok);
-          if (isNew) {
-            ctx.onSolved();
-            Guide.toast('Actividad resuelta', '⭐');
-          }
-        }
-      });
-    }
-
-    return null;
-  }
 
   /**
    * Dibuja una leccion completa con su objetivo y todos sus bloques.
@@ -124,12 +31,12 @@
     if (lesson.goal) {
       section.appendChild(el('p', {
         className: 'lesson__goal',
-        html: '<strong>Vas a aprender:</strong> ' + inline(lesson.goal)
+        html: '<strong>Vas a aprender:</strong> ' + Blocks.inline(lesson.goal)
       }));
     }
 
     (lesson.blocks || []).forEach(function (block, index) {
-      var node = renderBlock(block, {
+      var node = Blocks.render(block, {
         areaId: params.areaId,
         unit: params.unit,
         lesson: lesson,

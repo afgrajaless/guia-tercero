@@ -24,7 +24,10 @@
     up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>',
     down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 10 6 6 6-6"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
-    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>'
+    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>',
+    pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="M13.5 6.5l4 4"/></svg>',
+    adult: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7.5" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16.5 11.5h5M16.5 15h5M16.5 18.5h3.5"/></svg>',
+    reload: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5A8 8 0 1 0 18 17"/><path d="M20 5.5V12h-6"/></svg>'
   };
 
   /**
@@ -93,6 +96,56 @@
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/\s+/g, ' ');
+  }
+
+  /**
+   * Convierte un numero escrito por el estudiante en una forma comparable.
+   * Quita los separadores de miles (los grupos de exactamente tres cifras) y
+   * unifica la coma decimal con el punto, de modo que "2.000", "2000" y
+   * "2 000" se consideren el mismo numero.
+   * @param {string} value - Texto que podria ser un numero.
+   * @returns {string|null} Numero normalizado, o null si el texto no es numerico.
+   */
+  function numericKey(value) {
+    var text = String(value == null ? '' : value).trim().replace(/\s/g, '');
+    if (!/^\d+([.,]\d+)*$/.test(text)) { return null; }
+    return text.replace(/[.,](\d{3})(?=[.,]|$)/g, '$1').replace(',', '.');
+  }
+
+  /**
+   * Escribe un numero entero con separador de miles al estilo colombiano.
+   * @param {number} value - Numero a formatear.
+   * @returns {string} Numero con puntos cada tres cifras (por ejemplo 1.998).
+   */
+  function formatNumber(value) {
+    return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  /**
+   * Devuelve un numero entero al azar dentro de un rango, incluidos los extremos.
+   * @param {number} min - Valor minimo posible.
+   * @param {number} max - Valor maximo posible.
+   * @returns {number} Numero entero entre min y max.
+   */
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
+   * Compara la respuesta escrita por el estudiante con la esperada.
+   * Si la respuesta esperada es un numero, ignora los separadores de miles;
+   * si es texto, ignora mayusculas, tildes y espacios sobrantes.
+   * @param {string} typed - Lo que escribio el estudiante.
+   * @param {string} expected - La respuesta correcta definida en el contenido.
+   * @returns {boolean} true si las dos respuestas se consideran iguales.
+   */
+  function answerMatches(typed, expected) {
+    var expectedNumber = numericKey(expected);
+    if (expectedNumber !== null) {
+      var typedNumber = numericKey(typed);
+      if (typedNumber !== null) { return typedNumber === expectedNumber; }
+    }
+    return normalize(typed) === normalize(expected);
   }
 
   /**
@@ -244,6 +297,10 @@
     el: el,
     shuffle: shuffle,
     normalize: normalize,
+    numericKey: numericKey,
+    answerMatches: answerMatches,
+    formatNumber: formatNumber,
+    randomInt: randomInt,
     toast: toast,
     setupTheme: setupTheme,
     setupReveal: setupReveal,

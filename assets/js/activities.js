@@ -10,7 +10,9 @@
   var el = global.Guide.el;
   var escapeHtml = global.Guide.escapeHtml;
   var shuffle = global.Guide.shuffle;
-  var normalize = global.Guide.normalize;
+  var answerMatches = global.Guide.answerMatches;
+  var formatNumber = global.Guide.formatNumber;
+  var randomInt = global.Guide.randomInt;
   var ICONS = global.Guide.ICONS;
 
   /** Etiqueta visible segun el tipo de actividad. */
@@ -19,7 +21,8 @@
     truefalse: 'Verdadero o falso',
     fill: 'Completa',
     match: 'Une las parejas',
-    order: 'Ordena'
+    order: 'Ordena',
+    practice: 'Practica'
   };
 
   /** Mensajes de animo que se rotan al acertar. */
@@ -195,8 +198,10 @@
     check.addEventListener('click', function () {
       var allCorrect = true;
       inputs.forEach(function (input) {
-        var answers = input.dataset.answers.split('|').map(normalize);
-        var ok = answers.indexOf(normalize(input.value)) !== -1;
+        var typed = input.value;
+        var ok = input.dataset.answers.split('|').some(function (answer) {
+          return answerMatches(typed, answer);
+        });
         input.classList.toggle('is-correct', ok);
         input.classList.toggle('is-wrong', !ok);
         if (!ok) { allCorrect = false; }
@@ -454,13 +459,177 @@
     return list;
   }
 
+  /**
+   * Generadores de ejercicios para las rondas de practica.
+   * Cada uno devuelve { text, answer } con una operacion distinta.
+   */
+  var GENERATORS = {
+    /**
+     * Genera una multiplicacion de la tabla indicada.
+     * @param {Object} options - { table } tabla a practicar; si falta, se elige al azar.
+     * @returns {{text: string, answer: number}} Operacion y su resultado.
+     */
+    times: function (options) {
+      var table = Number(options.table) || randomInt(2, 9);
+      var other = randomInt(1, 10);
+      return { text: table + ' × ' + other, answer: table * other };
+    },
+
+    /**
+     * Genera una division exacta con divisor de una cifra.
+     * @param {Object} options - { table } divisor a practicar; si falta, se elige al azar.
+     * @returns {{text: string, answer: number}} Operacion y su resultado.
+     */
+    divide: function (options) {
+      var divisor = Number(options.table) || randomInt(2, 9);
+      var quotient = randomInt(1, 10);
+      return { text: formatNumber(divisor * quotient) + ' ÷ ' + divisor, answer: quotient };
+    },
+
+    /**
+     * Genera una suma dentro del rango indicado.
+     * @param {Object} options - { min, max } rango de los sumandos.
+     * @returns {{text: string, answer: number}} Operacion y su resultado.
+     */
+    plus: function (options) {
+      var min = Number(options.min) || 10;
+      var max = Number(options.max) || 999;
+      var a = randomInt(min, max);
+      var b = randomInt(min, max);
+      return { text: formatNumber(a) + ' + ' + formatNumber(b), answer: a + b };
+    },
+
+    /**
+     * Genera una resta sin resultado negativo dentro del rango indicado.
+     * @param {Object} options - { min, max } rango del minuendo.
+     * @returns {{text: string, answer: number}} Operacion y su resultado.
+     */
+    minus: function (options) {
+      var min = Number(options.min) || 10;
+      var max = Number(options.max) || 999;
+      var a = randomInt(min, max);
+      var b = randomInt(min, a);
+      return { text: formatNumber(a) + ' - ' + formatNumber(b), answer: a - b };
+    }
+  };
+
+  /**
+   * Crea una ronda de ejercicios distintos entre si.
+   * @param {Object} activity - Definicion con generator, count y options.
+   * @returns {Array<{text: string, answer: number}>} Ejercicios de la ronda.
+   */
+  function buildRound(activity) {
+    var generate = GENERATORS[activity.generator] || GENERATORS.times;
+    var options = activity.options || {};
+    var count = Number(activity.count) || 5;
+    var round = [];
+    var seen = {};
+    var attempts = 0;
+
+    while (round.length < count && attempts < count * 20) {
+      attempts += 1;
+      var item = generate(options);
+      if (seen[item.text]) { continue; }
+      seen[item.text] = true;
+      round.push(item);
+    }
+    return round;
+  }
+
+  /**
+   * Arma una ronda de practica con ejercicios generados al azar.
+   * @param {Object} activity - Definicion con generator, count y options.
+   * @param {Object} ctx - Contexto con feedback, finish y estado inicial.
+   * @returns {HTMLElement} Lista de ejercicios con su campo de respuesta.
+   */
+  function buildPractice(activity, ctx) {
+    var board = el('div', { className: 'practice' });
+
+    /**
+     * Pinta una ronda nueva de ejercicios en el tablero.
+     * @returns {void}
+     */
+    function paint() {
+      board.innerHTML = '';
+      buildRound(activity).forEach(function (item) {
+        var row = el('div', { className: 'practice__row' });
+        row.appendChild(el('span', { className: 'practice__text', text: item.text + ' =' }));
+        var input = el('input', {
+          className: 'fill__blank',
+          attrs: {
+            type: 'text',
+            inputmode: 'numeric',
+            autocomplete: 'off',
+            'aria-label': 'Resultado de ' + item.text
+          }
+        });
+        input.dataset.answer = String(item.answer);
+        row.appendChild(input);
+        board.appendChild(row);
+      });
+    }
+
+    paint();
+
+    var check = el('button', { className: 'btn btn--primary btn--sm', attrs: { type: 'button' }, text: 'Comprobar' });
+    var again = el('button', {
+      className: 'btn btn--ghost btn--sm',
+      attrs: { type: 'button' },
+      html: ICONS.reload + '<span>Otra ronda</span>'
+    });
+
+    check.addEventListener('click', function () {
+      var inputs = board.querySelectorAll('.fill__blank');
+      var correct = 0;
+      Array.prototype.forEach.call(inputs, function (input) {
+        var ok = answerMatches(input.value, input.dataset.answer);
+        input.classList.toggle('is-correct', ok);
+        input.classList.toggle('is-wrong', !ok);
+        if (ok) { correct += 1; }
+      });
+      if (correct === inputs.length) {
+        ctx.finish(true, activity.explain || 'Resolviste toda la ronda sin errores.');
+      } else {
+        ctx.finish(false, 'Acertaste ' + correct + ' de ' + inputs.length + '. Revisa las que quedaron en rojo.');
+      }
+    });
+
+    again.addEventListener('click', function () {
+      paint();
+      ctx.clearFeedback();
+    });
+
+    ctx.actions.push(check);
+    ctx.actions.push(again);
+
+    /**
+     * Muestra los resultados correctos cuando la ronda ya se habia superado.
+     * @returns {void}
+     */
+    ctx.markSolved = function () {
+      Array.prototype.forEach.call(board.querySelectorAll('.fill__blank'), function (input) {
+        input.value = formatNumber(Number(input.dataset.answer));
+        input.classList.add('is-correct');
+      });
+    };
+
+    /**
+     * Genera una ronda nueva para volver a practicar.
+     * @returns {void}
+     */
+    ctx.reset = function () { paint(); };
+
+    return board;
+  }
+
   /** Constructores disponibles segun el tipo declarado en la actividad. */
   var BUILDERS = {
     choice: buildChoice,
     truefalse: buildChoice,
     fill: buildFill,
     match: buildMatch,
-    order: buildOrder
+    order: buildOrder,
+    practice: buildPractice
   };
 
   var Activities = {
@@ -493,6 +662,15 @@
          * @returns {void}
          */
         showHint: function (message) { showFeedback(feedback, false, message); },
+
+        /**
+         * Oculta la retroalimentacion, por ejemplo al empezar una ronda nueva.
+         * @returns {void}
+         */
+        clearFeedback: function () {
+          feedback.hidden = true;
+          retry.hidden = true;
+        },
 
         /**
          * Cierra un intento: pinta la retroalimentacion y avisa al llamador.
