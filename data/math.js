@@ -2,9 +2,10 @@
    data/math.js — Miércoles 2 de septiembre · Matemáticas
    DBA 2 · Razonamiento y resolución de problemas · Componente numérico-variacional
 
-   Todas las respuestas de esta sección se autocorrigen. Los números se
-   comparan ignorando los puntos de miles, así que "424.002" y "424002"
-   valen igual.
+   Toda esta sección se trabaja en el cuaderno. La página explica, muestra los
+   ejemplos y deja la consigna; el estudiante copia y resuelve en su cuaderno.
+   Las respuestas de cada actividad se reúnen al final de la página, en el
+   solucionario "Respuestas de hoy", para que también las pase al cuaderno.
    ========================================================================== */
 
 window.Guide.register('math', {
@@ -14,16 +15,17 @@ window.Guide.register('math', {
   href: 'math.html',
   day: { label: 'Miércoles 2 de septiembre', short: 'Miércoles 2', weekday: 'Miércoles' },
   subject: 'DBA 2 · Componente numérico-variacional',
-  description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Desarrolla las operaciones en el cuaderno y escribe aquí solo el resultado.',
+  description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Copia cada actividad en el cuaderno, resuélvela allí y al final compara con las respuestas.',
   learning: 'Uso las cuatro operaciones y las propiedades de los números naturales hasta seis cifras para resolver situaciones de mi entorno.',
 
   notice: {
     title: 'Antes de empezar',
     dismissLabel: 'Listo, ya tengo el cuaderno',
     paragraphs: [
-      'Desarrolla las operaciones **también en el cuaderno**, bien alineadas por columnas. Aquí solo escribes el resultado.',
-      'Puedes escribir los números con punto de miles (**424.002**) o sin él (**424002**): las dos formas se aceptan.',
-      'Si te trabas, abre **Ver el procedimiento**. Usarlo no cuenta como error.'
+      'Esta guía **no se responde en el computador**. Todo se copia y se resuelve en el cuaderno: el título de la actividad, cada operación y su resultado.',
+      'Desarrolla las operaciones bien alineadas por columnas. Escribe los números con punto de miles (**424.002**), como aparecen aquí.',
+      'Al final de la página está **Respuestas de hoy**. Ve allí cuando ya hayas resuelto, compara con lo tuyo y pasa también la respuesta al cuaderno.',
+      'Si te trabas, abre **Ver el procedimiento**. Usarlo no es hacer trampa.'
     ]
   },
 
@@ -70,14 +72,13 @@ window.Guide.register('math', {
                 ['100.000', '10.000', '1.000', '100', '10', '1'],
                 ['**3**', '**4**', '**8**', '**9**', '**1**', '**2**']
               ],
-              note: 'Cada cifra vale distinto según el lugar que ocupa.'
+              note: 'Cada cifra vale distinto según el lugar que ocupa. Copia esta tabla en tu cuaderno: te va a servir toda la semana.'
             },
             {
               type: 'notebook',
               id: '2A1',
               title: 'Escribo con letras',
-              intro: 'Copia estos números en tu cuaderno y escríbelos con letras. Cuando termines, marca "Ya lo escribí" para ver las respuestas y comparar.',
-              keyTitle: 'Respuestas para comparar',
+              intro: 'Copia estos ocho números en tu cuaderno, uno debajo del otro, y escribe al frente de cada uno cómo se lee.',
               items: ['190.408', '862.500', '999.999', '604.007', '250.190', '483.026', '570.004', '316.280'],
               key: [
                 '190.408 — ciento noventa mil cuatrocientos ocho',
@@ -91,29 +92,33 @@ window.Guide.register('math', {
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2A2',
-                kind: 'numeric',
-                question: 'Escribo con cifras',
-                layout: 'stacked',
-                explain: 'Muy bien. Fíjate que el cero también ocupa su lugar.',
-                items: [
-                  { text: 'Cuatrocientos doce mil quinientos ocho', answer: '412.508' },
-                  { text: 'Ochocientos mil setenta', answer: '800.070' },
-                  { text: 'Seiscientos treinta y cinco mil doscientos catorce', answer: '635.214' },
-                  { text: 'Novecientos nueve mil novecientos', answer: '909.900' },
-                  { text: 'Doscientos siete mil tres', answer: '207.003' },
-                  { text: 'Setecientos cincuenta mil cuatrocientos sesenta y uno', answer: '750.461' }
-                ]
-              }
+              type: 'notebook',
+              id: '2A2',
+              title: 'Escribo con cifras',
+              intro: 'Ahora al revés. Copia cada nombre en tu cuaderno y escribe al frente el número en cifras, con su punto de miles.',
+              items: [
+                'Cuatrocientos doce mil quinientos ocho',
+                'Ochocientos mil setenta',
+                'Seiscientos treinta y cinco mil doscientos catorce',
+                'Novecientos nueve mil novecientos',
+                'Doscientos siete mil tres',
+                'Setecientos cincuenta mil cuatrocientos sesenta y uno'
+              ],
+              key: [
+                'Cuatrocientos doce mil quinientos ocho = 412.508',
+                'Ochocientos mil setenta = 800.070',
+                'Seiscientos treinta y cinco mil doscientos catorce = 635.214',
+                'Novecientos nueve mil novecientos = 909.900',
+                'Doscientos siete mil tres = 207.003',
+                'Setecientos cincuenta mil cuatrocientos sesenta y uno = 750.461'
+              ],
+              keyNote: 'Fíjate que el cero también ocupa su lugar: sin él, el número cambia de valor.'
             },
             {
               type: 'notebook',
               id: '2A3',
               title: 'Descompongo',
               intro: 'Descompón estos números en tu cuaderno, como en el ejemplo: **526.407 = 500.000 + 20.000 + 6.000 + 400 + 0 + 7**',
-              keyTitle: 'Respuestas para comparar',
               items: ['347.205', '810.064', '209.730'],
               key: [
                 '347.205 = 300.000 + 40.000 + 7.000 + 200 + 0 + 5',
@@ -122,20 +127,25 @@ window.Guide.register('math', {
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2A4',
-                kind: 'numeric',
-                question: 'Comparo: elige el signo que va en cada casilla.',
-                explain: 'Cuando las primeras cifras son iguales, hay que seguir comparando hacia la derecha.',
-                items: [
-                  { text: '348.912 ___ 348.921', options: ['<', '>', '='], answer: '<' },
-                  { text: '700.000 ___ 699.999', options: ['<', '>', '='], answer: '>' },
-                  { text: '205.064 ___ 205.064', options: ['<', '>', '='], answer: '=' },
-                  { text: '530.800 ___ 53.800', options: ['<', '>', '='], answer: '>' },
-                  { text: '999.099 ___ 990.999', options: ['<', '>', '='], answer: '>' }
-                ]
-              }
+              type: 'notebook',
+              id: '2A4',
+              title: 'Comparo',
+              intro: 'Copia cada pareja de números en tu cuaderno y escribe entre los dos el signo que corresponde: **<**, **>** o **=**.',
+              items: [
+                '348.912 ____ 348.921',
+                '700.000 ____ 699.999',
+                '205.064 ____ 205.064',
+                '530.800 ____ 53.800',
+                '999.099 ____ 990.999'
+              ],
+              key: [
+                '348.912 < 348.921',
+                '700.000 > 699.999',
+                '205.064 = 205.064',
+                '530.800 > 53.800',
+                '999.099 > 990.999'
+              ],
+              keyNote: 'Cuando las primeras cifras son iguales, hay que seguir comparando hacia la derecha. Y antes que nada: el número con más cifras es el mayor.'
             }
           ]
         }
@@ -168,45 +178,65 @@ window.Guide.register('math', {
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2B1',
-                kind: 'numeric',
-                question: 'Adiciones',
-                explain: 'Bien. Recuerda revisar lo que llevas en cada columna.',
-                items: [
-                  { text: '234.567 + 189.435', answer: '424.002' },
-                  { text: '405.812 + 97.649', answer: '503.461' },
-                  { text: '318.204 + 258.796', answer: '577.000' },
-                  { text: '560.039 + 249.961', answer: '810.000' },
-                  { text: '127.450 + 63.280 + 209.315', answer: '400.045' },
-                  { text: '400.008 + 99.992 + 150.000', answer: '650.000' }
-                ]
-              }
+              type: 'notebook',
+              id: '2B1',
+              title: 'Adiciones',
+              intro: 'Copia cada adición en tu cuaderno en forma vertical, alineando unidades con unidades, y resuélvela.',
+              items: [
+                '234.567 + 189.435',
+                '405.812 + 97.649',
+                '318.204 + 258.796',
+                '560.039 + 249.961',
+                '127.450 + 63.280 + 209.315',
+                '400.008 + 99.992 + 150.000'
+              ],
+              key: [
+                '234.567 + 189.435 = 424.002',
+                '405.812 + 97.649 = 503.461',
+                '318.204 + 258.796 = 577.000',
+                '560.039 + 249.961 = 810.000',
+                '127.450 + 63.280 + 209.315 = 400.045',
+                '400.008 + 99.992 + 150.000 = 650.000'
+              ],
+              keyNote: 'Revisa lo que llevabas en cada columna: ahí es donde más se equivoca uno.'
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2B2',
-                kind: 'numeric',
-                question: 'Sustracciones',
-                explain: 'Muy bien. Comprueba cada una con la prueba de la resta.',
-                items: [
-                  { text: '700.000 − 348.912', answer: '351.088' },
-                  { text: '512.340 − 279.865', answer: '232.475' },
-                  { text: '903.006 − 456.789', answer: '446.217' },
-                  { text: '850.200 − 99.999', answer: '750.201' },
-                  { text: '604.010 − 385.427', answer: '218.583' },
-                  { text: '999.999 − 456.123', answer: '543.876' }
-                ]
-              }
+              type: 'notebook',
+              id: '2B2',
+              title: 'Sustracciones',
+              intro: 'Copia cada sustracción en forma vertical y resuélvela. Ojo con los ceros del minuendo: hay que pedir prestado varias veces seguidas.',
+              items: [
+                '700.000 − 348.912',
+                '512.340 − 279.865',
+                '903.006 − 456.789',
+                '850.200 − 99.999',
+                '604.010 − 385.427',
+                '999.999 − 456.123'
+              ],
+              key: [
+                '700.000 − 348.912 = 351.088',
+                '512.340 − 279.865 = 232.475',
+                '903.006 − 456.789 = 446.217',
+                '850.200 − 99.999 = 750.201',
+                '604.010 − 385.427 = 218.583',
+                '999.999 − 456.123 = 543.876'
+              ]
             },
             {
               type: 'notebook',
               id: '2B3',
               title: 'Compruebo mis restas',
-              intro: 'En el cuaderno, comprueba las seis sustracciones con la prueba de la resta: suma la diferencia con el sustraendo y verifica que te dé el minuendo.',
-              items: ['Ejemplo: 351.088 + 348.912 = 700.000 ✔']
+              intro: 'Debajo de las seis sustracciones, escribe la comprobación de cada una: suma la diferencia con el sustraendo y verifica que te dé el minuendo. La primera te queda así: **351.088 + 348.912 = 700.000 ✔**',
+              ordered: false,
+              items: ['Comprobación 1 · Comprobación 2 · Comprobación 3 · Comprobación 4 · Comprobación 5 · Comprobación 6'],
+              key: [
+                '351.088 + 348.912 = 700.000 ✔',
+                '232.475 + 279.865 = 512.340 ✔',
+                '446.217 + 456.789 = 903.006 ✔',
+                '750.201 + 99.999 = 850.200 ✔',
+                '218.583 + 385.427 = 604.010 ✔',
+                '543.876 + 456.123 = 999.999 ✔'
+              ]
             }
           ]
         }
@@ -242,39 +272,49 @@ window.Guide.register('math', {
               note: '**Ojo con el cero:** si el segundo factor tiene un cero (por ejemplo 208), ese renglón da cero. Puedes escribirlo o saltarlo, pero no olvides correr el renglón siguiente dos lugares.'
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2C1',
-                kind: 'numeric',
-                question: 'Multiplicaciones por 2 cifras',
-                explain: 'Bien. Los dos renglones quedaron en su lugar.',
-                items: [
-                  { text: '1.243 × 26', answer: '32.318' },
-                  { text: '3.508 × 47', answer: '164.876' },
-                  { text: '2.076 × 35', answer: '72.660' },
-                  { text: '4.890 × 62', answer: '303.180' },
-                  { text: '1.509 × 84', answer: '126.756' },
-                  { text: '6.207 × 39', answer: '242.073' }
-                ]
-              }
+              type: 'notebook',
+              id: '2C1',
+              title: 'Multiplicaciones por 2 cifras',
+              intro: 'Copia cada multiplicación en tu cuaderno, en forma vertical, y desarrolla los dos renglones antes de sumar.',
+              items: [
+                '1.243 × 26',
+                '3.508 × 47',
+                '2.076 × 35',
+                '4.890 × 62',
+                '1.509 × 84',
+                '6.207 × 39'
+              ],
+              key: [
+                '1.243 × 26 = 32.318',
+                '3.508 × 47 = 164.876',
+                '2.076 × 35 = 72.660',
+                '4.890 × 62 = 303.180',
+                '1.509 × 84 = 126.756',
+                '6.207 × 39 = 242.073'
+              ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2C2',
-                kind: 'numeric',
-                question: 'Multiplicaciones por 3 cifras',
-                hint: 'Revisa que el tercer renglón esté corrido dos lugares hacia la izquierda.',
-                explain: 'Excelente. Esas son las más difíciles del día.',
-                items: [
-                  { text: '2.164 × 315', answer: '681.660' },
-                  { text: '4.027 × 208', answer: '837.616' },
-                  { text: '1.856 × 134', answer: '248.704' },
-                  { text: '3.405 × 260', answer: '885.300' },
-                  { text: '1.078 × 523', answer: '563.794' },
-                  { text: '2.930 × 407', answer: '1.192.510' }
-                ]
-              }
+              type: 'notebook',
+              id: '2C2',
+              title: 'Multiplicaciones por 3 cifras',
+              intro: 'Las mismas de antes, pero con tres renglones. Revisa que el tercero quede corrido **dos** lugares hacia la izquierda antes de sumar.',
+              items: [
+                '2.164 × 315',
+                '4.027 × 208',
+                '1.856 × 134',
+                '3.405 × 260',
+                '1.078 × 523',
+                '2.930 × 407'
+              ],
+              key: [
+                '2.164 × 315 = 681.660',
+                '4.027 × 208 = 837.616',
+                '1.856 × 134 = 248.704',
+                '3.405 × 260 = 885.300',
+                '1.078 × 523 = 563.794',
+                '2.930 × 407 = 1.192.510'
+              ],
+              keyNote: 'Estas son las más difíciles del día. Si alguna no te dio, revisa primero si los renglones quedaron bien corridos.'
             }
           ]
         }
@@ -321,38 +361,50 @@ window.Guide.register('math', {
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2D1',
-                kind: 'numericPair',
-                question: 'Divisiones por 2 cifras',
-                explain: 'Muy bien. Fíjate que en todas el residuo quedó menor que el divisor.',
-                operations: [
-                  { text: '9.135 ÷ 35', quotient: 261, remainder: 0 },
-                  { text: '15.876 ÷ 42', quotient: 378, remainder: 0 },
-                  { text: '8.052 ÷ 61', quotient: 132, remainder: 0 },
-                  { text: '23.940 ÷ 28', quotient: 855, remainder: 0 },
-                  { text: '47.736 ÷ 56', quotient: 852, remainder: 24 },
-                  { text: '61.245 ÷ 73', quotient: 838, remainder: 71 }
-                ]
-              }
+              type: 'notebook',
+              id: '2D1',
+              title: 'Divisiones por 2 cifras',
+              intro: 'Copia cada división en tu cuaderno con su casita y resuélvela. Escribe siempre las dos respuestas: **cociente** y **residuo**.',
+              items: [
+                '9.135 ÷ 35',
+                '15.876 ÷ 42',
+                '8.052 ÷ 61',
+                '23.940 ÷ 28',
+                '47.736 ÷ 56',
+                '61.245 ÷ 73'
+              ],
+              key: [
+                '9.135 ÷ 35 → cociente 261, residuo 0',
+                '15.876 ÷ 42 → cociente 378, residuo 0',
+                '8.052 ÷ 61 → cociente 132, residuo 0',
+                '23.940 ÷ 28 → cociente 855, residuo 0',
+                '47.736 ÷ 56 → cociente 852, residuo 24',
+                '61.245 ÷ 73 → cociente 838, residuo 71'
+              ],
+              keyNote: 'En todas, el residuo quedó menor que el divisor. Si el tuyo salió mayor, es que el cociente se quedó corto.'
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2D2',
-                kind: 'numericPair',
-                question: 'Divisiones por 3 cifras',
-                explain: 'Excelente trabajo. Comprueba cada una con la prueba de la división.',
-                operations: [
-                  { text: '68.352 ÷ 356', quotient: 192, remainder: 0 },
-                  { text: '91.500 ÷ 250', quotient: 366, remainder: 0 },
-                  { text: '45.780 ÷ 120', quotient: 381, remainder: 60 },
-                  { text: '137.592 ÷ 408', quotient: 337, remainder: 96 },
-                  { text: '258.750 ÷ 375', quotient: 690, remainder: 0 },
-                  { text: '504.432 ÷ 624', quotient: 808, remainder: 240 }
-                ]
-              }
+              type: 'notebook',
+              id: '2D2',
+              title: 'Divisiones por 3 cifras',
+              intro: 'Ahora el divisor tiene tres cifras, así que hay que tomar más cifras del dividendo para empezar. Copia cada una y escribe cociente y residuo.',
+              items: [
+                '68.352 ÷ 356',
+                '91.500 ÷ 250',
+                '45.780 ÷ 120',
+                '137.592 ÷ 408',
+                '258.750 ÷ 375',
+                '504.432 ÷ 624'
+              ],
+              key: [
+                '68.352 ÷ 356 → cociente 192, residuo 0',
+                '91.500 ÷ 250 → cociente 366, residuo 0',
+                '45.780 ÷ 120 → cociente 381, residuo 60',
+                '137.592 ÷ 408 → cociente 337, residuo 96',
+                '258.750 ÷ 375 → cociente 690, residuo 0',
+                '504.432 ÷ 624 → cociente 808, residuo 240'
+              ],
+              keyNote: 'Comprueba cada una en el cuaderno: (cociente × divisor) + residuo debe darte el dividendo.'
             }
           ]
         }
@@ -394,36 +446,46 @@ window.Guide.register('math', {
               ]
             },
             {
-              type: 'activity',
-              activity: {
-                id: '2E1',
-                kind: 'numeric',
-                question: 'Resuelve cada problema en el cuaderno y escribe aquí el resultado.',
-                layout: 'stacked',
-                explain: 'Muy bien. Leíste la situación antes de calcular.',
-                items: [
-                  { text: 'La biblioteca del municipio tenía 234.780 libros y recibió una donación de 45.620 libros más. ¿Cuántos libros tiene ahora?', answer: '280.400', unit: 'libros' },
-                  { text: 'Una empresa de agua embotelló 128.500 litros y los repartió en canecas iguales de 250 litros. ¿Cuántas canecas llenó?', answer: '514', unit: 'canecas' },
-                  { text: 'Un colegio recibió 3.456 cuadernos y los repartió por partes iguales entre sus 24 salones. ¿Cuántos cuadernos recibió cada salón?', answer: '144', unit: 'cuadernos' },
-                  { text: 'En una bodega hay 315 cajas y cada caja trae 148 lápices. ¿Cuántos lápices hay en total?', answer: '46.620', unit: 'lápices' },
-                  { text: 'Una fundación tenía 520.000 pesos para materiales escolares y gastó 348.750 pesos. ¿Cuánto dinero le quedó?', answer: '171.250', unit: 'pesos' },
-                  { text: 'Un grupo de voluntarios armó 1.248 kits de aseo. Si en cada caja caben 24 kits, ¿cuántas cajas necesitan?', answer: '52', unit: 'cajas' },
-                  { text: 'La placa de Nazca se mueve 60 milímetros cada año. ¿Cuántos milímetros se mueve en 100 años?', answer: '6.000', unit: 'mm' },
-                  { text: 'Un camión recorrió 1.256 kilómetros en un viaje. Si hizo 8 viajes iguales, ¿cuántos kilómetros recorrió en total?', answer: '10.048', unit: 'km' },
-                  { text: 'Tres escuelas reunieron útiles: la primera 12.480, la segunda 9.755 y la tercera 15.302. ¿Cuántos reunieron entre las tres?', answer: '37.537', unit: 'útiles' },
-                  { text: 'De las tres escuelas anteriores, ¿cuántos útiles más reunió la tercera que la segunda?', answer: '5.547', unit: 'útiles' },
-                  { text: 'En un acueducto se almacenan 604.800 litros de agua y se reparten en 144 tanques iguales. ¿Cuántos litros quedan en cada tanque?', answer: '4.200', unit: 'litros' }
-                ]
-              }
+              type: 'notebook',
+              id: '2E1',
+              title: 'Once problemas',
+              intro: 'Copia cada problema en tu cuaderno. Debajo escribe **la operación** que usaste, desarróllala y termina con **la respuesta completa**, con su palabra: "Ahora tiene 280.400 libros".',
+              items: [
+                'La biblioteca del municipio tenía 234.780 libros y recibió una donación de 45.620 libros más. ¿Cuántos libros tiene ahora?',
+                'Una empresa de agua embotelló 128.500 litros y los repartió en canecas iguales de 250 litros. ¿Cuántas canecas llenó?',
+                'Un colegio recibió 3.456 cuadernos y los repartió por partes iguales entre sus 24 salones. ¿Cuántos cuadernos recibió cada salón?',
+                'En una bodega hay 315 cajas y cada caja trae 148 lápices. ¿Cuántos lápices hay en total?',
+                'Una fundación tenía 520.000 pesos para materiales escolares y gastó 348.750 pesos. ¿Cuánto dinero le quedó?',
+                'Un grupo de voluntarios armó 1.248 kits de aseo. Si en cada caja caben 24 kits, ¿cuántas cajas necesitan?',
+                'La placa de Nazca se mueve 60 milímetros cada año. ¿Cuántos milímetros se mueve en 100 años?',
+                'Un camión recorrió 1.256 kilómetros en un viaje. Si hizo 8 viajes iguales, ¿cuántos kilómetros recorrió en total?',
+                'Tres escuelas reunieron útiles: la primera 12.480, la segunda 9.755 y la tercera 15.302. ¿Cuántos reunieron entre las tres?',
+                'De las tres escuelas anteriores, ¿cuántos útiles más reunió la tercera que la segunda?',
+                'En un acueducto se almacenan 604.800 litros de agua y se reparten en 144 tanques iguales. ¿Cuántos litros quedan en cada tanque?'
+              ],
+              key: [
+                '234.780 + 45.620 = 280.400 libros',
+                '128.500 ÷ 250 = 514 canecas',
+                '3.456 ÷ 24 = 144 cuadernos',
+                '315 × 148 = 46.620 lápices',
+                '520.000 − 348.750 = 171.250 pesos',
+                '1.248 ÷ 24 = 52 cajas',
+                '60 × 100 = 6.000 milímetros',
+                '1.256 × 8 = 10.048 kilómetros',
+                '12.480 + 9.755 + 15.302 = 37.537 útiles',
+                '15.302 − 9.755 = 5.547 útiles',
+                '604.800 ÷ 144 = 4.200 litros'
+              ],
+              keyNote: 'La respuesta completa lleva la palabra: no basta con escribir "280.400", se escribe "280.400 libros".'
             },
             {
               type: 'notebook',
               id: '2E2',
               title: 'De milímetros a metros',
-              intro: 'En el problema de la placa de Nazca calculaste 6.000 milímetros. Sabiendo que **1.000 mm = 1 m**, escribe en tu cuaderno a cuántos metros equivale.',
-              keyTitle: 'Respuesta',
+              intro: 'En el problema 7 calculaste 6.000 milímetros. Sabiendo que **1.000 mm = 1 m**, escribe en tu cuaderno a cuántos metros equivale y con qué operación lo averiguaste.',
+              ordered: false,
               items: ['6.000 mm = ______ metros'],
-              key: ['6.000 mm = 6 metros. Se divide entre 1.000.']
+              key: ['6.000 ÷ 1.000 = 6. Entonces 6.000 mm = 6 metros.']
             },
             {
               type: 'links',
@@ -440,7 +502,8 @@ window.Guide.register('math', {
               title: 'Nota editorial para la docente',
               paragraphs: [
                 'Los contextos de los problemas se escogieron a propósito: bibliotecas, acueductos, útiles escolares, voluntarios y datos científicos. **No se usan cifras de personas fallecidas, heridas ni de edificios colapsados.**',
-                'Convertir la tragedia en un enunciado matemático obliga al niño a manipular numéricamente aquello que todavía le duele, y a esta edad eso reactiva la angustia en lugar de elaborarla. Los contextos de ayuda y reconstrucción sí se conservan porque refuerzan que la comunidad está respondiendo.'
+                'Convertir la tragedia en un enunciado matemático obliga al niño a manipular numéricamente aquello que todavía le duele, y a esta edad eso reactiva la angustia en lugar de elaborarla. Los contextos de ayuda y reconstrucción sí se conservan porque refuerzan que la comunidad está respondiendo.',
+                'El solucionario del final está pensado para comparar y transcribir **después** de resolver. Si prefiere que el estudiante no lo vea antes de tiempo, pídale que trabaje con la página cerrada y la abra solo al terminar.'
               ],
               items: ['Si se agregan problemas nuevos, mantener este criterio.']
             }

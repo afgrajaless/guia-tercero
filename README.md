@@ -16,20 +16,28 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
 | Jueves 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
 | Viernes 4 | Aún por definir | tarjeta reservada en la portada |
 
-## Dos reglas que rigen todo el sitio
+## Tres reglas que rigen todo el sitio
 
-1. **Las respuestas abiertas se escriben en el cuaderno**, no en el sitio. El sitio explica,
-   propone la consigna y deja marcar "Ya lo escribí". La docente revisa el cuaderno físico.
-   Solo se autocorrige lo que tiene una respuesta única: operaciones, preguntas literales,
-   ordenar, unir y clasificar.
-2. **La sección psicosocial no califica.** Ningún ítem muestra ✓ ni ✗ ni suma puntaje. Todos
-   sus bloques ofrecen "Prefiero no responder", que completa el ítem sin escribir nada.
-   Esto se declara con `grades: false` en `data/wellbeing.js` y el validador lo hace cumplir.
+1. **Todo se resuelve en el cuaderno.** El sitio explica, muestra el ejemplo y deja la consigna;
+   el estudiante copia el enunciado y lo resuelve en su cuaderno. **No hay nada que responder en
+   la página:** ni selección múltiple, ni campos de texto, ni tarjetas que arrastrar, ni casillas
+   que marcar. Tampoco hay avance guardado, porcentajes ni puntaje. La docente revisa el cuaderno
+   físico.
+2. **Las respuestas van al final del día.** Cada página cierra con el solucionario
+   **"Respuestas de hoy"**, con una entrada por actividad. El estudiante resuelve primero, luego
+   compara y pasa también la respuesta al cuaderno. Cada entrada enlaza de vuelta a su consigna.
+3. **La sección psicosocial no califica.** Ninguna de sus actividades tiene respuesta correcta.
+   Su bloque de cierre no se llama "Respuestas" sino **"Para comparar en familia"**, y solo trae
+   la clave de la actividad de los dos círculos, como excusa para conversarla con un adulto.
+   Esto se declara con `grades: false` en `data/wellbeing.js`.
+
+La única parte que se usa en pantalla es la **respiración cuadrada** del martes: una animación que
+marca el ritmo de la respiración. No pide respuestas ni guarda nada.
 
 ## Estructura
 
 ```
-index.html            Agenda de la semana con el avance de cada día
+index.html            Agenda de la semana
 wellbeing.html        Martes · Psicosocial
 math.html             Miércoles · Matemáticas
 reading.html          Jueves · Comprensión lectora
@@ -37,16 +45,15 @@ reading.html          Jueves · Comprensión lectora
 assets/css/
   tokens.css          Colores, tipografía y espaciados
   base.css            Reset, tipografía base y utilidades de layout
-  components.css      Cabecera, tarjetas, actividades, progreso
-  blocks.css          Bloques de contenido y panel del texto de lectura
+  components.css      Cabecera, tarjetas, lecciones, índice, solucionario
+  blocks.css          Bloques de contenido y panel de los textos de lectura
+  print.css           Versión imprimible (media="print")
 
 assets/js/
   core.js             Registro de contenido, iconos y utilidades
-  progress.js         Avance y datos guardados en localStorage
-  activities.js       Motor de actividades (10 tipos)
   figures.js          Diagramas SVG generados por parámetros
   blocks.js           Renderizado de los bloques de contenido
-  area.js             Arma la página de un día
+  area.js             Arma la página de un día, con su índice y su solucionario
   home.js             Arma la agenda de la portada
 
 data/
@@ -79,8 +86,8 @@ window.Guide.register('math', {
 });
 ```
 
-Los `id` de unidad, lección, actividad y bloque deben ser únicos dentro del área: con ellos se
-guarda el avance. Si cambias un `id`, el estudiante pierde el avance de ese ítem.
+Los `id` de unidad, lección y consigna deben ser únicos dentro del área: con el id de la consigna
+se arma el ancla que la enlaza con su respuesta en el solucionario.
 
 ### Bloques de contenido
 
@@ -96,31 +103,40 @@ guarda el avance. Si cambias un `id`, el estudiante pierde el avance de ese íte
 | `links` | `title`, `items[{label, href, note}]` | Enlaces externos, abren en pestaña nueva. |
 | `figure` | `figure`, `alt`, + parámetros | Diagrama SVG: `numberLine`, `fraction`, `shape`, `pictogram`. |
 | `adult` | `title`, `paragraphs[]`, `items[]` | Nota para el docente o acudiente, colapsada. |
-| `notebook` | `id`, `title`, `intro`, `items[]`, `key[]`, `optOut` | **Consigna para el cuaderno.** `key` se revela al marcar. |
-| `checklist` | `id`, `title`, `items[]` | Casillas persistentes, sin puntaje. |
+| `notebook` | ver abajo | **La actividad.** Consigna que se copia al cuaderno. |
 | `breathing` | `id`, `cycles`, `closing` | Guía animada de respiración cuadrada. |
-| `activity` | `activity: {}` | Actividad interactiva. |
 
-### Tipos de actividad
+### La consigna de cuaderno
+
+Es el único tipo de actividad que existe. Todo lo que antes se respondía en pantalla —selección
+múltiple, unir, ordenar, clasificar, operaciones— hoy es una consigna de estas.
 
 ```js
-{ kind: 'choice',      question, options[], answer: 1, hint, explain }
-{ kind: 'truefalse',   question, answer: true, explain }
-{ kind: 'fill',        question, text: 'El sol {{sale|aparece}} temprano.' }
-{ kind: 'match',       question, leftLabel, rightLabel, pairs: [{left, right}] }
-{ kind: 'order',       question, items: [] }          // en el orden CORRECTO; se baraja solo
-{ kind: 'numeric',     question, layout: 'stacked',
-                       items: [{ text, answer, unit }, { text, options: ['<','>','='], answer: '<' }] }
-{ kind: 'numericPair', question, operations: [{ text: '9.135 ÷ 35', quotient: 261, remainder: 0 }] }
-{ kind: 'mood',        question, options: [] }        // sin respuesta correcta, guarda historial
-{ kind: 'classify',    question, soft: true, groups: [{id, title, tone}], cards: [{text, group}] }
-{ kind: 'practice',    question, generator: 'times', count: 5, options: { table: 7 } }
+{
+  type: 'notebook',
+  id: '2B1',                    // único en el área; con él se arma el ancla
+  title: 'Adiciones',
+  intro: 'Copia cada adición en tu cuaderno...',
+  items: ['234.567 + 189.435', '405.812 + 97.649'],
+  ordered: false,               // opcional: lista con viñeta en vez de numerada
+  note: 'Si algo no quieres responderlo, déjalo en blanco.',   // opcional, en cursiva
+  key: ['234.567 + 189.435 = 424.002', '405.812 + 97.649 = 503.461'],
+  keyNote: 'Revisa lo que llevabas en cada columna.'           // opcional
+}
 ```
 
-- `soft: true` en `classify` invita a repensar la tarjeta mal ubicada, sin marcarla como error.
-  Sin `soft`, cualquier ubicación se acepta.
-- Los números se comparan ignorando los puntos de miles: `424.002` y `424002` valen igual.
-- El texto se compara sin distinguir mayúsculas, tildes ni espacios sobrantes.
+- **`key` no se dibuja junto a la consigna.** `area.js` recoge todas las `key` del día y las pinta
+  al final, en el solucionario. La consigna solo muestra un enlace hacia allá.
+- Si la consigna va numerada (`ordered` distinto de `false`) y tiene más de un punto, **`items` y
+  `key` deben tener el mismo largo**: así la respuesta 3 corresponde al ejercicio 3. El validador
+  lo hace cumplir.
+- Sin `key`, la consigna es abierta y no aparece en el solucionario. Es lo correcto para las
+  preguntas de opinión y para todo lo personal.
+- Formato de las respuestas que el validador sabe recalcular:
+  - `234.567 + 189.435 = 424.002` (suma, resta, multiplicación, división)
+  - `347.205 = 300.000 + 40.000 + 7.000 + 200 + 0 + 5` (descomposición)
+  - `348.912 < 348.921` (comparación)
+  - `9.135 ÷ 35 → cociente 261, residuo 0` (división con residuo)
 
 ## Desarrollo local
 
@@ -136,20 +152,31 @@ También funciona abriendo `index.html` con doble clic: el contenido son archivo
 
 ```bash
 node _local/validate-content.js   # estructura, ids repetidos y RECALCULA toda la aritmética
+node _local/run-tests.js          # corre las pruebas de test.html sin abrir el navegador
 node _local/build-pages.js        # regenera las tres páginas desde la plantilla común
 ```
 
+`run-tests.js` necesita `jsdom`, que se instala una sola vez con `cd _local && npm install jsdom`.
+La carpeta `_local/` está en `.gitignore`, así que no se sube.
+
 Con el servidor levantado:
 
-- `/_local/test.html` — 98 pruebas del motor de actividades, bloques y progreso.
+- `/_local/test.html` — las mismas pruebas, en el navegador de verdad.
 - `/_local/overflow-check.html` — las 4 páginas a 360, 390, 768 y 1280 px sin desbordamiento horizontal.
 - `/_local/find-overflow.html` — diagnostica qué elemento desborda, si alguno lo hace.
 
-> **Nota sobre desbordamientos.** Es el error que más ha aparecido en este proyecto. La causa
-> siempre es la misma: un hijo de `flex` o `grid` con `min-width: auto` que no puede encogerse
-> (rieles, tablas, campos `input`), o un `flex-wrap: wrap` combinado con `flex-direction: column`,
-> que envuelve creando columnas nuevas hacia el lado. Ante cualquier cambio de layout, corre
-> `overflow-check` antes de publicar.
+> **Nota sobre desbordamientos.** Fue el error que más apareció en este proyecto, y su causa era
+> siempre la misma: un hijo de `flex` o `grid` con `min-width: auto` que no podía encogerse —casi
+> siempre un `input`—. Al quitar las actividades interactivas desaparecieron todos los campos de
+> formulario del sitio, así que el riesgo bajó mucho. Aun así, ante cualquier cambio de layout,
+> corre `overflow-check` antes de publicar.
+
+## Imprimir
+
+`print.css` se carga con `media="print"` y prepara una versión en papel: quita la navegación, el
+índice y el panel de los textos, abre los desplegables para que el procedimiento quede visible,
+imprime cada unidad y el solucionario en su propia hoja, y evita que una consigna se parta entre
+dos páginas. Sirve para quien no tiene conexión estable en casa.
 
 ## Publicar
 
@@ -166,3 +193,6 @@ GitHub Pages reconstruye solo en aproximadamente un minuto.
 - No se incluyen imágenes de escombros ni de rescates.
 - Los cuentos de apoyo se **enlazan**, no se copian: tienen condiciones de uso propias.
 - El bloque de Línea Amiga 106 permanece siempre visible al pie de la sección psicosocial.
+- En la sección psicosocial no se agregan consignas con `key` que impliquen respuesta correcta.
+  La única que la tiene es la de los dos círculos, y su clave está redactada para conversar,
+  no para corregir.

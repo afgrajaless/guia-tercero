@@ -117,8 +117,6 @@ p { text-wrap: pretty; }
   margin-inline: auto;
 }
 
-.wrap--narrow { width: min(100% - 2.5rem, 46rem); }
-
 .stack {
   display: flex;
   flex-direction: column;

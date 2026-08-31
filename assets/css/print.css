@@ -1,0 +1,203 @@
+/* ==========================================================================
+   print.css — Version imprimible de la guia.
+   Se carga con media="print", asi que no afecta lo que se ve en pantalla.
+
+   Como toda la guia se resuelve en el cuaderno, imprimirla es una manera
+   valida de trabajarla: sirve para quien no tiene conexion estable en casa.
+   Esta hoja hace cuatro cosas: obliga a la paleta clara (si no, quien tiene
+   el tema oscuro imprime paginas negras), quita la navegacion y todo lo que
+   solo sirve en pantalla, abre los bloques desplegables para que el
+   procedimiento quede visible en el papel, y evita que una consigna se parta
+   entre dos hojas.
+   ========================================================================== */
+
+@page {
+  margin: 1.6cm 1.4cm;
+}
+
+/* --- Paleta de impresion -------------------------------------------------- */
+
+/* En tokens.css el tema oscuro se declara con `:root:not([data-theme="light"])`
+   y con `:root[data-theme="dark"]`, que pesan mas que un `:root` a secas. Se
+   repite `:root` para igualar y superar esa especificidad: si no, quien tenga
+   el tema oscuro imprime texto claro sobre papel blanco. */
+:root:root,
+:root:root[data-theme="dark"],
+:root:root[data-theme="light"] {
+  color-scheme: light;
+
+  --paper:        #FFFFFF;
+  --paper-grid:   #FFFFFF;
+  --surface:      #FFFFFF;
+  --surface-2:    #FFFFFF;
+  --surface-3:    #FFFFFF;
+  --ink:          #000000;
+  --ink-soft:     #1A1A1A;
+  --ink-muted:    #444444;
+  --line:         #999999;
+  --line-strong:  #666666;
+
+  --reading:        #000000;
+  --reading-deep:   #000000;
+  --reading-soft:   #FFFFFF;
+  --reading-line:   #666666;
+
+  --math:           #000000;
+  --math-deep:      #000000;
+  --math-soft:      #FFFFFF;
+  --math-line:      #666666;
+
+  --wellbeing:      #000000;
+  --wellbeing-deep: #000000;
+  --wellbeing-soft: #FFFFFF;
+  --wellbeing-line: #666666;
+
+  --star:      #666666;
+  --star-soft: #FFFFFF;
+  --ok:        #000000;
+  --ok-soft:   #FFFFFF;
+  --ok-line:   #666666;
+  --no:        #000000;
+  --no-soft:   #FFFFFF;
+  --no-line:   #666666;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+html,
+body {
+  background: #fff;
+  color: #000;
+  font-size: 11pt;
+}
+
+/* El fondo de la pagina es una cuadricula decorativa: en papel sobra. */
+body::before,
+body::after {
+  display: none !important;
+}
+
+/* --- Lo que no se imprime -------------------------------------------------- */
+
+.site-header,
+.site-footer,
+.unit-rail,
+.text-toggle,
+.text-panel,
+.skip-link,
+.theme-toggle,
+.breathing,
+.notice .row,
+.notebook__pointer,
+.area-card__cta,
+.notice__title svg,
+.help__title svg,
+.callout__title svg,
+.answers__title svg,
+.notebook__tag svg,
+.area-head__count svg {
+  display: none !important;
+}
+
+/* --- Ancho completo de la hoja --------------------------------------------- */
+
+.page { padding: 0; }
+.wrap { max-width: none; padding: 0; }
+.area-layout { display: block; }
+.stack--loose { gap: 0; }
+
+/* --- Recuadros: solo contorno, sin relleno --------------------------------- */
+
+.area-head,
+.lesson,
+.lesson__goal,
+.notebook,
+.answers,
+.callout,
+.example,
+.reading-text,
+.help,
+.notice,
+.steps,
+.adult,
+.data-table__grid {
+  box-shadow: none !important;
+  background: #fff !important;
+  color: #000 !important;
+}
+
+.area-head,
+.lesson,
+.callout,
+.example,
+.help,
+.notice,
+.answers {
+  border: 1pt solid #999;
+  border-radius: 6pt;
+}
+
+.notebook {
+  border: 1.5pt dashed #555;
+  border-radius: 6pt;
+}
+
+.lesson__goal {
+  border: 0;
+  border-inline-start: 3pt solid #666;
+  border-radius: 0;
+}
+
+.area-head__learning {
+  background: #fff !important;
+  border-inline-start: 3pt solid #666;
+}
+
+/* Los desplegables se imprimen abiertos: en papel no hay donde hacer clic. */
+details > *:not(summary) { display: block !important; }
+.steps__summary::after,
+.adult__summary::after { content: ""; }
+
+/* --- Cortes de pagina ------------------------------------------------------ */
+
+/* Nada de lo que se copia al cuaderno debe partirse entre dos hojas. */
+.notebook,
+.answers__item,
+.callout,
+.example,
+.figure,
+.data-table,
+.lesson__head {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.unit,
+.answers {
+  break-before: page;
+  page-break-before: always;
+}
+
+.unit:first-child {
+  break-before: auto;
+  page-break-before: auto;
+}
+
+h1, h2, h3, h4 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* --- Enlaces --------------------------------------------------------------- */
+
+/* En papel no se pueden abrir: se imprime la dirección al lado. */
+.links__link::after {
+  content: " (" attr(href) ")";
+  font-size: 9pt;
+  font-weight: 400;
+  word-break: break-all;
+}
+
+.links__link svg { display: none; }

@@ -5,9 +5,10 @@
    Los dos textos son originales, escritos para esta guía. Los datos del
    Texto 1 provienen del Servicio Geológico Colombiano.
 
-   Las preguntas literales se autocorrigen. Las inferenciales y críticas se
-   escriben en el cuaderno y muestran una clave orientadora: nunca se marcan
-   como incorrectas.
+   Todo se resuelve en el cuaderno: no hay preguntas de selección ni nada que
+   marcar en la página. Las respuestas de las preguntas literales y de las
+   actividades de vocabulario, orden y comparación se reúnen al final, en
+   "Respuestas de hoy". Las preguntas de opinión no llevan respuesta.
    ========================================================================== */
 
 window.Guide.register('reading', {
@@ -17,15 +18,17 @@ window.Guide.register('reading', {
   href: 'reading.html',
   day: { label: 'Jueves 3 de septiembre', short: 'Jueves 3', weekday: 'Jueves' },
   subject: 'DBA 6 · Componente semántico',
-  description: 'Dos textos sobre el mismo tema, escritos para cosas distintas. Uno explica por qué tiembla la tierra; el otro enseña qué hacer. Vas a leerlos, entenderlos y compararlos.',
+  description: 'Dos textos sobre el mismo tema, escritos para cosas distintas. Uno explica por qué tiembla la tierra; el otro enseña qué hacer. Vas a leerlos y trabajarlos en tu cuaderno.',
   learning: 'Comparo textos de diferente formato y finalidad para dar cuenta de sus relaciones de contenido.',
 
   notice: {
     title: 'Antes de leer',
     dismissLabel: 'Entendido',
     paragraphs: [
+      'Todo lo de hoy se escribe **en el cuaderno**: la pregunta y luego tu respuesta, con frases completas. En la página no hay nada que marcar ni que oprimir.',
       'Si alguna parte te hace sentir incómodo o triste, puedes parar, respirar y contarle a un adulto de tu casa. Leer sobre lo que pasó ayuda a entenderlo, pero no hay que hacerlo de afán.',
-      'El botón **Ver el texto** te deja abrir la lectura en cualquier momento mientras respondes. No tienes que memorizar nada.'
+      'El botón **Ver los textos** te deja tener la lectura a la mano mientras escribes. No tienes que memorizar nada: puedes volver al texto todas las veces que quieras.',
+      'Al final de la página está **Respuestas de hoy**, para que compares lo que escribiste y lo completes.'
     ]
   },
 
@@ -46,7 +49,9 @@ window.Guide.register('reading', {
               id: '3A0',
               title: 'Antes de leer: lo que ya pienso',
               intro: '¿Qué crees tú que hace que la tierra tiemble? Escribe tu idea en el cuaderno, aunque no estés seguro. Al final de la guía vas a volver a leerla, así que **ponle la fecha**.',
-              items: ['Yo creo que la tierra tiembla porque…']
+              ordered: false,
+              items: ['Yo creo que la tierra tiembla porque…'],
+              note: 'Esta la escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
               type: 'text',
@@ -69,92 +74,33 @@ window.Guide.register('reading', {
               source: 'Texto original escrito para esta guía. Datos del Servicio Geológico Colombiano.'
             },
             {
-              type: 'activity',
-              activity: {
-                id: '3A1a',
-                kind: 'choice',
-                question: '¿Cómo se llama la placa que está debajo del océano Pacífico?',
-                options: ['Placa de Cocos', 'Placa de Nazca', 'Placa del Caribe', 'Placa Suramericana'],
-                answer: 1,
-                hint: 'Está en el segundo párrafo del texto.',
-                explain: 'La placa de Nazca es la que se mete por debajo de la placa donde está América del Sur.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: '3A1b',
-                kind: 'choice',
-                question: '¿Qué día y a qué hora ocurrió el sismo del que habla el texto?',
-                options: [
-                  'El lunes 10 de agosto de 2026, a las 7:34 de la mañana',
-                  'El lunes 10 de agosto de 2026, a las 7:34 de la noche',
-                  'El domingo 10 de agosto de 2026, a las 6:34 de la mañana'
-                ],
-                answer: 0,
-                hint: 'Busca la fecha en el cuarto párrafo.',
-                explain: 'El texto lo dice con día, mes, año y hora exacta: así de preciso es un texto informativo.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: '3A1c',
-                kind: 'choice',
-                question: '¿Cerca de qué municipio y en qué departamento empezó?',
-                options: [
-                  'Quibdó, en el Chocó',
-                  'San José del Palmar, en el Chocó',
-                  'San José del Palmar, en Risaralda'
-                ],
-                answer: 1,
-                hint: 'Ojo: el municipio y el departamento están juntos en la misma frase.',
-                explain: 'Empezó cerca de San José del Palmar, en el departamento del Chocó.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: '3A1d',
-                kind: 'choice',
-                question: '¿Cómo se llama la entidad que estudia el suelo de Colombia?',
-                options: [
-                  'Instituto Geográfico Agustín Codazzi',
-                  'Servicio Geológico Colombiano',
-                  'Instituto de Hidrología y Meteorología'
-                ],
-                answer: 1,
-                hint: 'El texto la nombra justo antes de dar el tamaño del sismo.',
-                explain: 'El Servicio Geológico Colombiano es el que mide y estudia los sismos del país.'
-              }
-            },
-            {
-              type: 'activity',
-              activity: {
-                id: '3A1e',
-                kind: 'choice',
-                question: '¿Cómo se llaman los sismos pequeños que vienen después de uno grande?',
-                options: ['Ondas', 'Réplicas', 'Placas'],
-                answer: 1,
-                hint: 'Están en el sexto párrafo.',
-                explain: 'Se llaman réplicas y son la manera en que la tierra termina de acomodarse.'
-              }
-            },
-            {
               type: 'notebook',
-              id: '3A1f',
-              title: 'Tres ciudades',
-              intro: 'Escribe en tu cuaderno tres ciudades donde se sintió el movimiento, según el texto.',
-              keyTitle: 'Las que menciona el texto',
-              items: ['Ciudad 1 · Ciudad 2 · Ciudad 3'],
-              key: ['Pereira, Cali, Manizales, Armenia, Quibdó y Bogotá. Cualquiera de esas tres está bien.']
+              id: '3A1',
+              title: 'Preguntas sobre el Texto 1',
+              intro: 'Copia cada pregunta en tu cuaderno y escribe debajo la respuesta **con una frase completa**. Todas están en el texto: si no la encuentras, vuelve a leer el párrafo que habla de eso.',
+              items: [
+                '¿Cómo se llama la placa que está debajo del océano Pacífico?',
+                '¿Qué día y a qué hora ocurrió el sismo del que habla el texto?',
+                '¿Cerca de qué municipio y en qué departamento empezó?',
+                '¿Cómo se llama la entidad que estudia el suelo de Colombia?',
+                '¿Cómo se llaman los sismos pequeños que vienen después de uno grande?',
+                'Escribe tres ciudades donde se sintió el movimiento, según el texto.'
+              ],
+              key: [
+                'La placa que está debajo del océano Pacífico se llama placa de Nazca.',
+                'El sismo ocurrió el lunes 10 de agosto de 2026, a las 7:34 de la mañana.',
+                'Empezó cerca del municipio de San José del Palmar, en el departamento del Chocó.',
+                'La entidad que estudia el suelo de Colombia es el Servicio Geológico Colombiano.',
+                'Los sismos pequeños que vienen después se llaman réplicas.',
+                'El texto nombra Pereira, Cali, Manizales, Armenia, Quibdó y Bogotá. Cualquiera de esas tres está bien.'
+              ],
+              keyNote: 'Estas son preguntas literales: la respuesta está escrita en el texto, tal cual.'
             },
             {
               type: 'notebook',
               id: '3A2',
               title: 'Preguntas para pensar',
-              intro: 'Responde estas preguntas en tu cuaderno con frases completas. Aquí no hay una sola respuesta correcta: al marcar "Ya lo escribí" vas a ver una respuesta posible para comparar con la tuya.',
-              keyTitle: 'Respuestas posibles para comparar',
+              intro: 'Estas no están escritas tal cual en el texto: hay que deducirlas. Copia cada pregunta en el cuaderno y responde con tus palabras, en frases completas.',
               items: [
                 '¿Por qué el texto compara las placas con un rompecabezas? ¿Qué se parece entre las dos cosas?',
                 'El texto dice que las placas avanzan "más o menos lo que crecen tus uñas". ¿Para qué crees que el autor usa esa comparación?',
@@ -167,28 +113,31 @@ window.Guide.register('reading', {
                 'Para que entendamos con algo cotidiano qué tan lento es ese movimiento.',
                 'Porque no podemos controlar cuándo ocurre, pero sí podemos aprender qué hacer y hacerlo rápido y sin miedo.',
                 'Porque la energía viaja por dentro de la tierra en forma de ondas que llegan muy lejos.',
-                'El texto dice que son normales y que asustan; lo supe porque explica que la tierra se está acomodando.'
-              ]
+                'El texto dice que son normales, aunque asusten; se sabe porque explica que la tierra se está acomodando.'
+              ],
+              keyNote: 'Aquí no hay una sola manera de decirlo. Si escribiste la misma idea con otras palabras, está bien.'
             },
             {
-              type: 'activity',
-              activity: {
-                id: '3A3',
-                kind: 'match',
-                question: 'Vocabulario en contexto: une cada palabra con su significado.',
-                leftLabel: 'Palabra',
-                rightLabel: 'Significado',
-                hint: 'Vuelve al texto y mira cómo se usa la palabra en su frase.',
-                explain: 'Todas las palabras se pueden entender releyendo la frase donde aparecen.',
-                pairs: [
-                  { left: 'Placa', right: 'Pedazo grande de la capa exterior de la Tierra' },
-                  { left: 'Acumular', right: 'Ir juntando algo poco a poco' },
-                  { left: 'Superficie', right: 'La parte de afuera, lo que se ve por encima' },
-                  { left: 'Ondas', right: 'Movimientos que viajan y se van repitiendo, como en el agua' },
-                  { left: 'Réplica', right: 'Sismo más pequeño que ocurre después de uno grande' },
-                  { left: 'Resistente', right: 'Que aguanta sin romperse' }
-                ]
-              }
+              type: 'notebook',
+              id: '3A3',
+              title: 'Vocabulario en contexto',
+              intro: 'Copia en tu cuaderno este cuadro de dos columnas. En la primera van las palabras y en la segunda vas a escribir qué significa cada una **según cómo se usa en el texto**. Busca la palabra en su párrafo antes de responder.',
+              items: [
+                'Placa',
+                'Acumular',
+                'Superficie',
+                'Ondas',
+                'Réplica',
+                'Resistente'
+              ],
+              key: [
+                'Placa — pedazo grande de la capa exterior de la Tierra.',
+                'Acumular — ir juntando algo poco a poco.',
+                'Superficie — la parte de afuera, lo que se ve por encima.',
+                'Ondas — movimientos que viajan y se van repitiendo, como en el agua.',
+                'Réplica — sismo más pequeño que ocurre después de uno grande.',
+                'Resistente — que aguanta sin romperse.'
+              ]
             }
           ]
         }
@@ -210,11 +159,12 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3B0',
               title: 'Antes de leer',
-              intro: 'Piensa en una receta de cocina o en las instrucciones de un juego y responde en tu cuaderno.',
+              intro: 'Piensa en una receta de cocina o en las instrucciones de un juego. Copia las dos preguntas en el cuaderno y respóndelas antes de leer el Texto 2.',
               items: [
                 '¿En qué se parecen una receta y las instrucciones de un juego?',
                 '¿Qué pasaría si hicieras los pasos en desorden?'
-              ]
+              ],
+              note: 'Estas las escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
               type: 'text',
@@ -262,40 +212,51 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3B1',
               title: 'Cazo verbos',
-              intro: 'Busca en el Texto 2 los verbos que dan una orden y escribe **cinco** en tu cuaderno.',
-              keyTitle: 'Algunos de los que están en el texto',
+              intro: 'Busca en el Texto 2 los verbos que dan una orden y escribe **cinco** en tu cuaderno, uno debajo del otro.',
+              ordered: false,
               items: ['Verbo 1 · Verbo 2 · Verbo 3 · Verbo 4 · Verbo 5'],
-              key: ['Salgan, busquen, revisen, escriban, repitan, consigan, guarden, agreguen, cambien, quédate, agáchate, cúbrete, sostente, aléjate, practiquen.']
+              key: ['Salgan, busquen, revisen, escriban, repitan, consigan, guarden, agreguen, cambien, quédate, agáchate, cúbrete, sostente, aléjate, practiquen. Cualesquiera cinco de esos están bien.']
             },
             {
-              type: 'activity',
-              activity: {
-                id: '3B2',
-                kind: 'order',
-                question: 'Ordena lo que debe hacerse durante un movimiento.',
-                hint: 'Piensa qué pasa primero: ¿te agachas o sales?',
-                explain: 'Ese es el orden. Primero protegerse, y solo al final salir con calma.',
-                items: [
-                  'Agacharse y cubrirse la cabeza',
-                  'Sostenerse de algo firme',
-                  'Alejarse de las ventanas',
-                  'Esperar a que el movimiento pare',
-                  'Salir con calma hacia el punto de encuentro'
-                ]
-              }
+              type: 'notebook',
+              id: '3B2',
+              title: 'Pongo los pasos en orden',
+              intro: 'Estas cinco acciones están **en desorden**. Cópialas en tu cuaderno numeradas del 1 al 5, en el orden en que hay que hacerlas durante un movimiento. Piensa qué pasa primero: ¿te agachas o sales?',
+              ordered: false,
+              items: [
+                'Salir con calma hacia el punto de encuentro',
+                'Agacharse y cubrirse la cabeza',
+                'Esperar a que el movimiento pare',
+                'Sostenerse de algo firme',
+                'Alejarse de las ventanas'
+              ],
+              key: [
+                'Agacharse y cubrirse la cabeza',
+                'Sostenerse de algo firme',
+                'Alejarse de las ventanas',
+                'Esperar a que el movimiento pare',
+                'Salir con calma hacia el punto de encuentro'
+              ],
+              keyNote: 'Primero protegerse, y solo al final salir con calma.'
             },
             {
               type: 'notebook',
               id: '3B3',
               title: 'Escribo mi propio texto instructivo',
-              intro: 'Escribe en tu cuaderno un texto instructivo de **cuatro pasos** titulado: "Cómo calmarme cuando me pongo nervioso". Recuerda usar verbos que ordenen y numerar los pasos. Puedes usar lo que practicaste el martes con la respiración cuadrada.',
+              intro: 'Escribe en tu cuaderno un texto instructivo de **cuatro pasos** titulado: "Cómo calmarme cuando me pongo nervioso". Usa verbos que ordenen y numera los pasos. Puedes usar lo que practicaste el martes con la respiración cuadrada.',
+              ordered: false,
               items: [
                 'Título: Cómo calmarme cuando me pongo nervioso',
                 'Paso 1…',
                 'Paso 2…',
                 'Paso 3…',
                 'Paso 4…'
-              ]
+              ],
+              note: 'Este lo escribes tú. En el solucionario hay un ejemplo, pero el tuyo debe ser con tus propias palabras y con lo que a ti te sirve.',
+              key: [
+                'Un texto posible: 1. Busca un lugar tranquilo y siéntate. 2. Respira contando hasta cuatro, cuatro veces. 3. Nombra cinco cosas que veas a tu alrededor. 4. Cuéntale a un adulto cómo te sientes.'
+              ],
+              keyNote: 'Fíjate que cada paso empieza con un verbo que ordena y que van numerados: eso es lo que hace que sea un texto instructivo.'
             }
           ]
         }
@@ -317,8 +278,10 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3C0',
               title: 'Antes de comparar',
-              intro: 'Los dos textos hablan de sismos. Si tuvieras que escoger uno para un examen de ciencias y otro para pegar en la pared de tu casa, ¿cuál escogerías para cada cosa? ¿Por qué? Escríbelo en el cuaderno.',
-              items: ['Para el examen de ciencias escogería… porque…', 'Para pegar en la pared escogería… porque…']
+              intro: 'Los dos textos hablan de sismos. Si tuvieras que escoger uno para un examen de ciencias y otro para pegar en la pared de tu casa, ¿cuál escogerías para cada cosa? Copia las dos frases en tu cuaderno y complétalas.',
+              ordered: false,
+              items: ['Para el examen de ciencias escogería… porque…', 'Para pegar en la pared escogería… porque…'],
+              note: 'Estas las escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
               type: 'text',
@@ -330,8 +293,7 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3C1',
               title: 'Cuadro comparativo',
-              intro: 'Copia este cuadro en tu cuaderno y complétalo con los dos textos.',
-              keyTitle: 'Claves para comparar',
+              intro: 'Dibuja en tu cuaderno un cuadro de **tres columnas**: la primera para la pregunta, la segunda para el Texto 1 y la tercera para el Texto 2. Copia estas cinco preguntas en la primera columna y complétalo.',
               items: [
                 '¿Qué tipo de texto es?',
                 '¿Para qué fue escrito?',
@@ -344,42 +306,53 @@ window.Guide.register('reading', {
                 'Finalidad: el 1 explica por qué ocurren los sismos; el 2 enseña qué hacer y cómo prepararse.',
                 'Organización: el 1 va en párrafos, uno por idea; el 2 va en pasos numerados, en orden.',
                 'Palabras: el 1 da datos, fechas y cifras; el 2 da órdenes, con verbos de acción.',
-                'La última fila es tu respuesta personal: no hay clave.'
+                'Lo que aprendí: esta fila es tu respuesta personal, no tiene clave.'
               ]
             },
             {
               type: 'notebook',
               id: '3C2',
               title: 'Preguntas para opinar',
-              intro: 'Aquí no hay una sola respuesta correcta. Lo importante es que expliques tu razón. Responde en el cuaderno.',
-              optOut: true,
+              intro: 'Aquí no hay una sola respuesta correcta y tampoco están en el solucionario. Lo importante es que expliques tu razón. Copia cada pregunta en el cuaderno y responde.',
               items: [
                 'El Texto 1 dice que prepararse "no evita los sismos, pero sí ayuda a que hagan mucho menos daño". ¿Estás de acuerdo? Explica por qué.',
                 '¿Cuál de los dos textos te pareció más útil a ti y a tu familia en este momento? Justifica tu respuesta.',
                 'Si tuvieras que agregarle un paso más al Texto 2, ¿cuál agregarías y por qué?',
                 '¿Qué le dirías a un niño más pequeño que te pregunta si va a volver a temblar? Escribe tu respuesta como si se la estuvieras diciendo.'
+              ],
+              note: 'Si alguna no quieres responderla, déjala en blanco y sigue. Está bien.'
+            },
+            {
+              type: 'list',
+              title: 'Los pasos para hacer un resumen',
+              ordered: true,
+              items: [
+                'Lee todo el texto de principio a fin.',
+                'Divídelo por párrafos.',
+                'Subraya la idea principal de cada uno.',
+                'Une esas ideas con tus propias palabras, sin copiar frases enteras.'
               ]
             },
             {
               type: 'notebook',
               id: '3C3',
               title: 'El resumen',
-              intro: 'Escribe en tu cuaderno un resumen del Texto 1, de máximo **cinco renglones**.',
-              keyTitle: 'Los pasos para resumir',
+              intro: 'Sigue los cuatro pasos de arriba y escribe en tu cuaderno un resumen del Texto 1, de máximo **cinco renglones**.',
+              ordered: false,
               items: ['Resumen del Texto 1 (máximo 5 renglones)'],
               key: [
-                'Lee todo el texto.',
-                'Divídelo por párrafos.',
-                'Subraya la idea principal de cada uno.',
-                'Úne esas ideas con tus propias palabras.'
-              ]
+                'Un resumen posible: la capa exterior de la Tierra está partida en placas que se mueven muy despacio y a veces se traban. Cuando se sueltan de golpe ocurre un sismo. El 10 de agosto de 2026 pasó uno que empezó en el Chocó y se sintió en muchas ciudades. Después vienen réplicas, que son normales. Nadie puede saber cuándo va a temblar, pero sí podemos prepararnos.'
+              ],
+              keyNote: 'El tuyo no tiene que decir exactamente lo mismo, pero sí debe recoger la idea principal de cada párrafo y estar escrito con tus palabras.'
             },
             {
               type: 'notebook',
               id: '3C4',
               title: 'Vuelvo al principio',
-              intro: 'Busca en tu cuaderno lo que escribiste al comienzo de la guía sobre por qué tiembla la tierra. Léelo otra vez y responde debajo.',
-              items: ['¿Cambió mi idea? ¿En qué cambió?']
+              intro: 'Busca en tu cuaderno lo que escribiste al comienzo de la guía sobre por qué tiembla la tierra. Léelo otra vez y escribe debajo tu respuesta.',
+              ordered: false,
+              items: ['¿Cambió mi idea? ¿En qué cambió?'],
+              note: 'Esta la escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
               type: 'links',
@@ -394,7 +367,8 @@ window.Guide.register('reading', {
               title: 'Nota para la docente',
               paragraphs: [
                 'La pregunta 4 de **3.C.2** ("¿Qué le dirías a un niño más pequeño que te pregunta si va a volver a temblar?") suele ser la más reveladora del estado emocional del grupo.',
-                'Como las respuestas abiertas se escriben en el cuaderno, vale la pena leerla con atención en todas las entregas físicas y marcar las que requieran seguimiento.'
+                'Como toda la guía se escribe en el cuaderno, vale la pena leerla con atención en todas las entregas físicas y marcar las que requieran seguimiento.',
+                'Las preguntas de opinión (3.A.0, 3.B.0, 3.C.0, 3.C.2 y 3.C.4) no aparecen en el solucionario a propósito: no tienen respuesta correcta y no deben corregirse como si la tuvieran.'
               ]
             }
           ]

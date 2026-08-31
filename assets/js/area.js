@@ -1,22 +1,104 @@
 /* ==========================================================================
-   area.js — Arma la pagina de un dia: cabecera, lecciones y los bloques fijos
-   que cada seccion necesita (banner para la familia, aviso previo, panel con
-   el texto de lectura siempre accesible y bloque de ayuda).
+   area.js — Arma la pagina de un dia: cabecera, indice, todas las lecciones
+   seguidas, el solucionario del final y los bloques fijos que cada seccion
+   necesita (banner para la familia, aviso previo, panel con los textos de
+   lectura siempre accesibles y bloque de ayuda).
+
+   La pagina es un documento para leer y copiar al cuaderno: no hay pestanas,
+   no hay avance guardado y no hay nada que responder aqui. Las unidades se
+   muestran una tras otra para poder transcribirlas de corrido y para que la
+   pagina se pueda imprimir completa.
    ========================================================================== */
 
 (function (global) {
   'use strict';
 
   var Guide = global.Guide;
-  var Progress = global.Progress;
   var Blocks = global.Blocks;
   var el = Guide.el;
   var escapeHtml = Guide.escapeHtml;
   var ICONS = Guide.ICONS;
 
+  /** Ancla del solucionario dentro de la pagina. */
+  var ANSWERS_ID = 'respuestas-de-hoy';
+
+  /**
+   * Devuelve los textos del solucionario segun si la seccion califica o no.
+   * En psicosocial no se habla de "respuestas": se habla de comparar.
+   * @param {Object} area - Contenido del area.
+   * @returns {{title:string, lead:string, pointer:string}} Textos del bloque.
+   */
+  function answersCopy(area) {
+    if (area.grades === false) {
+      return {
+        title: 'Para comparar en familia',
+        lead: 'Aquí no hay respuestas correctas ni incorrectas. Esto es solo para conversarlo con un adulto después de haber escrito en el cuaderno.',
+        pointer: 'Para comparar, mira el final de la página'
+      };
+    }
+    return {
+      title: 'Respuestas de hoy',
+      lead: 'Resuelve primero en el cuaderno. Después compara con estas respuestas y pásalas también al cuaderno, debajo de cada actividad.',
+      pointer: 'Las respuestas están al final de la página'
+    };
+  }
+
+  /**
+   * Reune todas las consignas de cuaderno que traen respuestas.
+   * @param {Object} area - Contenido del area.
+   * @returns {Array<Object>} Lista de { unit, lesson, block } en orden de lectura.
+   */
+  function collectAnswers(area) {
+    var found = [];
+    (area.units || []).forEach(function (unit) {
+      (unit.lessons || []).forEach(function (lesson) {
+        (lesson.blocks || []).forEach(function (block) {
+          if (block.type === 'notebook' && (block.key || []).length) {
+            found.push({ unit: unit, lesson: lesson, block: block });
+          }
+        });
+      });
+    });
+    return found;
+  }
+
+  /**
+   * Reune todos los textos de lectura del dia para el panel flotante.
+   * @param {Object} area - Contenido del area.
+   * @returns {Array<Object>} Bloques de lectura en orden de aparicion.
+   */
+  function collectReadings(area) {
+    var found = [];
+    (area.units || []).forEach(function (unit) {
+      (unit.lessons || []).forEach(function (lesson) {
+        (lesson.blocks || []).forEach(function (block) {
+          if (block.type === 'reading' && block.pinned !== false) { found.push(block); }
+        });
+      });
+    });
+    return found;
+  }
+
+  /**
+   * Cuenta cuantas consignas de cuaderno tiene el dia.
+   * @param {Object} area - Contenido del area.
+   * @returns {number} Numero de consignas.
+   */
+  function countTasks(area) {
+    var total = 0;
+    (area.units || []).forEach(function (unit) {
+      (unit.lessons || []).forEach(function (lesson) {
+        (lesson.blocks || []).forEach(function (block) {
+          if (block.type === 'notebook') { total += 1; }
+        });
+      });
+    });
+    return total;
+  }
+
   /**
    * Dibuja una leccion completa con su objetivo y todos sus bloques.
-   * @param {Object} params - { areaId, grades, unit, lesson, index, onSolved }.
+   * @param {Object} params - { lesson, index, ctx } de la leccion a dibujar.
    * @returns {HTMLElement} Tarjeta de la leccion.
    */
   function renderLesson(params) {
@@ -41,15 +123,8 @@
       }));
     }
 
-    (lesson.blocks || []).forEach(function (block, index) {
-      var node = Blocks.render(block, {
-        areaId: params.areaId,
-        grades: params.grades,
-        unit: params.unit,
-        lesson: lesson,
-        index: index,
-        onSolved: params.onSolved
-      });
+    (lesson.blocks || []).forEach(function (block) {
+      var node = Blocks.render(block, params.ctx);
       if (node) { section.appendChild(node); }
     });
 
@@ -57,34 +132,78 @@
   }
 
   /**
-   * Dibuja la barra de progreso general del dia.
-   * @param {Object} area - Contenido del area.
-   * @returns {HTMLElement} Bloque de progreso con etiqueta y barra.
+   * Dibuja una unidad completa: su titulo, su resumen y sus lecciones.
+   * @param {Object} unit - Unidad a dibujar.
+   * @param {Object} ctx - Contexto que se pasa a cada bloque.
+   * @returns {HTMLElement} Seccion de la unidad, con su ancla.
    */
-  function renderProgress(area) {
-    var stats = Progress.areaStats(area);
-    var word = area.grades === false ? 'partes hechas' : 'actividades resueltas';
-    var wrap = el('div', { className: 'progress' });
-    var meta = el('div', { className: 'progress__meta' });
-    meta.appendChild(el('span', { text: stats.solved + ' de ' + stats.total + ' ' + word }));
-    meta.appendChild(el('span', { text: stats.percent + '%' }));
-
-    var track = el('div', {
-      className: 'progress__track',
-      attrs: {
-        role: 'progressbar',
-        'aria-valuemin': '0',
-        'aria-valuemax': '100',
-        'aria-valuenow': String(stats.percent),
-        'aria-label': 'Avance en ' + area.title
-      }
+  function renderUnit(unit, ctx) {
+    var section = el('section', {
+      className: 'unit stack',
+      attrs: { id: 'unidad-' + unit.id }
     });
-    var fill = el('div', { className: 'progress__fill' });
-    track.appendChild(fill);
-    wrap.appendChild(meta);
-    wrap.appendChild(track);
-    requestAnimationFrame(function () { fill.style.width = stats.percent + '%'; });
-    return wrap;
+
+    var intro = el('div', { className: 'stack stack--tight' });
+    intro.appendChild(el('h2', { text: unit.title }));
+    if (unit.summary) {
+      intro.appendChild(el('p', { className: 'area-head__lead', text: unit.summary }));
+    }
+    section.appendChild(intro);
+
+    (unit.lessons || []).forEach(function (lesson, index) {
+      section.appendChild(renderLesson({ lesson: lesson, index: index, ctx: ctx }));
+    });
+
+    return section;
+  }
+
+  /**
+   * Dibuja el solucionario del final con las respuestas de cada consigna.
+   * @param {Object} area - Contenido del area.
+   * @returns {HTMLElement|null} Seccion de respuestas, o null si no hay ninguna.
+   */
+  function renderAnswers(area) {
+    var entries = collectAnswers(area);
+    if (!entries.length) { return null; }
+
+    var copy = answersCopy(area);
+    var section = el('section', {
+      className: 'answers reveal',
+      attrs: { id: ANSWERS_ID }
+    });
+
+    section.appendChild(el('h2', {
+      className: 'answers__title',
+      html: ICONS.star + '<span>' + escapeHtml(copy.title) + '</span>'
+    }));
+    section.appendChild(el('p', { className: 'answers__lead', text: copy.lead }));
+
+    entries.forEach(function (entry) {
+      var block = entry.block;
+      var item = el('article', { className: 'answers__item' });
+
+      item.appendChild(el('p', {
+        className: 'answers__kicker',
+        text: 'Lección ' + (entry.lesson.code || entry.lesson.id)
+      }));
+      item.appendChild(el('h3', {
+        className: 'answers__name',
+        html: '<a href="#' + Blocks.notebookAnchor(block) + '">' + escapeHtml(block.title || 'Actividad') + '</a>'
+      }));
+
+      var numbered = block.ordered !== false && (block.items || []).length === block.key.length;
+      item.appendChild(el(numbered ? 'ol' : 'ul', {
+        className: 'answers__list',
+        children: block.key.map(function (line) { return el('li', { html: Blocks.inline(line) }); })
+      }));
+
+      if (block.keyNote) {
+        item.appendChild(el('p', { className: 'answers__note', html: Blocks.inline(block.keyNote) }));
+      }
+      section.appendChild(item);
+    });
+
+    return section;
   }
 
   /**
@@ -146,19 +265,23 @@
   }
 
   /**
-   * Crea el panel que mantiene el texto de lectura accesible mientras se
-   * responden las preguntas, tanto en computador como en celular.
-   * @returns {{setText: Function}} Controlador del panel.
+   * Crea el panel que mantiene los textos de lectura accesibles mientras se
+   * escribe en el cuaderno, tanto en computador como en celular.
+   * @param {Array<Object>} readings - Bloques de lectura del dia.
+   * @returns {void}
    */
-  function createTextPanel() {
+  function createTextPanel(readings) {
+    if (!readings.length) { return; }
+
+    var label = readings.length > 1 ? 'Ver los textos' : 'Ver el texto';
     var toggle = el('button', {
       className: 'text-toggle',
       attrs: { type: 'button', 'aria-expanded': 'false' },
-      html: ICONS.book + '<span>Ver el texto</span>'
+      html: ICONS.book + '<span>' + label + '</span>'
     });
     var panel = el('aside', {
       className: 'text-panel',
-      attrs: { hidden: 'hidden', 'aria-label': 'Texto de la lectura' }
+      attrs: { hidden: 'hidden', 'aria-label': 'Textos de la lectura' }
     });
     var body = el('div', { className: 'text-panel__body' });
     var close = el('button', {
@@ -167,21 +290,22 @@
       text: '✕'
     });
 
+    readings.forEach(function (block) { body.appendChild(Blocks.render(block)); });
+
     panel.appendChild(close);
     panel.appendChild(body);
-    toggle.hidden = true;
     document.body.appendChild(toggle);
     document.body.appendChild(panel);
 
     /**
-     * Abre o cierra el panel del texto.
+     * Abre o cierra el panel de los textos.
      * @param {boolean} open - true para abrirlo.
      * @returns {void}
      */
     function setOpen(open) {
       panel.hidden = !open;
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.querySelector('span').textContent = open ? 'Ocultar el texto' : 'Ver el texto';
+      toggle.querySelector('span').textContent = open ? 'Ocultar' : label;
     }
 
     toggle.addEventListener('click', function () { setOpen(panel.hidden); });
@@ -189,21 +313,6 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && !panel.hidden) { setOpen(false); }
     });
-
-    return {
-      /**
-       * Carga en el panel el texto de la leccion que se esta viendo.
-       * @param {Object|null} block - Bloque de lectura, o null para ocultar el panel.
-       * @returns {void}
-       */
-      setText: function (block) {
-        setOpen(false);
-        body.innerHTML = '';
-        if (!block) { toggle.hidden = true; return; }
-        body.appendChild(Blocks.render(block, {}));
-        toggle.hidden = false;
-      }
-    };
   }
 
   /**
@@ -221,15 +330,14 @@
 
     document.title = area.title + ' | Guía de Tercero';
 
-    var currentUnit = 0;
-    var textPanel = createTextPanel();
+    var copy = answersCopy(area);
+    var ctx = { answersId: ANSWERS_ID, answersPointer: copy.pointer };
 
     /**
-     * Vuelve a pintar la cabecera con el dia, el titulo y el progreso.
+     * Pinta la cabecera con el dia, el titulo y lo que trae la jornada.
      * @returns {void}
      */
     function paintHead() {
-      headHost.innerHTML = '';
       headHost.appendChild(el('p', {
         className: 'lesson__kicker',
         text: area.day ? area.day.label : (area.kicker || 'Área')
@@ -242,80 +350,49 @@
           html: '<strong>Aprendizaje:</strong> ' + Blocks.inline(area.learning)
         }));
       }
-      headHost.appendChild(renderProgress(area));
 
-      var reset = el('button', {
-        className: 'btn btn--ghost btn--sm',
-        attrs: { type: 'button' },
-        text: 'Reiniciar mi avance'
-      });
-      reset.addEventListener('click', function () {
-        if (!global.confirm('Se borrará tu avance en ' + area.title + '. ¿Quieres continuar?')) { return; }
-        Progress.resetArea(areaId);
-        paintHead();
-        paintRail();
-        paintLessons();
-        Guide.toast('Avance reiniciado');
-      });
-      headHost.appendChild(el('div', { className: 'row', children: [reset] }));
+      var lessons = 0;
+      (area.units || []).forEach(function (unit) { lessons += (unit.lessons || []).length; });
+      headHost.appendChild(el('p', {
+        className: 'area-head__count',
+        html: ICONS.pencil + '<span>' + lessons + ' lecciones · ' + countTasks(area) +
+              ' actividades para el cuaderno</span>'
+      }));
     }
 
     /**
-     * Vuelve a pintar el riel lateral con las lecciones del dia.
+     * Pinta el indice lateral con un enlace a cada unidad del dia.
      * @returns {void}
      */
     function paintRail() {
-      railHost.innerHTML = '';
-      railHost.appendChild(el('p', { className: 'unit-rail__title', text: 'Lecciones de hoy' }));
+      railHost.appendChild(el('p', { className: 'unit-rail__title', text: 'Lo de hoy' }));
       (area.units || []).forEach(function (unit, index) {
-        var stats = Progress.unitStats(areaId, unit);
-        var chip = el('button', {
-          className: 'unit-chip' + (stats.done ? ' is-done' : ''),
-          attrs: {
-            type: 'button',
-            role: 'tab',
-            'aria-selected': index === currentUnit ? 'true' : 'false'
-          }
+        var link = el('a', {
+          className: 'unit-chip',
+          attrs: { href: '#unidad-' + unit.id }
         });
-        chip.appendChild(el('span', {
-          className: 'unit-chip__num',
-          html: stats.done ? '&#10003;' : String(index + 1)
-        }));
-        chip.appendChild(el('span', { text: unit.title }));
-        chip.addEventListener('click', function () {
-          currentUnit = index;
-          global.history.replaceState(null, '', '#unidad-' + unit.id);
-          paintRail();
-          paintLessons();
-          lessonHost.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-        railHost.appendChild(chip);
+        link.appendChild(el('span', { className: 'unit-chip__num', text: String(index + 1) }));
+        link.appendChild(el('span', { text: unit.title }));
+        railHost.appendChild(link);
       });
+
+      if (collectAnswers(area).length) {
+        var answers = el('a', {
+          className: 'unit-chip unit-chip--answers',
+          attrs: { href: '#' + ANSWERS_ID }
+        });
+        answers.appendChild(el('span', { className: 'unit-chip__num', html: ICONS.star }));
+        answers.appendChild(el('span', { text: copy.title }));
+        railHost.appendChild(answers);
+      }
     }
 
     /**
-     * Busca el texto de lectura de una unidad para cargarlo en el panel.
-     * @param {Object} unit - Unidad que se esta mostrando.
-     * @returns {Object|null} Bloque de lectura, o null si la unidad no tiene.
-     */
-    function findReading(unit) {
-      var found = null;
-      (unit.lessons || []).forEach(function (lesson) {
-        (lesson.blocks || []).forEach(function (block) {
-          if (!found && block.type === 'reading' && block.pinned !== false) { found = block; }
-        });
-      });
-      return found;
-    }
-
-    /**
-     * Vuelve a pintar las lecciones de la unidad seleccionada.
+     * Pinta todas las unidades del dia, una tras otra, y el solucionario.
      * @returns {void}
      */
     function paintLessons() {
-      var unit = (area.units || [])[currentUnit];
-      lessonHost.innerHTML = '';
-      if (!unit) {
+      if (!(area.units || []).length) {
         lessonHost.appendChild(el('div', {
           className: 'empty',
           html: '<p>Todavía no hay contenido en esta sección.</p>'
@@ -323,62 +400,12 @@
         return;
       }
 
-      textPanel.setText(findReading(unit));
-
-      var intro = el('div', { className: 'stack stack--tight' });
-      intro.appendChild(el('h2', { text: unit.title }));
-      if (unit.summary) {
-        intro.appendChild(el('p', { className: 'area-head__lead', text: unit.summary }));
-      }
-      lessonHost.appendChild(intro);
-
-      (unit.lessons || []).forEach(function (lesson, index) {
-        lessonHost.appendChild(renderLesson({
-          areaId: areaId,
-          grades: area.grades,
-          unit: unit,
-          lesson: lesson,
-          index: index,
-          onSolved: function () {
-            paintHead();
-            paintRail();
-          }
-        }));
+      area.units.forEach(function (unit) {
+        lessonHost.appendChild(renderUnit(unit, ctx));
       });
 
-      var nav = el('div', { className: 'lesson-nav' });
-      if (currentUnit > 0) {
-        var prev = el('button', {
-          className: 'btn btn--ghost',
-          attrs: { type: 'button' },
-          html: ICONS.back + '<span>Lección anterior</span>'
-        });
-        prev.addEventListener('click', function () {
-          currentUnit -= 1;
-          paintRail();
-          paintLessons();
-          global.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        nav.appendChild(prev);
-      } else {
-        nav.appendChild(el('span'));
-      }
-
-      if (currentUnit < (area.units || []).length - 1) {
-        var next = el('button', {
-          className: 'btn btn--primary',
-          attrs: { type: 'button' },
-          html: '<span>Siguiente lección</span>' + ICONS.arrow
-        });
-        next.addEventListener('click', function () {
-          currentUnit += 1;
-          paintRail();
-          paintLessons();
-          global.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        nav.appendChild(next);
-      }
-      lessonHost.appendChild(nav);
+      var answers = renderAnswers(area);
+      if (answers) { lessonHost.appendChild(answers); }
 
       Guide.setupReveal(lessonHost);
     }
@@ -401,19 +428,11 @@
       }
     }
 
-    var hash = global.location.hash.replace('#unidad-', '');
-    if (hash) {
-      var found = -1;
-      (area.units || []).forEach(function (unit, index) {
-        if (unit.id === hash) { found = index; }
-      });
-      if (found >= 0) { currentUnit = found; }
-    }
-
     paintHead();
     paintExtras();
     paintRail();
     paintLessons();
+    createTextPanel(collectReadings(area));
   }
 
   document.addEventListener('DOMContentLoaded', start);

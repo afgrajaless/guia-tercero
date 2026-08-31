@@ -1,12 +1,13 @@
 /* ==========================================================================
-   home.js — Portada: agenda de la semana con el avance de cada día
+   home.js — Portada: agenda de la semana con lo que trae cada día.
+   No hay avance ni porcentajes: la guía se resuelve en el cuaderno, así que
+   cada tarjeta anuncia cuántas lecciones y cuántas actividades trae el día.
    ========================================================================== */
 
 (function (global) {
   'use strict';
 
   var Guide = global.Guide;
-  var Progress = global.Progress;
   var el = Guide.el;
   var ICONS = Guide.ICONS;
 
@@ -21,12 +22,31 @@
   ];
 
   /**
-   * Construye la tarjeta de un día con contenido, mostrando su avance.
+   * Cuenta las lecciones y las consignas de cuaderno de un área.
+   * @param {Object} area - Contenido del área.
+   * @returns {{lessons:number, tasks:number}} Resumen de lo que trae el día.
+   */
+  function countArea(area) {
+    var lessons = 0;
+    var tasks = 0;
+    (area.units || []).forEach(function (unit) {
+      (unit.lessons || []).forEach(function (lesson) {
+        lessons += 1;
+        (lesson.blocks || []).forEach(function (block) {
+          if (block.type === 'notebook') { tasks += 1; }
+        });
+      });
+    });
+    return { lessons: lessons, tasks: tasks };
+  }
+
+  /**
+   * Construye la tarjeta de un día con contenido.
    * @param {Object} area - Contenido registrado del área.
    * @returns {HTMLElement} Enlace con forma de tarjeta.
    */
   function renderDayCard(area) {
-    var stats = Progress.areaStats(area);
+    var counts = countArea(area);
     var card = el('a', {
       className: 'area-card reveal',
       attrs: { href: area.href, 'data-area': area.id }
@@ -47,36 +67,19 @@
     card.appendChild(el('h3', { className: 'area-card__title', text: area.title }));
     card.appendChild(el('p', { className: 'area-card__text', text: area.description }));
 
-    var progress = el('div', { className: 'progress' });
-    var meta = el('div', { className: 'progress__meta' });
-    var word = area.grades === false ? 'partes hechas' : 'actividades';
-    meta.appendChild(el('span', { text: stats.solved + ' / ' + stats.total + ' ' + word }));
-    meta.appendChild(el('span', { text: stats.percent + '%' }));
-    var track = el('div', {
-      className: 'progress__track',
-      attrs: {
-        role: 'progressbar',
-        'aria-valuemin': '0',
-        'aria-valuemax': '100',
-        'aria-valuenow': String(stats.percent),
-        'aria-label': 'Avance en ' + area.title
-      }
-    });
-    var fill = el('div', { className: 'progress__fill' });
-    track.appendChild(fill);
-    progress.appendChild(meta);
-    progress.appendChild(track);
-    card.appendChild(progress);
+    card.appendChild(el('p', {
+      className: 'area-card__count',
+      html: ICONS.pencil + '<span>' + counts.tasks + ' actividades para el cuaderno</span>'
+    }));
 
     var foot = el('div', { className: 'area-card__foot' });
-    foot.appendChild(el('span', { text: (area.units || []).length + ' lecciones' }));
+    foot.appendChild(el('span', { text: counts.lessons + ' lecciones' }));
     foot.appendChild(el('span', {
       className: 'area-card__cta',
       html: '<span>Entrar</span>' + ICONS.arrow
     }));
     card.appendChild(foot);
 
-    requestAnimationFrame(function () { fill.style.width = stats.percent + '%'; });
     return card;
   }
 
@@ -104,26 +107,24 @@
   }
 
   /**
-   * Calcula y muestra el avance total sumando los tres días con contenido.
+   * Escribe el resumen de la semana sumando los días con contenido.
    * @param {HTMLElement} host - Contenedor donde escribir el resumen.
    * @returns {void}
    */
   function renderSummary(host) {
-    var solved = 0;
-    var total = 0;
+    var days = 0;
+    var tasks = 0;
     Guide.list().forEach(function (area) {
-      var stats = Progress.areaStats(area);
-      solved += stats.solved;
-      total += stats.total;
+      days += 1;
+      tasks += countArea(area).tasks;
     });
-    var percent = total === 0 ? 0 : Math.round((solved / total) * 100);
     host.innerHTML = '';
-    host.appendChild(el('span', { html: ICONS.star }));
-    host.appendChild(el('span', { text: solved + ' de ' + total + ' actividades de la semana (' + percent + '%)' }));
+    host.appendChild(el('span', { html: ICONS.pencil }));
+    host.appendChild(el('span', { text: days + ' días · ' + tasks + ' actividades para el cuaderno' }));
   }
 
   /**
-   * Punto de entrada de la portada: pinta la agenda, el resumen y el reinicio.
+   * Punto de entrada de la portada: pinta la agenda y el resumen.
    * @returns {void}
    */
   function start() {
@@ -131,29 +132,10 @@
     var summary = document.querySelector('[data-summary]');
     if (!grid) { return; }
 
-    /**
-     * Redibuja la agenda con los datos de avance más recientes.
-     * @returns {void}
-     */
-    function paint() {
-      grid.innerHTML = '';
-      Guide.list().forEach(function (area) { grid.appendChild(renderDayCard(area)); });
-      PENDING.forEach(function (entry) { grid.appendChild(renderPendingCard(entry)); });
-      if (summary) { renderSummary(summary); }
-      Guide.setupReveal(grid);
-    }
-
-    paint();
-
-    var reset = document.querySelector('[data-reset-all]');
-    if (reset) {
-      reset.addEventListener('click', function () {
-        if (!global.confirm('Se borrará todo tu avance de la semana. ¿Quieres continuar?')) { return; }
-        Progress.resetAll();
-        paint();
-        Guide.toast('Empezamos de nuevo');
-      });
-    }
+    Guide.list().forEach(function (area) { grid.appendChild(renderDayCard(area)); });
+    PENDING.forEach(function (entry) { grid.appendChild(renderPendingCard(entry)); });
+    if (summary) { renderSummary(summary); }
+    Guide.setupReveal(grid);
   }
 
   document.addEventListener('DOMContentLoaded', start);

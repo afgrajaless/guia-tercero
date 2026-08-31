@@ -9,6 +9,20 @@
 
 ## 0. INSTRUCCIONES PARA EL AGENTE
 
+> **Nota posterior — cambio de enfoque.** Las secciones 1, 2 y 3 de este archivo (el contenido
+> pedagógico) siguen vigentes tal cual. Lo que ya **no** aplica es el modelo de interacción que
+> describe este apartado §0: la guía dejó de resolverse en pantalla.
+>
+> Hoy el sitio es un documento que se lee y se **transcribe al cuaderno**. No hay selección
+> múltiple, ni campos de respuesta, ni arrastrar tarjetas, ni barra de progreso, ni "Prefiero no
+> responder": cada actividad es una consigna que el estudiante copia y resuelve en su cuaderno, y
+> las respuestas de todo el día se reúnen al final de cada página, en el solucionario
+> **"Respuestas de hoy"**, para compararlas y pasarlas también al cuaderno.
+>
+> Los tipos de ítem que lista este apartado (`opcion_multiple`, `ordenar`, `emparejar`,
+> `clasificar`, `checklist`…) se convirtieron todos en consignas escritas. Ver el README para el
+> esquema de datos actual.
+
 Este archivo contiene **todo el contenido** de tres guías. Hay que volcarlo en las tres páginas que ya existen:
 
 | Página | Sección | Contenido de este archivo |

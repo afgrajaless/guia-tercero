@@ -3,33 +3,21 @@
    Los bloques se declaran en /data y aqui se convierten en HTML. Se separo de
    area.js para que cada archivo tenga una sola responsabilidad: area.js arma
    la pagina y este archivo arma el contenido.
+
+   La guia no recoge respuestas: todo se resuelve en el cuaderno. Por eso aqui
+   no hay botones de responder ni de marcar. Las respuestas declaradas en el
+   campo "key" de cada consigna no se dibujan junto a ella: area.js las reune
+   al final de la pagina, en el solucionario.
    ========================================================================== */
 
 (function (global) {
   'use strict';
 
   var Guide = global.Guide;
-  var Progress = global.Progress;
-  var Activities = global.Activities;
   var Figures = global.Figures;
   var el = Guide.el;
   var escapeHtml = Guide.escapeHtml;
   var ICONS = Guide.ICONS;
-
-  /** Acuses calidos para las secciones que no califican (psicosocial). */
-  var WARM = ['Gracias por contarlo.', 'Anotado.', 'Está bien sentir eso.', 'Listo, sigamos.'];
-
-  /** Acuses neutros para las secciones que si califican. */
-  var PLAIN = ['Listo. Sigue con lo siguiente.', 'Anotado.', 'Hecho.'];
-
-  /**
-   * Elige un mensaje al azar de una lista.
-   * @param {Array<string>} list - Mensajes disponibles.
-   * @returns {string} Un mensaje de la lista.
-   */
-  function pick(list) {
-    return list[Math.floor(Math.random() * list.length)];
-  }
 
   /**
    * Convierte marcas sencillas de autor (**negrita**) en HTML seguro.
@@ -52,13 +40,12 @@
   }
 
   /**
-   * Calcula la clave de almacenamiento de un bloque dentro de su leccion.
-   * @param {Object} block - Bloque de contenido.
-   * @param {Object} ctx - Contexto con unit, lesson e index.
-   * @returns {string} Clave unica del bloque.
+   * Calcula el ancla con la que se enlaza una consigna desde el solucionario.
+   * @param {Object} block - Bloque de consigna con su id.
+   * @returns {string} Identificador HTML del bloque.
    */
-  function blockKey(block, ctx) {
-    return Progress.activityKey(ctx.unit, ctx.lesson, block.id || ('b' + ctx.index));
+  function notebookAnchor(block) {
+    return 'tarea-' + String(block.id || '').replace(/[^a-zA-Z0-9_-]/g, '');
   }
 
   /**
@@ -182,7 +169,7 @@
 
   /**
    * Dibuja un bloque desplegable con el procedimiento paso a paso.
-   * Usarlo no cuenta como error: es una ayuda, no una pista penalizada.
+   * Es una ayuda para quien se trabe, no una pista penalizada.
    * @param {Object} block - Bloque con title y lineas del procedimiento.
    * @returns {HTMLElement} Bloque desplegable.
    */
@@ -258,148 +245,59 @@
   }
 
   /**
-   * Dibuja una consigna para resolver en el cuaderno. El sitio no recoge la
-   * respuesta: el estudiante escribe en su cuaderno y marca que ya lo hizo.
-   * @param {Object} block - Bloque con intro, items, clave opcional y optOut.
-   * @param {Object} ctx - Contexto con areaId, unit, lesson, index, grades y onSolved.
+   * Dibuja una consigna para copiar y resolver en el cuaderno. No tiene
+   * botones ni campos: la pagina propone y el estudiante escribe en su
+   * cuaderno. Si la consigna tiene respuestas, se enlaza al solucionario.
+   * @param {Object} block - Bloque con title, intro, items, note, ordered y key.
+   * @param {Object} ctx - Contexto con answersId, el ancla del solucionario.
    * @returns {HTMLElement} Bloque de consigna de cuaderno.
    */
   function renderNotebook(block, ctx) {
-    var key = blockKey(block, ctx);
-    var section = el('section', { className: 'notebook' });
+    var section = el('section', {
+      className: 'notebook',
+      attrs: { id: notebookAnchor(block) }
+    });
 
     section.appendChild(el('p', {
       className: 'notebook__tag',
-      html: ICONS.pencil + '<span>En tu cuaderno</span>'
+      html: ICONS.pencil + '<span>Pasa esto a tu cuaderno</span>'
     }));
 
     if (block.title) { section.appendChild(el('h4', { className: 'notebook__title', text: block.title })); }
     if (block.intro) { section.appendChild(el('p', { className: 'notebook__intro', html: inline(block.intro) })); }
 
     if ((block.items || []).length) {
-      section.appendChild(el('ol', {
-        className: 'notebook__items',
+      section.appendChild(el(block.ordered === false ? 'ul' : 'ol', {
+        className: 'notebook__items' + (block.ordered === false ? ' notebook__items--plain' : ''),
         children: block.items.map(function (item) { return el('li', { html: inline(item) }); })
       }));
     }
 
-    var status = el('p', {
-      className: 'notebook__status',
-      attrs: { role: 'status', 'aria-live': 'polite' }
-    });
+    if (block.note) {
+      section.appendChild(el('p', { className: 'notebook__note', html: inline(block.note) }));
+    }
 
-    var keyBox = null;
-    if ((block.key || []).length) {
-      keyBox = el('div', { className: 'notebook__key', attrs: { hidden: 'hidden' } });
-      keyBox.appendChild(el('p', { className: 'notebook__key-title', text: block.keyTitle || 'Una respuesta posible sería…' }));
-      keyBox.appendChild(el('ul', {
-        children: block.key.map(function (item) { return el('li', { html: inline(item) }); })
+    if ((block.key || []).length && ctx && ctx.answersId) {
+      section.appendChild(el('p', {
+        className: 'notebook__pointer',
+        html: '<a href="#' + ctx.answersId + '">' +
+              escapeHtml(ctx.answersPointer || 'Las respuestas están al final de la página') +
+              '</a>'
       }));
     }
 
-    /**
-     * Marca la consigna como hecha y muestra el acuse correspondiente.
-     * @param {string} message - Mensaje de acuse para el estudiante.
-     * @returns {void}
-     */
-    function complete(message) {
-      var isNew = Progress.markDone(ctx.areaId, key);
-      status.textContent = message;
-      status.className = 'notebook__status is-done';
-      if (keyBox) { keyBox.hidden = false; }
-      if (isNew) {
-        ctx.onSolved();
-        Guide.toast(ctx.grades === false ? 'Anotado' : 'Listo', '✍️');
-      }
-    }
-
-    var done = el('button', {
-      className: 'btn btn--primary btn--sm',
-      attrs: { type: 'button' },
-      text: block.doneLabel || 'Ya lo escribí'
-    });
-    done.addEventListener('click', function () {
-      complete(pick(ctx.grades === false ? WARM : PLAIN));
-    });
-
-    var actions = el('div', { className: 'activity__actions', children: [done] });
-
-    if (block.optOut) {
-      var skip = el('button', {
-        className: 'btn btn--ghost btn--sm',
-        attrs: { type: 'button' },
-        text: 'Prefiero no responder'
-      });
-      skip.addEventListener('click', function () {
-        complete('Está bien. Puedes volver cuando quieras.');
-      });
-      actions.appendChild(skip);
-    }
-
-    actions.appendChild(status);
-    section.appendChild(actions);
-    if (keyBox) { section.appendChild(keyBox); }
-
-    if (Progress.isSolved(ctx.areaId, key)) {
-      status.textContent = 'Ya marcaste esta parte como hecha.';
-      status.className = 'notebook__status is-done';
-      if (keyBox) { keyBox.hidden = false; }
-    }
-
     return section;
   }
 
   /**
-   * Dibuja una lista de casillas que se guardan en el dispositivo.
-   * No tiene puntaje ni penaliza los dias sin marcar.
-   * @param {Object} block - Bloque con title, intro e items.
-   * @param {Object} ctx - Contexto con areaId, unit, lesson, index y onSolved.
-   * @returns {HTMLElement} Bloque de checklist.
-   */
-  function renderChecklist(block, ctx) {
-    var key = blockKey(block, ctx);
-    var saved = Progress.getData(ctx.areaId, key) || {};
-    var section = el('section', { className: 'checklist' });
-
-    if (block.title) { section.appendChild(el('h4', { className: 'checklist__title', text: block.title })); }
-    if (block.intro) { section.appendChild(el('p', { className: 'checklist__intro', html: inline(block.intro) })); }
-
-    var list = el('div', { className: 'checklist__items' });
-
-    (block.items || []).forEach(function (item, index) {
-      var itemId = 'chk-' + key.replace(/[^a-zA-Z0-9]/g, '-') + '-' + index;
-      var row = el('label', { className: 'checklist__item', attrs: { for: itemId } });
-      var box = el('input', { attrs: { type: 'checkbox', id: itemId } });
-      box.checked = Boolean(saved[index]);
-      box.addEventListener('change', function () {
-        saved[index] = box.checked;
-        Progress.saveData(ctx.areaId, key, saved);
-        row.classList.toggle('is-checked', box.checked);
-        if (box.checked && Progress.markDone(ctx.areaId, key)) { ctx.onSolved(); }
-      });
-      if (box.checked) { row.classList.add('is-checked'); }
-      row.appendChild(box);
-      row.appendChild(el('span', { text: item }));
-      list.appendChild(row);
-    });
-
-    section.appendChild(list);
-    section.appendChild(el('p', {
-      className: 'checklist__note',
-      text: block.note || 'Se guarda en este dispositivo. No hay puntaje ni penalización por los días en blanco.'
-    }));
-    return section;
-  }
-
-  /**
-   * Dibuja la guia animada de respiracion cuadrada. Sin sonido y respetando
-   * la preferencia de movimiento reducido del sistema.
+   * Dibuja la guia animada de respiracion cuadrada. Es la unica parte de la
+   * guia que se usa en pantalla: no pide respuestas ni guarda nada, solo
+   * marca el ritmo de la respiracion. Respeta la preferencia de movimiento
+   * reducido del sistema.
    * @param {Object} block - Bloque con title, cycles y texto de cierre.
-   * @param {Object} ctx - Contexto con areaId, unit, lesson, index y onSolved.
    * @returns {HTMLElement} Widget de respiracion.
    */
-  function renderBreathing(block, ctx) {
-    var key = blockKey(block, ctx);
+  function renderBreathing(block) {
     var PHASES = [
       { label: 'TOMA AIRE', hint: 'por la nariz' },
       { label: 'GUARDA', hint: 'sin soltar' },
@@ -471,10 +369,6 @@
         countText.textContent = '';
         hintText.textContent = block.closing || 'Si quieres, repítelo otra vez más tarde.';
         live.textContent = 'Práctica terminada.';
-        if (Progress.markDone(ctx.areaId, key)) {
-          ctx.onSolved();
-          Guide.toast('Respiración practicada', '🌬️');
-        }
       } else {
         phaseText.textContent = 'Listo para empezar';
         countText.textContent = String(SECONDS);
@@ -531,40 +425,13 @@
       tick();
     });
 
-    section.appendChild(el('div', { className: 'activity__actions', children: [toggle] }));
+    section.appendChild(el('div', { className: 'row', children: [toggle] }));
     section.appendChild(el('p', {
       className: 'breathing__note',
       text: 'Repítelo ' + totalCycles + ' veces. Practícalo cuando estés tranquilo, para que te salga fácil el día que lo necesites.'
     }));
 
-    if (Progress.isSolved(ctx.areaId, key)) {
-      live.textContent = 'Ya practicaste esta respiración.';
-    }
-
     return section;
-  }
-
-  /**
-   * Dibuja una actividad interactiva y registra su resultado en el avance.
-   * @param {Object} block - Bloque que contiene la definicion de la actividad.
-   * @param {Object} ctx - Contexto con areaId, unit, lesson, index, grades y onSolved.
-   * @returns {HTMLElement} Actividad lista para responder.
-   */
-  function renderActivity(block, ctx) {
-    var activity = block.activity || {};
-    var key = Progress.activityKey(ctx.unit, ctx.lesson, activity.id || ('a' + ctx.index));
-    return Activities.render(activity, {
-      solved: Progress.isSolved(ctx.areaId, key),
-      grades: ctx.grades,
-      areaId: ctx.areaId,
-      storageKey: key,
-      onResult: function (ok) {
-        if (Progress.record(ctx.areaId, key, ok)) {
-          ctx.onSolved();
-          Guide.toast(ctx.grades === false ? 'Anotado' : 'Actividad resuelta', ctx.grades === false ? '💬' : '⭐');
-        }
-      }
-    });
   }
 
   /** Constructor de cada tipo de bloque disponible en el contenido. */
@@ -580,24 +447,23 @@
     figure: renderFigure,
     adult: renderAdult,
     notebook: renderNotebook,
-    checklist: renderChecklist,
-    breathing: renderBreathing,
-    activity: renderActivity
+    breathing: renderBreathing
   };
 
   global.Blocks = {
     TYPES: Object.keys(RENDERERS),
     inline: inline,
+    notebookAnchor: notebookAnchor,
 
     /**
      * Dibuja un bloque de contenido segun su tipo.
      * @param {Object} block - Bloque definido en el archivo de contenido.
-     * @param {Object} ctx - Contexto con areaId, unit, lesson, index, grades y onSolved.
+     * @param {Object} [ctx] - Contexto con answersId y answersPointer.
      * @returns {HTMLElement|null} Elemento del bloque, o null si el tipo no existe.
      */
     render: function (block, ctx) {
       var build = RENDERERS[block.type];
-      return build ? build(block, ctx) : null;
+      return build ? build(block, ctx || {}) : null;
     }
   };
 }(window));

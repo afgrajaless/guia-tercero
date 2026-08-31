@@ -68,109 +68,12 @@
   }
 
   /**
-   * Devuelve una copia desordenada de un arreglo (algoritmo Fisher-Yates).
-   * @param {Array} list - Arreglo original, no se modifica.
-   * @returns {Array} Nuevo arreglo con los mismos elementos en otro orden.
-   */
-  function shuffle(list) {
-    var copy = list.slice();
-    for (var i = copy.length - 1; i > 0; i -= 1) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = copy[i];
-      copy[i] = copy[j];
-      copy[j] = tmp;
-    }
-    return copy;
-  }
-
-  /**
-   * Normaliza texto para comparar respuestas: minusculas, sin tildes ni espacios extra.
-   * La enye tambien pierde su virgulilla, asi que "nino" se acepta como "nino".
-   * @param {string} value - Texto escrito por el estudiante o respuesta esperada.
-   * @returns {string} Texto normalizado para comparacion.
-   */
-  function normalize(value) {
-    return String(value == null ? '' : value)
-      .trim()
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, ' ');
-  }
-
-  /**
-   * Convierte un numero escrito por el estudiante en una forma comparable.
-   * Quita los separadores de miles (los grupos de exactamente tres cifras) y
-   * unifica la coma decimal con el punto, de modo que "2.000", "2000" y
-   * "2 000" se consideren el mismo numero.
-   * @param {string} value - Texto que podria ser un numero.
-   * @returns {string|null} Numero normalizado, o null si el texto no es numerico.
-   */
-  function numericKey(value) {
-    var text = String(value == null ? '' : value).trim().replace(/\s/g, '');
-    if (!/^\d+([.,]\d+)*$/.test(text)) { return null; }
-    return text.replace(/[.,](\d{3})(?=[.,]|$)/g, '$1').replace(',', '.');
-  }
-
-  /**
    * Escribe un numero entero con separador de miles al estilo colombiano.
    * @param {number} value - Numero a formatear.
    * @returns {string} Numero con puntos cada tres cifras (por ejemplo 1.998).
    */
   function formatNumber(value) {
     return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  }
-
-  /**
-   * Devuelve un numero entero al azar dentro de un rango, incluidos los extremos.
-   * @param {number} min - Valor minimo posible.
-   * @param {number} max - Valor maximo posible.
-   * @returns {number} Numero entero entre min y max.
-   */
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  /**
-   * Compara la respuesta escrita por el estudiante con la esperada.
-   * Si la respuesta esperada es un numero, ignora los separadores de miles;
-   * si es texto, ignora mayusculas, tildes y espacios sobrantes.
-   * @param {string} typed - Lo que escribio el estudiante.
-   * @param {string} expected - La respuesta correcta definida en el contenido.
-   * @returns {boolean} true si las dos respuestas se consideran iguales.
-   */
-  function answerMatches(typed, expected) {
-    var expectedNumber = numericKey(expected);
-    if (expectedNumber !== null) {
-      var typedNumber = numericKey(typed);
-      if (typedNumber !== null) { return typedNumber === expectedNumber; }
-    }
-    return normalize(typed) === normalize(expected);
-  }
-
-  /**
-   * Muestra un mensaje flotante temporal en la parte inferior de la pantalla.
-   * @param {string} message - Texto a mostrar.
-   * @param {string} [icon] - Emoji o simbolo opcional que acompana el mensaje.
-   * @returns {void}
-   */
-  function toast(message, icon) {
-    var area = document.querySelector('.toast-area');
-    if (!area) {
-      area = el('div', { className: 'toast-area', attrs: { 'aria-live': 'polite' } });
-      document.body.appendChild(area);
-    }
-    var node = el('div', {
-      className: 'toast',
-      html: (icon ? '<span aria-hidden="true">' + escapeHtml(icon) + '</span>' : '') +
-            '<span>' + escapeHtml(message) + '</span>'
-    });
-    area.appendChild(node);
-    setTimeout(function () {
-      node.style.transition = 'opacity .35s ease';
-      node.style.opacity = '0';
-      setTimeout(function () { node.remove(); }, 400);
-    }, 2600);
   }
 
   /**
@@ -261,47 +164,9 @@
       return AREA_ORDER.map(function (id) { return areas[id]; }).filter(Boolean);
     },
 
-    /**
-     * Cuenta cuantas actividades tiene un area en total.
-     * @param {Object} area - Contenido del area.
-     * @returns {number} Numero de actividades sumando todas las unidades.
-     */
-    countActivities: function (area) {
-      var total = 0;
-      (area.units || []).forEach(function (unit) {
-        (unit.lessons || []).forEach(function (lesson) {
-          (lesson.blocks || []).forEach(function (block) {
-            if (block.type === 'activity') { total += 1; }
-          });
-        });
-      });
-      return total;
-    },
-
-    /**
-     * Devuelve todas las lecciones de un area en una lista plana.
-     * @param {Object} area - Contenido del area.
-     * @returns {Array<Object>} Lecciones con referencia a su unidad.
-     */
-    flatLessons: function (area) {
-      var out = [];
-      (area.units || []).forEach(function (unit, unitIndex) {
-        (unit.lessons || []).forEach(function (lesson, lessonIndex) {
-          out.push({ unit: unit, unitIndex: unitIndex, lesson: lesson, lessonIndex: lessonIndex });
-        });
-      });
-      return out;
-    },
-
     escapeHtml: escapeHtml,
     el: el,
-    shuffle: shuffle,
-    normalize: normalize,
-    numericKey: numericKey,
-    answerMatches: answerMatches,
     formatNumber: formatNumber,
-    randomInt: randomInt,
-    toast: toast,
     setupTheme: setupTheme,
     setupReveal: setupReveal,
     setupYear: setupYear

@@ -52,20 +52,6 @@
 
 .btn--ghost:hover { border-color: var(--area); color: var(--area-deep); }
 
-.btn--quiet {
-  background: transparent;
-  color: var(--ink-muted);
-  padding-inline: 0.6em;
-}
-
-.btn--quiet:hover { color: var(--area-deep); }
-
-.btn--star {
-  background: var(--star);
-  color: #3B2A00;
-  box-shadow: var(--shadow-md);
-}
-
 .btn--sm { font-size: var(--step--1); padding: 0.5em 1em; }
 
 /* Los iconos en linea nunca deben crecer mas que el texto que acompanan. */
@@ -308,35 +294,6 @@
   white-space: nowrap;
 }
 
-/* --- Barra de progreso ---------------------------------------------------- */
-
-.progress { display: grid; gap: var(--sp-2); }
-
-.progress__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  font-size: var(--step--1);
-  font-weight: 700;
-  color: var(--ink-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.progress__track {
-  height: 0.7rem;
-  border-radius: var(--r-pill);
-  background: var(--surface-3);
-  overflow: hidden;
-}
-
-.progress__fill {
-  height: 100%;
-  width: 0;
-  border-radius: var(--r-pill);
-  background: var(--area);
-  transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
 /* --- Bloque "como usar" --------------------------------------------------- */
 
 .how {
@@ -382,6 +339,30 @@
 
 .area-head__title { color: var(--ink); }
 .area-head__lead { color: var(--ink-soft); max-width: var(--measure); }
+
+.area-head__learning {
+  max-width: var(--measure);
+  padding: var(--sp-3) var(--sp-4);
+  border-inline-start: 3px solid var(--area-line);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: var(--area-soft);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.area-head__count,
+.area-card__count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  color: var(--area-deep);
+}
+
+.area-head__count svg,
+.area-card__count svg { flex: none; width: 1.1rem; height: 1.1rem; }
 
 /* --- Riel de unidades ------------------------------------------------------ */
 
@@ -434,9 +415,11 @@
   transition: background-color 0.14s ease, color 0.14s ease;
 }
 
-.unit-chip:hover { background: var(--surface-2); }
+.unit-chip { text-decoration: none; }
+.unit-chip:hover { background: var(--surface-2); color: var(--area-deep); }
 
-.unit-chip[aria-selected="true"] {
+.unit-chip:target,
+.unit-chip--answers {
   background: var(--area-soft);
   border-color: var(--area-line);
   color: var(--area-deep);
@@ -456,8 +439,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-.unit-chip[aria-selected="true"] .unit-chip__num { background: var(--area); color: #fff; }
-.unit-chip.is-done .unit-chip__num { background: var(--ok); color: #fff; }
+.unit-chip:hover .unit-chip__num { background: var(--area); color: #fff; }
+.unit-chip--answers .unit-chip__num { background: var(--surface); color: var(--star); }
+.unit-chip--answers .unit-chip__num svg { width: 1rem; height: 1rem; }
 
 @media (max-width: 60rem) {
   .unit-rail {
@@ -470,7 +454,11 @@
   .unit-rail__title { display: none; }
 }
 
-/* --- Leccion --------------------------------------------------------------- */
+/* --- Unidad y leccion ------------------------------------------------------ */
+
+.unit {
+  scroll-margin-top: var(--sp-6);
+}
 
 .lesson {
   display: grid;
@@ -574,238 +562,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* --- Actividades ------------------------------------------------------------ */
-
-.activity {
-  display: grid;
-  gap: var(--sp-4);
-  padding: var(--sp-5);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--surface-2);
-}
-
-.activity__head {
-  display: flex;
-  align-items: baseline;
-  gap: var(--sp-3);
-  flex-wrap: wrap;
-}
-
-.activity__tag {
-  padding: 0.25em 0.7em;
-  border-radius: var(--r-pill);
-  background: var(--area);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.activity__question {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 700;
-}
-
-.options { display: grid; gap: var(--sp-3); }
-
-.options--grid { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  width: 100%;
-  padding: var(--sp-3) var(--sp-4);
-  border: 2px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  text-align: start;
-  font-weight: 600;
-  transition: transform 0.12s ease, border-color 0.14s ease, background-color 0.14s ease;
-}
-
-.option:hover:not([disabled]) { border-color: var(--area); transform: translateX(3px); }
-
-.option__key {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: var(--r-pill);
-  background: var(--surface-3);
-  font-family: var(--font-display);
-  font-weight: 800;
-}
-
-.option.is-correct {
-  border-color: var(--ok);
-  background: var(--ok-soft);
-}
-
-.option.is-correct .option__key { background: var(--ok); color: #fff; }
-
-.option.is-wrong {
-  border-color: var(--no);
-  background: var(--no-soft);
-}
-
-.option.is-wrong .option__key { background: var(--no); color: #fff; }
-
-.option[disabled] { cursor: default; }
-
-/* Unir parejas */
-.match {
-  display: grid;
-  gap: var(--sp-4);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.match__col { display: grid; gap: var(--sp-3); align-content: start; }
-
-.match__label {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-muted);
-}
-
-.match__item {
-  padding: var(--sp-3);
-  border: 2px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  text-align: start;
-  font-weight: 600;
-  transition: border-color 0.14s ease, background-color 0.14s ease;
-}
-
-.match__item.is-active { border-color: var(--area); background: var(--area-soft); }
-.match__item.is-paired { border-color: var(--ok); background: var(--ok-soft); cursor: default; }
-.match__item.is-wrong { border-color: var(--no); background: var(--no-soft); }
-
-/* Ordenar */
-.order { display: grid; gap: var(--sp-3); }
-
-.order__item {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-3);
-  border: 2px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  font-weight: 600;
-}
-
-.order__item.is-correct { border-color: var(--ok); background: var(--ok-soft); }
-.order__item.is-wrong  { border-color: var(--no); background: var(--no-soft); }
-
-.order__pos {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: var(--r-pill);
-  background: var(--area-soft);
-  color: var(--area-deep);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
-
-.order__controls { display: flex; gap: var(--sp-1); margin-inline-start: auto; }
-
-.order__move {
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  color: var(--ink-soft);
-}
-
-.order__move:hover:not([disabled]) { color: var(--area-deep); border-color: var(--area); }
-.order__move[disabled] { opacity: 0.3; cursor: not-allowed; }
-.order__move svg { width: 1rem; height: 1rem; }
-
-/* Completar */
-.fill {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2);
-  font-size: var(--step-1);
-  line-height: 2.2;
-}
-
-.fill__blank {
-  min-width: 7ch;
-  padding: 0.15em 0.6em;
-  border: 0;
-  border-bottom: 3px solid var(--area);
-  border-radius: var(--r-sm) var(--r-sm) 0 0;
-  background: var(--area-soft);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-align: center;
-}
-
-.fill__blank.is-correct { background: var(--ok-soft); border-bottom-color: var(--ok); }
-.fill__blank.is-wrong  { background: var(--no-soft);  border-bottom-color: var(--no); }
-
-/* Retroalimentacion */
-.feedback {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
-  border-radius: var(--r-md);
-  font-weight: 600;
-  animation: pop 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-
-.feedback[hidden] { display: none; }
-.feedback--ok { background: var(--ok-soft); border: 1px solid var(--ok-line); color: var(--ink); }
-.feedback--no { background: var(--no-soft); border: 1px solid var(--no-line); color: var(--ink); }
-
-.feedback__icon {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: var(--r-pill);
-  color: #fff;
-  font-weight: 800;
-}
-
-.feedback--ok .feedback__icon { background: var(--ok); }
-.feedback--no .feedback__icon { background: var(--no); }
-
-@keyframes pop {
-  from { opacity: 0; transform: translateY(6px) scale(0.97); }
-  to   { opacity: 1; transform: none; }
-}
-
-.activity__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
-
-/* --- Estrellas y logros ------------------------------------------------------ */
-
-.stars { display: inline-flex; gap: 0.2rem; }
-.stars svg { width: 1.1rem; height: 1.1rem; color: var(--line-strong); }
-.stars svg.is-on { color: var(--star); }
-
 .score-pill {
   display: inline-flex;
   align-items: center;
@@ -817,50 +573,6 @@
   font-family: var(--font-display);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-}
-
-/* --- Navegacion entre lecciones ----------------------------------------------- */
-
-.lesson-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-3);
-  align-items: center;
-  justify-content: space-between;
-  padding-top: var(--sp-4);
-  border-top: 1px dashed var(--line);
-}
-
-/* --- Toast ---------------------------------------------------------------------- */
-
-.toast-area {
-  position: fixed;
-  inset-block-end: var(--sp-5);
-  inset-inline: 0;
-  z-index: 60;
-  display: grid;
-  justify-items: center;
-  gap: var(--sp-2);
-  pointer-events: none;
-}
-
-.toast {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-5);
-  border-radius: var(--r-pill);
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-display);
-  font-weight: 700;
-  box-shadow: var(--shadow-lg);
-  animation: rise 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: none; }
 }
 
 /* --- Pie ------------------------------------------------------------------------ */
@@ -1005,88 +717,6 @@
   border-radius: var(--r-pill);
   background: var(--line-strong);
 }
-
-/* --- Reflexión (nunca se califica) ------------------------------------------------- */
-
-.reflect {
-  display: grid;
-  gap: var(--sp-3);
-  padding: var(--sp-5);
-  border: 2px dashed var(--area-line);
-  border-radius: var(--r-lg);
-  background: var(--surface);
-}
-
-.reflect__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--area-deep);
-}
-
-.reflect__tag svg { flex: none; width: 1.1rem; height: 1.1rem; }
-
-.reflect__question {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 700;
-}
-
-.reflect__help { font-size: var(--step--1); color: var(--ink-muted); }
-
-.reflect__input {
-  width: 100%;
-  padding: var(--sp-3);
-  border: 2px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: var(--surface-2);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: var(--step-0);
-  line-height: 1.6;
-  resize: vertical;
-}
-
-.reflect__input:focus-visible { border-color: var(--area); }
-
-.reflect__status { font-size: var(--step--1); font-weight: 700; }
-.reflect__status.is-saved { color: var(--ok); }
-.reflect__status.is-pending { color: var(--ink-muted); }
-
-.reflect__note { font-size: var(--step--1); color: var(--ink-muted); font-style: italic; }
-
-/* --- Ronda de práctica -------------------------------------------------------------- */
-
-.practice {
-  display: grid;
-  gap: var(--sp-3);
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-}
-
-.practice__row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-2) var(--sp-3);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--surface);
-}
-
-.practice__text {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.practice .fill__blank { flex: 1; min-width: 4rem; }
 
 /* --- Fuente de un texto de lectura --------------------------------------------------- */
 
