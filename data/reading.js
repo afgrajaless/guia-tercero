@@ -364,7 +364,7 @@ window.Guide.register('reading', {
             },
             {
               type: 'adult',
-              title: 'Nota para la docente',
+              title: 'Nota para la profesora Ruby',
               paragraphs: [
                 'La pregunta 4 de **3.C.2** ("¿Qué le dirías a un niño más pequeño que te pregunta si va a volver a temblar?") suele ser la más reveladora del estado emocional del grupo.',
                 'Como toda la guía se escribe en el cuaderno, vale la pena leerla con atención en todas las entregas físicas y marcar las que requieran seguimiento.',

@@ -1,8 +1,8 @@
 # Contenido para el sitio `guia-tercero`
 
 **Destino:** https://afgrajaless.github.io/guia-tercero/
-**Grado:** Tercero (7–8 años) · I.E. Pablo Sexto, sede Antonio José de Sucre · Grupo 3°B · Periodo III
-**Docente:** Lina Marcela Ortiz Zúñiga
+**Grado:** Tercero (7–8 años) · I.E. Pablo Sexto, sede Antonio José de Sucre · Grupo 3°A · Periodo III
+**Docente:** profesora Ruby
 **Contexto:** modalidad virtual tras el sismo del 10 de agosto de 2026 (Directiva 009 de 2026, MinEducación).
 
 ---

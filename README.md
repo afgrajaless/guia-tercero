@@ -1,8 +1,8 @@
 # Guía de Tercero
 
-Guía de trabajo para grado **3°B** de la I.E. Pablo Sexto, sede Antonio José de Sucre.
+Guía de trabajo para grado **3°A** de la I.E. Pablo Sexto, sede Antonio José de Sucre.
 **Semana del 1 al 4 de septiembre de 2026**, en modalidad virtual tras el sismo del 10 de agosto
-(Directiva 009 de 2026, MinEducación). Docente: Lina Marcela Ortiz Zúñiga.
+(Directiva 009 de 2026, MinEducación). Docente: profesora Ruby.
 
 Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pages:
 **https://afgrajaless.github.io/guia-tercero/**
@@ -11,7 +11,7 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
 
 | Día | Área | Página |
 |---|---|---|
-| Martes 1 | Psicosocial — *Hablemos de cómo nos sentimos* | `wellbeing.html` |
+| Martes 1 | Psicosocial — *Hablemos de cómo nos sentimos* (incluye el taller *Juntos nos cuidamos*) | `wellbeing.html` |
 | Miércoles 2 | Matemáticas — *Analizo, calculo, reparto* | `math.html` |
 | Jueves 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
 | Viernes 4 | Aún por definir | tarjeta reservada en la portada |
@@ -21,14 +21,15 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
 1. **Todo se resuelve en el cuaderno.** El sitio explica, muestra el ejemplo y deja la consigna;
    el estudiante copia el enunciado y lo resuelve en su cuaderno. **No hay nada que responder en
    la página:** ni selección múltiple, ni campos de texto, ni tarjetas que arrastrar, ni casillas
-   que marcar. Tampoco hay avance guardado, porcentajes ni puntaje. La docente revisa el cuaderno
+   que marcar. Tampoco hay avance guardado, porcentajes ni puntaje. La profesora Ruby revisa el cuaderno
    físico.
 2. **Las respuestas van al final del día.** Cada página cierra con el solucionario
    **"Respuestas de hoy"**, con una entrada por actividad. El estudiante resuelve primero, luego
    compara y pasa también la respuesta al cuaderno. Cada entrada enlaza de vuelta a su consigna.
 3. **La sección psicosocial no califica.** Ninguna de sus actividades tiene respuesta correcta.
    Su bloque de cierre no se llama "Respuestas" sino **"Para comparar en familia"**, y solo trae
-   la clave de la actividad de los dos círculos, como excusa para conversarla con un adulto.
+   la clave de dos actividades —los dos círculos y lo que sí ayuda—, como excusa para conversarlas
+   con un adulto.
    Esto se declara con `grades: false` en `data/wellbeing.js`.
 
 La única parte que se usa en pantalla es la **respiración cuadrada** del martes: una animación que
@@ -102,7 +103,7 @@ se arma el ancla que la enlaza con su respuesta en el solucionario.
 | `steps` | `title`, `lines[]`, `note` | "Ver el procedimiento", desplegable. |
 | `links` | `title`, `items[{label, href, note}]` | Enlaces externos, abren en pestaña nueva. |
 | `figure` | `figure`, `alt`, + parámetros | Diagrama SVG: `numberLine`, `fraction`, `shape`, `pictogram`. |
-| `adult` | `title`, `paragraphs[]`, `items[]` | Nota para el docente o acudiente, colapsada. |
+| `adult` | `title`, `paragraphs[]`, `items[]` | Nota para la profesora o el acudiente, colapsada. |
 | `notebook` | ver abajo | **La actividad.** Consigna que se copia al cuaderno. |
 | `breathing` | `id`, `cycles`, `closing` | Guía animada de respiración cuadrada. |
 
@@ -186,7 +187,7 @@ git add -A && git commit -m "..." && git push
 
 GitHub Pages reconstruye solo en aproximadamente un minuto.
 
-## Criterios de contenido que no se cambian sin consultar a la docente
+## Criterios de contenido que no se cambian sin consultar a la profesora Ruby
 
 - No se usan cifras de personas fallecidas, heridas ni de edificios colapsados en ningún
   enunciado. Los contextos de ayuda y reconstrucción sí se conservan.

@@ -499,7 +499,7 @@ window.Guide.register('math', {
             },
             {
               type: 'adult',
-              title: 'Nota editorial para la docente',
+              title: 'Nota editorial para la profesora Ruby',
               paragraphs: [
                 'Los contextos de los problemas se escogieron a propósito: bibliotecas, acueductos, útiles escolares, voluntarios y datos científicos. **No se usan cifras de personas fallecidas, heridas ni de edificios colapsados.**',
                 'Convertir la tragedia en un enunciado matemático obliga al niño a manipular numéricamente aquello que todavía le duele, y a esta edad eso reactiva la angustia en lugar de elaborarla. Los contextos de ayuda y reconstrucción sí se conservan porque refuerzan que la comunidad está respondiendo.',

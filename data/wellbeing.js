@@ -6,7 +6,9 @@
    Todo se escribe en el cuaderno. Lo único que se hace en la página es la
    práctica de respiración cuadrada, que no pide respuesta ni deja registro.
    El bloque de cierre no se titula "Respuestas": se llama "Para comparar en
-   familia" y solo trae la clave de la actividad de los dos círculos.
+   familia" y solo trae la clave de dos actividades: los dos círculos (1.B.1) y
+   lo que sí ayuda (1.E.1). La lección 1.E recoge el taller "Después del
+   terremoto: juntos nos cuidamos".
    ========================================================================== */
 
 window.Guide.register('wellbeing', {
@@ -17,8 +19,8 @@ window.Guide.register('wellbeing', {
   grades: false,
   day: { label: 'Martes 1 de septiembre', short: 'Martes 1', weekday: 'Martes' },
   subject: 'Ética y Valores · Orientación de grupo',
-  description: 'Reconocer lo que siento después del temblor, aprender a calmar mi cuerpo y saber a quién puedo pedir ayuda. Aquí no hay nota ni respuestas malas: todo se escribe en el cuaderno.',
-  learning: 'Reconozco y nombro lo que siento después de una situación difícil, aplico estrategias sencillas para calmar mi cuerpo y sé a quién puedo pedir ayuda.',
+  description: 'Reconocer lo que siento después del temblor, aprender a calmar mi cuerpo, saber a quién puedo pedir ayuda y acompañar al que lo necesite. Aquí no hay nota ni respuestas malas: todo se escribe en el cuaderno.',
+  learning: 'Reconozco y nombro lo que siento después de una situación difícil, aplico estrategias sencillas para calmar mi cuerpo, sé a quién puedo pedir ayuda y acompaño a quien lo está pasando mal.',
 
   banner: {
     title: 'Para la familia: léalo antes de empezar',
@@ -29,7 +31,7 @@ window.Guide.register('wellbeing', {
       'Acompáñelo mientras la desarrolla. No hace falta que sepa qué decir: basta con estar al lado, escuchar sin interrumpir y no apurar la conversación.',
       'Si el niño o la niña no quiere hablar de algo, no insista. Puede dejar el punto en blanco y volver a él otro día. Todo lo que escriba está bien.',
       'Evite dejarlo viendo noticias o videos del rescate. A esta edad, las imágenes repetidas aumentan el miedo en lugar de explicarlo.',
-      'Si nota que hace más de un mes no duerme, no juega, no come o no quiere separarse de usted, comuníquese con la docente y llame a la **Línea Amiga 106**.'
+      'Si nota que hace más de un mes no duerme, no juega, no come o no quiere separarse de usted, comuníquese con la profesora Ruby y llame a la **Línea Amiga 106**.'
     ]
   },
 
@@ -38,7 +40,7 @@ window.Guide.register('wellbeing', {
     lines: [
       '**Línea Amiga 106** — gratuita, confidencial, 24 horas, desde cualquier teléfono.',
       '**Risaralda: 606 333 9610** — Ruta de Atención en Salud Mental.',
-      'También puedes escribirle a tu profe o contarle a un adulto de tu casa.'
+      'También puedes escribirle a la profesora Ruby o contarle a un adulto de tu casa.'
     ]
   },
 
@@ -57,7 +59,7 @@ window.Guide.register('wellbeing', {
             {
               type: 'callout',
               title: 'Un mensaje de tu profe',
-              paragraphs: ['Hola. Soy tu profe y quiero contarte algo: el 10 de agosto todos vivimos un temblor muy fuerte. Muchos adultos también sentimos miedo ese día. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
+              paragraphs: ['Hola. Soy la profesora Ruby y quiero contarte algo: el 10 de agosto todos vivimos un temblor muy fuerte. Muchos adultos también sentimos miedo ese día. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
             },
             {
               type: 'text',
@@ -359,17 +361,114 @@ window.Guide.register('wellbeing', {
                 }
               ]
             },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'u5',
+      title: 'Juntos nos cuidamos',
+      summary: 'Hasta aquí miramos hacia adentro. Ahora miramos al de al lado.',
+      lessons: [
+        {
+          id: 'l5',
+          code: '1.E',
+          title: 'Después del terremoto: juntos nos cuidamos',
+          goal: 'acompañar a un compañero que lo está pasando mal y guardar tu propio mensaje de esperanza.',
+          blocks: [
+            {
+              type: 'text',
+              paragraphs: [
+                'Todo lo que hiciste hoy fue para entender lo que **tú** sientes. Esta última parte es distinta: es para mirar al de al lado.',
+                'Después de algo difícil, no todos nos recuperamos al mismo tiempo. Puede que a ti ya se te esté pasando el susto y que un compañero todavía esté asustado, o al revés. Eso no significa que uno sea más valiente que el otro: significa que cada quien lleva su ritmo.'
+              ]
+            },
+            {
+              type: 'callout',
+              title: 'Algo que sirve saber',
+              paragraphs: [
+                'No hace falta saber qué decir para ayudar a alguien. La mayoría de las veces basta con quedarse al lado y escuchar. Eso ya es ayudar.'
+              ]
+            },
+            {
+              type: 'list',
+              title: 'Imagina que un compañero está preocupado. ¿Qué podrías hacer?',
+              items: [
+                'Escucharlo.',
+                'Burlarme de él.',
+                'Acompañarlo.',
+                'Decirle que sus sentimientos no importan.',
+                'Avisar a un adulto de confianza.',
+                'Hablarle con cariño.'
+              ]
+            },
+            {
+              type: 'notebook',
+              id: '1E1',
+              title: 'Nos ayudamos entre todos',
+              intro: 'En la lista de arriba hay cosas que ayudan y **dos que hacen daño**. Copia en tu cuaderno el título "Lo que sí ayuda" y escribe debajo solo las que de verdad ayudan. Las otras dos no las copies: señálalas y cuéntale a un adulto por qué crees que hacen daño.',
+              ordered: false,
+              items: [
+                'Lo que sí ayuda: …',
+                'Una frase que yo le diría: "…"'
+              ],
+              key: [
+                'Lo que sí ayuda: escucharlo · acompañarlo · avisar a un adulto de confianza · hablarle con cariño.',
+                'Las dos que hacen daño son burlarse de él y decirle que sus sentimientos no importan. Burlarse de alguien que tiene miedo hace que se calle y se quede solo con lo que siente.',
+                'La frase es tuya: no hay una correcta. Sirve cualquiera que él pudiera escuchar sin sentirse juzgado.'
+              ],
+              keyNote: 'Esto no es un examen. Es para conversarlo: pregúntele qué haría si el preocupado fuera él.'
+            },
+            {
+              type: 'notebook',
+              id: '1E2',
+              title: 'Un lugar seguro',
+              intro: 'Dibuja en tu cuaderno un lugar donde te sientas tranquilo, protegido y acompañado. Puede ser un lugar de verdad o uno inventado. Debajo del dibujo copia la frase y complétala.',
+              ordered: false,
+              items: ['"En este lugar me siento ______________ porque ______________."'],
+              note: 'No es el mismo que tu rincón de la calma: ese es un lugar real de tu casa, este puede ser cualquiera, hasta uno que solo exista en tu cabeza.'
+            },
+            {
+              type: 'notebook',
+              id: '1E3',
+              title: 'Mi mensaje de esperanza',
+              intro: 'Copia estas tres frases en tu cuaderno y complétalas. Fíjate que van de lo más pequeño a lo más grande: primero tú, luego los que te quieren, luego todos.',
+              items: [
+                'Después de un momento difícil, yo puedo…',
+                'Las personas que me quieren pueden…',
+                'Juntos podemos…'
+              ]
+            },
+            {
+              type: 'notebook',
+              id: '1E4',
+              title: 'Para cerrar el día',
+              intro: 'Termina la página de hoy en tu cuaderno con esta frase, y escribe la fecha al lado.',
+              ordered: false,
+              items: ['"Hoy quiero recordar que…"'],
+              note: 'Guárdala. Sirve volver a leerla el día que estés bajoneado.'
+            },
+            {
+              type: 'callout',
+              title: 'Un mensaje para ti',
+              paragraphs: [
+                'Es normal sentir miedo, tristeza o preocupación después de una situación difícil. Podemos hablar de lo que sentimos, buscar ayuda en un adulto de confianza, respirar, acompañarnos y recordar que **no estamos solos**.'
+              ]
+            },
             {
               type: 'adult',
               title: 'Para el adulto que acompaña',
               paragraphs: [
                 'Esta sección no tiene calificación y ningún ítem se marca como correcto o incorrecto. La página no recoge nada de lo que el niño escriba: todo queda en su cuaderno.',
-                'La única actividad con clave es la de los dos círculos (**1.B.1**), y aparece al final bajo el título "Para comparar en familia". No es una corrección: es una excusa para conversar sobre por qué una frase quedó en un círculo y no en el otro.'
+                'Solo dos actividades tienen clave —los dos círculos (**1.B.1**) y lo que sí ayuda (**1.E.1**)— y aparecen al final bajo el título "Para comparar en familia". No son correcciones: son excusas para conversar.',
+                'La lección **1.E** recoge el taller "Después del terremoto: juntos nos cuidamos". Se dejó al final a propósito: el niño primero nombra lo suyo y solo después mira al compañero. Al revés no funciona a esta edad.'
               ],
               items: [
                 'Revise el cuaderno con el niño sin corregir la ortografía primero.',
-                'Si aparecen respuestas que preocupan, comuníquese con la docente antes de hablarlas con el niño.',
-                'No insista en las preguntas que deje en blanco: volver otro día es parte del proceso.'
+                'Si aparecen respuestas que preocupan, comuníquese con la profesora Ruby antes de hablarlas con el niño.',
+                'No insista en las preguntas que deje en blanco: volver otro día es parte del proceso.',
+                'En **1.E.1**, si el niño copia por error alguna de las dos que hacen daño, no lo corrija de una: pregúntele cómo se sentiría él si se lo hicieran.'
               ]
             }
           ]
