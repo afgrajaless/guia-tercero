@@ -380,6 +380,13 @@ window.Guide.register('reading', {
               note: 'Cambiar una costumbre cuesta. Si un día no se pudo, no pasa nada: se sigue al otro.'
             },
             {
+              type: 'links',
+              title: 'Para seguir aprendiendo',
+              items: [
+                { label: 'Cómo hacer un resumen (video)', href: 'https://www.youtube.com/watch?v=vuuagyKU55Y', note: 'Los mismos cuatro pasos de arriba, explicados en video. Sirve para la actividad 3.C.3.' }
+              ]
+            },
+            {
               type: 'adult',
               title: 'Nota para la profesora Ruby',
               paragraphs: [

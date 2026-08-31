@@ -505,10 +505,10 @@ window.Guide.register('math', {
               type: 'links',
               title: 'Videos de refuerzo',
               items: [
-                { label: 'Valor posicional', href: 'https://www.youtube.com/watch?v=CpBVPMBXvt4' },
-                { label: 'Multiplicación por 2 y 3 cifras', href: 'https://www.youtube.com/watch?v=huLO63dpPok' },
-                { label: 'División por 2 cifras', href: 'https://www.youtube.com/watch?v=Jxjhfqo7wRQ' },
-                { label: 'División por 3 cifras', href: 'https://www.youtube.com/watch?v=KrJ2aZfMPOU' }
+                { label: 'Valor posicional', href: 'https://www.youtube.com/watch?v=eNodAB9v6YM', note: 'Desde las unidades hasta las centenas de mil, que es justo lo de la lección 2.A.' },
+                { label: 'Multiplicación por 2 cifras', href: 'https://www.youtube.com/watch?v=aIde9ulEs58', note: 'Muestra cómo se corre el segundo renglón.' },
+                { label: 'División por 2 cifras', href: 'https://www.youtube.com/watch?v=k_I6i8FtDJ4', note: 'La Eduteca. Va muy despacio, que es lo que se necesita aquí.' },
+                { label: 'División por 3 cifras', href: 'https://www.youtube.com/watch?v=onIQHLnoU2I', note: 'Para la lección 2.D, cuando el divisor tiene tres cifras.' }
               ]
             },
             {
