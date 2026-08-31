@@ -9,8 +9,21 @@
 
 ## 0. INSTRUCCIONES PARA EL AGENTE
 
-> **Nota posterior — cambio de enfoque.** Las secciones 1, 2 y 3 de este archivo (el contenido
-> pedagógico) siguen vigentes tal cual. Lo que ya **no** aplica es el modelo de interacción que
+> **Nota posterior — el sitio ya no sigue este documento.** Este archivo quedó como registro de la
+> versión original, pero **el contenido publicado es otro**. Dos cambios lo separaron de aquí:
+>
+> 1. **Se quitó el contexto del sismo y el calendario.** La guía ya no habla del terremoto, del 10
+>    de agosto, de la Directiva 009 ni de días de la semana. Son **tres secciones** —Emociones,
+>    Matemáticas y Comprensión lectora— centradas en emociones cotidianas, autocontrol y hábitos,
+>    para niños de 7 a 9 años. Los dos textos de comprensión lectora se reescribieron de cero
+>    (ahora tratan del sueño y de organizar la tarde) y los problemas de matemáticas que aludían
+>    al tema cambiaron de contexto conservando la operación.
+> 2. **Se quitó toda la interacción**, como explica la nota siguiente.
+>
+> Las secciones 1, 2 y 3 de este archivo ya no corresponden a lo que está publicado. Para el
+> contenido vigente, ver `data/*.js`; para el esquema, ver el README.
+
+> **Nota posterior — cambio de enfoque.** Lo que ya **no** aplica es el modelo de interacción que
 > describe este apartado §0: la guía dejó de resolverse en pantalla.
 >
 > Hoy el sitio es un documento que se lee y se **transcribe al cuaderno**. No hay selección

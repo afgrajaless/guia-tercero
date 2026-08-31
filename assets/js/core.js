@@ -9,7 +9,7 @@
   /** Contenido registrado por cada archivo de /data, indexado por id de area. */
   var areas = {};
 
-  /** Orden de los dias de la semana: martes, miercoles y jueves. */
+  /** Orden de las secciones: emociones, matematicas y comprension lectora. */
   var AREA_ORDER = ['wellbeing', 'math', 'reading'];
 
   /** Iconos SVG en linea. Se usan como marcas de area y de interfaz. */

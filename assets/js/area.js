@@ -1,5 +1,5 @@
 /* ==========================================================================
-   area.js — Arma la pagina de un dia: cabecera, indice, todas las lecciones
+   area.js — Arma la pagina de una seccion: cabecera, indice, las lecciones
    seguidas, el solucionario del final y los bloques fijos que cada seccion
    necesita (banner para la familia, aviso previo, panel con los textos de
    lectura siempre accesibles y bloque de ayuda).
@@ -20,7 +20,7 @@
   var ICONS = Guide.ICONS;
 
   /** Ancla del solucionario dentro de la pagina. */
-  var ANSWERS_ID = 'respuestas-de-hoy';
+  var ANSWERS_ID = 'respuestas';
 
   /**
    * Devuelve los textos del solucionario segun si la seccion califica o no.
@@ -37,7 +37,7 @@
       };
     }
     return {
-      title: 'Respuestas de hoy',
+      title: 'Respuestas de esta sección',
       lead: 'Resuelve primero en el cuaderno. Después compara con estas respuestas y pásalas también al cuaderno, debajo de cada actividad.',
       pointer: 'Las respuestas están al final de la página'
     };
@@ -63,7 +63,7 @@
   }
 
   /**
-   * Reune todos los textos de lectura del dia para el panel flotante.
+   * Reune todos los textos de lectura de la seccion para el panel flotante.
    * @param {Object} area - Contenido del area.
    * @returns {Array<Object>} Bloques de lectura en orden de aparicion.
    */
@@ -299,7 +299,7 @@
   }
 
   /**
-   * Punto de entrada: arma toda la pagina del dia indicado en el body.
+   * Punto de entrada: arma la pagina de la seccion indicada en el body.
    * @returns {void}
    */
   function start() {
@@ -317,13 +317,13 @@
     var ctx = { answersId: ANSWERS_ID, answersPointer: copy.pointer };
 
     /**
-     * Pinta la cabecera con el dia, el titulo y lo que trae la jornada.
+     * Pinta la cabecera con la seccion, el titulo y el aprendizaje.
      * @returns {void}
      */
     function paintHead() {
       headHost.appendChild(el('p', {
         className: 'lesson__kicker',
-        text: area.day ? area.day.label : (area.kicker || 'Área')
+        text: area.section ? area.section.label : (area.kicker || 'Área')
       }));
       headHost.appendChild(el('h1', { className: 'area-head__title', text: area.title }));
       headHost.appendChild(el('p', { className: 'area-head__lead', text: area.description }));
@@ -340,11 +340,11 @@
     }
 
     /**
-     * Pinta el indice lateral con un enlace a cada unidad del dia.
+     * Pinta el indice lateral con un enlace a cada unidad de la seccion.
      * @returns {void}
      */
     function paintRail() {
-      railHost.appendChild(el('p', { className: 'unit-rail__title', text: 'Lo de hoy' }));
+      railHost.appendChild(el('p', { className: 'unit-rail__title', text: 'En esta sección' }));
       (area.units || []).forEach(function (unit, index) {
         var link = el('a', {
           className: 'unit-chip',
@@ -367,7 +367,7 @@
     }
 
     /**
-     * Pinta todas las unidades del dia, una tras otra, y el solucionario.
+     * Pinta todas las unidades de la seccion, una tras otra, y el solucionario.
      * @returns {void}
      */
     function paintLessons() {
@@ -390,7 +390,7 @@
     }
 
     /**
-     * Pinta los bloques fijos del dia: banner para la familia, aviso y ayuda.
+     * Pinta los bloques fijos: banner para la familia, aviso y ayuda.
      * @returns {void}
      */
     function paintExtras() {

@@ -1,8 +1,8 @@
 /* ==========================================================================
-   home.js — Portada: agenda de la semana con lo que trae cada día.
+   home.js — Portada: las tres secciones de la guía.
    No hay avance ni porcentajes: la guía se resuelve en el cuaderno. Tampoco se
-   anuncia cuántas actividades trae cada día, solo cuántas lecciones: el número
-   grande asusta antes de empezar.
+   anuncia cuántas actividades trae cada sección, solo cuántas lecciones: el
+   número grande asusta antes de empezar.
    ========================================================================== */
 
 (function (global) {
@@ -12,22 +12,12 @@
   var el = Guide.el;
   var ICONS = Guide.ICONS;
 
-  /** Días de la semana que todavía no tienen contenido asignado. */
-  var PENDING = [
-    {
-      day: 'Viernes 4',
-      date: 'Viernes 4 de septiembre',
-      title: 'Aún por definir',
-      description: 'Este espacio queda reservado. Cuando se defina qué se trabaja el viernes, se agrega aquí.'
-    }
-  ];
-
   /**
    * Cuenta las lecciones de un área.
    * A propósito no se cuentan las consignas: anunciarle a un niño de ocho años
-   * que el día trae quince actividades lo desanima antes de abrir el cuaderno.
+   * que una sección trae quince actividades lo desanima antes de abrir el cuaderno.
    * @param {Object} area - Contenido del área.
-   * @returns {number} Número de lecciones del día.
+   * @returns {number} Número de lecciones de la sección.
    */
   function countLessons(area) {
     var lessons = 0;
@@ -38,11 +28,11 @@
   }
 
   /**
-   * Construye la tarjeta de un día con contenido.
+   * Construye la tarjeta de una sección.
    * @param {Object} area - Contenido registrado del área.
    * @returns {HTMLElement} Enlace con forma de tarjeta.
    */
-  function renderDayCard(area) {
+  function renderSectionCard(area) {
     var card = el('a', {
       className: 'area-card reveal',
       attrs: { href: area.href, 'data-area': area.id }
@@ -55,7 +45,7 @@
     }));
     top.appendChild(el('span', {
       className: 'area-card__day',
-      text: area.day ? area.day.short : ''
+      text: area.section ? area.section.short : ''
     }));
     card.appendChild(top);
 
@@ -75,29 +65,6 @@
   }
 
   /**
-   * Construye la tarjeta de un día que todavía no tiene contenido definido.
-   * @param {Object} entry - Datos del día pendiente.
-   * @returns {HTMLElement} Tarjeta sin enlace.
-   */
-  function renderPendingCard(entry) {
-    var card = el('div', { className: 'area-card area-card--pending reveal' });
-
-    var top = el('div', { className: 'area-card__top' });
-    top.appendChild(el('span', { className: 'area-card__icon', html: ICONS.compass }));
-    top.appendChild(el('span', { className: 'area-card__day', text: entry.day }));
-    card.appendChild(top);
-
-    card.appendChild(el('p', { className: 'area-card__subject', text: 'Sin asignar' }));
-    card.appendChild(el('h3', { className: 'area-card__title', text: entry.title }));
-    card.appendChild(el('p', { className: 'area-card__text', text: entry.description }));
-
-    var foot = el('div', { className: 'area-card__foot' });
-    foot.appendChild(el('span', { text: entry.date }));
-    card.appendChild(foot);
-    return card;
-  }
-
-  /**
    * Escribe el recordatorio de la portada. Es una frase que tranquiliza, no
    * una cuenta: la guía no se mide en cantidad de ejercicios.
    * @param {HTMLElement} host - Contenedor donde escribir el recordatorio.
@@ -110,7 +77,7 @@
   }
 
   /**
-   * Punto de entrada de la portada: pinta la agenda y el resumen.
+   * Punto de entrada de la portada: pinta las tres secciones y el recordatorio.
    * @returns {void}
    */
   function start() {
@@ -118,8 +85,7 @@
     var summary = document.querySelector('[data-summary]');
     if (!grid) { return; }
 
-    Guide.list().forEach(function (area) { grid.appendChild(renderDayCard(area)); });
-    PENDING.forEach(function (entry) { grid.appendChild(renderPendingCard(entry)); });
+    Guide.list().forEach(function (area) { grid.appendChild(renderSectionCard(area)); });
     if (summary) { renderSummary(summary); }
     Guide.setupReveal(grid);
   }

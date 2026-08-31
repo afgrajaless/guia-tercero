@@ -1,14 +1,16 @@
 /* ==========================================================================
-   data/reading.js — Jueves 3 de septiembre · Comprensión lectora
+   data/reading.js — Sección 3 · Comprensión lectora
    DBA 6 · Competencia lectora · Componente semántico
 
-   Los dos textos son originales, escritos para esta guía. Los datos del
-   Texto 1 provienen del Servicio Geológico Colombiano.
+   Los dos textos son originales, escritos para esta guía. Tratan de hábitos
+   y convivencia: uno explica por qué necesitamos dormir y el otro enseña a
+   organizar la tarde. Sirven para lo de siempre: comparar un texto
+   informativo con uno instructivo.
 
    Todo se resuelve en el cuaderno: no hay preguntas de selección ni nada que
    marcar en la página. Las respuestas de las preguntas literales y de las
    actividades de vocabulario, orden y comparación se reúnen al final, en
-   "Respuestas de hoy". Las preguntas de opinión no llevan respuesta.
+   "Respuestas de esta sección". Las preguntas de opinión no llevan respuesta.
    ========================================================================== */
 
 window.Guide.register('reading', {
@@ -16,19 +18,19 @@ window.Guide.register('reading', {
   short: 'Comprensión lectora',
   icon: 'book',
   href: 'reading.html',
-  day: { label: 'Jueves 3 de septiembre', short: 'Jueves 3', weekday: 'Jueves' },
+  section: { number: 3, label: 'Sección 3', short: 'Sección 3' },
   subject: 'DBA 6 · Componente semántico',
-  description: 'Dos textos sobre el mismo tema, escritos para cosas distintas. Uno explica por qué tiembla la tierra; el otro enseña qué hacer. Vas a leerlos y trabajarlos en tu cuaderno.',
+  description: 'Dos textos sobre el mismo tema, escritos para cosas distintas. Uno explica por qué necesitamos dormir; el otro enseña a organizar la tarde. Vas a leerlos y trabajarlos en tu cuaderno.',
   learning: 'Comparo textos de diferente formato y finalidad para dar cuenta de sus relaciones de contenido.',
 
   notice: {
     title: 'Antes de leer',
     dismissLabel: 'Entendido',
     paragraphs: [
-      'Todo lo de hoy se escribe **en el cuaderno**: la pregunta y luego tu respuesta, con frases completas. En la página no hay nada que marcar ni que oprimir.',
-      'Si alguna parte te hace sentir incómodo o triste, puedes parar, respirar y contarle a un adulto de tu casa. Leer sobre lo que pasó ayuda a entenderlo, pero no hay que hacerlo de afán.',
+      'Todo lo de esta sección se escribe **en el cuaderno**: la pregunta y luego tu respuesta, con frases completas. En la página no hay nada que marcar ni que oprimir.',
+      'Lee cada texto **dos veces** antes de responder. La primera para enterarte de qué se trata; la segunda, despacio, buscando los datos.',
       'El botón **Ver los textos** te deja tener la lectura a la mano mientras escribes. No tienes que memorizar nada: puedes volver al texto todas las veces que quieras.',
-      'Al final de la página está **Respuestas de hoy**, para que compares lo que escribiste y lo completes.'
+      'Al final de la página está **Respuestas de esta sección**, para que compares lo que escribiste y lo completes.'
     ]
   },
 
@@ -36,12 +38,12 @@ window.Guide.register('reading', {
     {
       id: 'u1',
       title: 'Leo un texto informativo',
-      summary: 'El texto informativo explica algo real: da hechos, datos y fechas.',
+      summary: 'El texto informativo explica algo real: da hechos, datos y cifras.',
       lessons: [
         {
           id: 'l1',
           code: '3.A',
-          title: '¿Por qué se mueve la tierra?',
+          title: '¿Por qué necesitamos dormir?',
           goal: 'reconocer un texto informativo y encontrar la información que da.',
           blocks: [
             {
@@ -62,30 +64,30 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3A0',
               title: 'Antes de leer: lo que ya pienso',
-              intro: '¿Qué crees tú que hace que la tierra tiemble? Escribe tu idea en el cuaderno, aunque no estés seguro. Al final de la guía vas a volver a leerla, así que **ponle la fecha**.',
+              intro: '¿Cuántas horas crees que necesita dormir un niño de tu edad? ¿Qué crees que le pasa a alguien que duerme poco? Escribe tu idea en el cuaderno, aunque no estés seguro. Al final vas a volver a leerla, así que **ponle la fecha**.',
               ordered: false,
-              items: ['Yo creo que la tierra tiembla porque…'],
+              items: ['Yo creo que un niño necesita dormir… porque…'],
               note: 'Esta la escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
               type: 'text',
               paragraphs: [
-                'El **TEXTO INFORMATIVO** sirve para explicar algo real. No inventa personajes ni historias: cuenta hechos, da datos y responde preguntas como qué, cuándo, dónde y por qué. Suele tener un título, párrafos organizados por temas y a veces cifras o fechas.'
+                'El **TEXTO INFORMATIVO** sirve para explicar algo real. No inventa personajes ni historias: cuenta hechos, da datos y responde preguntas como qué, cuándo, cómo y por qué. Suele tener un título, párrafos organizados por temas y a veces cifras.'
               ]
             },
             {
               type: 'reading',
-              title: 'Texto 1 · ¿Por qué se mueve la tierra?',
+              title: 'Texto 1 · ¿Por qué necesitamos dormir?',
               paragraphs: [
-                'El suelo que pisamos parece firme y quieto, pero no lo es. La capa exterior de la Tierra está partida en pedazos enormes, como si fuera un rompecabezas gigante. Esos pedazos se llaman placas y se mueven todo el tiempo, muy despacio.',
-                'Colombia está justo encima del borde de dos de esas piezas. En el occidente del país, una placa que está bajo el océano Pacífico, llamada placa de Nazca, se mete poco a poco por debajo de la placa donde está América del Sur. Avanza unos sesenta milímetros cada año, más o menos lo que crecen tus uñas. Es tan lento que nadie lo siente.',
-                'El problema es que las placas no se deslizan suavemente: se traban. Durante muchos años se van apretando la una contra la otra y acumulan fuerza, como cuando doblamos una regla plástica sin soltarla. Un día la regla se libera de golpe y suelta toda esa fuerza de una sola vez. Eso es un sismo.',
-                'El lunes 10 de agosto de 2026, a las 7:34 de la mañana, ocurrió uno de esos movimientos. El Servicio Geológico Colombiano, que es la entidad encargada de estudiar el suelo del país, midió su tamaño en 7,4 y encontró que había empezado cerca del municipio de San José del Palmar, en el departamento del Chocó. El punto donde nació estaba muy profundo: a más de cien kilómetros bajo la superficie.',
-                'Aunque nació en el Chocó, se sintió lejísimos. En Pereira, en Cali, en Manizales, en Armenia, en Quibdó y hasta en Bogotá la gente sintió cómo se movía el piso. Eso pasa porque la energía viaja por dentro de la tierra en forma de ondas, parecidas a las que se forman cuando tiramos una piedra a un charco.',
-                'Después de un sismo grande siempre vienen otros más pequeños. Se llaman réplicas y son la manera en que la tierra termina de acomodarse. Pueden durar días o semanas. Son normales, aunque asusten.',
-                'Hay algo que los científicos repiten siempre: nadie en el mundo puede saber el día ni la hora exacta en que va a temblar. Ni en Colombia, ni en Japón, ni en Chile. Lo que sí podemos hacer es aprender qué hacer cuando ocurre. Por eso existen los simulacros, los planes familiares y las normas para construir casas más resistentes. Prepararse no evita los sismos, pero sí ayuda a que hagan mucho menos daño.'
+                'Dormir parece una pérdida de tiempo. Uno cierra los ojos y, cuando los vuelve a abrir, ya amaneció. Parece que no hubiera pasado nada. Pero mientras duermes tu cuerpo no está quieto: está trabajando.',
+                'Las personas que estudian el sueño recomiendan que los niños entre seis y doce años duerman entre nueve y doce horas cada noche. Puede sonar exagerado, pero es el tiempo que el cuerpo necesita para hacer todo lo que tiene pendiente.',
+                'Lo primero que hace es ordenar lo que aprendiste. Durante el día tu cerebro recibe muchísima información: lo que explicó la profesora, lo que jugaste, lo que te dijeron en la casa. De noche la repasa, bota lo que no sirve y guarda lo importante. Por eso, cuando duermes bien, al otro día recuerdas mejor lo que estudiaste.',
+                'Lo segundo es crecer. Mientras duermes profundo, el cuerpo produce una sustancia llamada hormona del crecimiento, que es la que hace que los huesos se alarguen. Así que eso que dicen los abuelos, que los niños crecen mientras duermen, resultó ser cierto.',
+                'Lo tercero es reparar. Los músculos que usaste corriendo se arreglan de noche, y las defensas, que son lo que protege al cuerpo de las enfermedades, se hacen más fuertes. Por eso, cuando alguien está enfermo, lo primero que le dicen es que duerma.',
+                'Hay algo que le vuelve difícil el trabajo al cuerpo: las pantallas. La luz del celular, del televisor o del computador le dice al cerebro que todavía es de día, y entonces el cerebro tarda más en dar la orden de dormir. Por eso conviene apagarlas un buen rato antes de acostarse.',
+                'Acostarse siempre a la misma hora también ayuda. El cuerpo tiene un reloj propio y aprende con la repetición: si todos los días te acuestas a la misma hora, el sueño llega solo. Si cada noche es distinta, ese reloj se confunde y después cuesta mucho quedarse dormido.'
               ],
-              source: 'Texto original escrito para esta guía. Datos del Servicio Geológico Colombiano.'
+              source: 'Texto original escrito para esta guía.'
             },
             {
               type: 'notebook',
@@ -93,20 +95,20 @@ window.Guide.register('reading', {
               title: 'Preguntas sobre el Texto 1',
               intro: 'Copia cada pregunta en tu cuaderno y escribe debajo la respuesta **con una frase completa**. Todas están en el texto: si no la encuentras, vuelve a leer el párrafo que habla de eso.',
               items: [
-                '¿Cómo se llama la placa que está debajo del océano Pacífico?',
-                '¿Qué día y a qué hora ocurrió el sismo del que habla el texto?',
-                '¿Cerca de qué municipio y en qué departamento empezó?',
-                '¿Cómo se llama la entidad que estudia el suelo de Colombia?',
-                '¿Cómo se llaman los sismos pequeños que vienen después de uno grande?',
-                'Escribe tres ciudades donde se sintió el movimiento, según el texto.'
+                '¿Cuántas horas recomiendan que duerman los niños entre seis y doce años?',
+                'Según el texto, ¿qué hace el cerebro de noche con lo que aprendiste durante el día?',
+                '¿Cómo se llama la sustancia que produce el cuerpo mientras duermes profundo?',
+                '¿Qué dos cosas repara el cuerpo mientras duermes?',
+                '¿Por qué las pantallas hacen que cueste más dormirse?',
+                '¿Qué le pasa al reloj del cuerpo si cada noche te acuestas a una hora distinta?'
               ],
               key: [
-                'La placa que está debajo del océano Pacífico se llama placa de Nazca.',
-                'El sismo ocurrió el lunes 10 de agosto de 2026, a las 7:34 de la mañana.',
-                'Empezó cerca del municipio de San José del Palmar, en el departamento del Chocó.',
-                'La entidad que estudia el suelo de Colombia es el Servicio Geológico Colombiano.',
-                'Los sismos pequeños que vienen después se llaman réplicas.',
-                'El texto nombra Pereira, Cali, Manizales, Armenia, Quibdó y Bogotá. Cualquiera de esas tres está bien.'
+                'Recomiendan que duerman entre nueve y doce horas cada noche.',
+                'De noche el cerebro repasa la información, bota lo que no sirve y guarda lo importante.',
+                'Se llama hormona del crecimiento, y es la que hace que los huesos se alarguen.',
+                'Repara los músculos que usaste corriendo y hace más fuertes las defensas.',
+                'Porque su luz le dice al cerebro que todavía es de día, y entonces tarda más en dar la orden de dormir.',
+                'Ese reloj se confunde y después cuesta mucho quedarse dormido.'
               ],
               keyNote: 'Estas son preguntas literales: la respuesta está escrita en el texto, tal cual.'
             },
@@ -116,18 +118,18 @@ window.Guide.register('reading', {
               title: 'Preguntas para pensar',
               intro: 'Estas no están escritas tal cual en el texto: hay que deducirlas. Copia cada pregunta en el cuaderno y responde con tus palabras, en frases completas.',
               items: [
-                '¿Por qué el texto compara las placas con un rompecabezas? ¿Qué se parece entre las dos cosas?',
-                'El texto dice que las placas avanzan "más o menos lo que crecen tus uñas". ¿Para qué crees que el autor usa esa comparación?',
-                'Si nadie puede saber cuándo va a temblar, ¿por qué entonces se hacen simulacros?',
-                '¿Por qué el sismo empezó en el Chocó pero también se sintió en Bogotá?',
-                'Según el texto, ¿las réplicas son peligrosas o son normales? Explica cómo lo supiste.'
+                'El texto dice que mientras duermes tu cuerpo "está trabajando". ¿En qué está trabajando?',
+                '¿Por qué crees que a una persona enferma lo primero que le dicen es que duerma?',
+                'Si un niño estudia mucho pero duerme muy poco, ¿qué crees que le pasa al otro día en el colegio?',
+                '¿Por qué el texto dice que el cuerpo tiene "un reloj propio"? ¿En qué se parece a un reloj?',
+                'El texto empieza diciendo que dormir "parece una pérdida de tiempo". ¿Por qué lo parece, si no lo es?'
               ],
               key: [
-                'Porque son piezas grandes que encajan unas con otras y forman una superficie completa.',
-                'Para que entendamos con algo cotidiano qué tan lento es ese movimiento.',
-                'Porque no podemos controlar cuándo ocurre, pero sí podemos aprender qué hacer y hacerlo rápido y sin miedo.',
-                'Porque la energía viaja por dentro de la tierra en forma de ondas que llegan muy lejos.',
-                'El texto dice que son normales, aunque asusten; se sabe porque explica que la tierra se está acomodando.'
+                'Está ordenando lo que aprendiste, haciendo crecer los huesos y reparando los músculos y las defensas.',
+                'Porque mientras duerme el cuerpo repara lo dañado y las defensas se hacen más fuertes, que es justo lo que necesita para mejorarse.',
+                'Se le olvida más de lo que estudió, porque el cerebro no alcanzó a guardar lo aprendido.',
+                'Porque mide el tiempo por su cuenta y se acostumbra a los horarios: aprende a qué hora toca dormir.',
+                'Porque uno no se da cuenta de nada mientras duerme, pero el cuerpo está haciendo tres tareas importantes.'
               ],
               keyNote: 'Aquí no hay una sola manera de decirlo. Si escribiste la misma idea con otras palabras, está bien.'
             },
@@ -135,22 +137,22 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3A3',
               title: 'Vocabulario en contexto',
-              intro: 'Copia en tu cuaderno este cuadro de dos columnas. En la primera van las palabras y en la segunda vas a escribir qué significa cada una **según cómo se usa en el texto**. Busca la palabra en su párrafo antes de responder.',
+              intro: 'Copia en tu cuaderno un cuadro de dos columnas. En la primera van las palabras y en la segunda vas a escribir qué significa cada una **según cómo se usa en el texto**. Busca la palabra en su párrafo antes de responder.',
               items: [
-                'Placa',
-                'Acumular',
-                'Superficie',
-                'Ondas',
-                'Réplica',
-                'Resistente'
+                'Recomendar',
+                'Información',
+                'Producir',
+                'Reparar',
+                'Defensas',
+                'Repetición'
               ],
               key: [
-                'Placa — pedazo grande de la capa exterior de la Tierra.',
-                'Acumular — ir juntando algo poco a poco.',
-                'Superficie — la parte de afuera, lo que se ve por encima.',
-                'Ondas — movimientos que viajan y se van repitiendo, como en el agua.',
-                'Réplica — sismo más pequeño que ocurre después de uno grande.',
-                'Resistente — que aguanta sin romperse.'
+                'Recomendar — decir lo que a uno le conviene hacer.',
+                'Información — todo lo que uno ve, oye y aprende.',
+                'Producir — hacer o fabricar algo.',
+                'Reparar — arreglar algo que se gastó o se dañó.',
+                'Defensas — lo que tiene el cuerpo para protegerse de las enfermedades.',
+                'Repetición — hacer una misma cosa muchas veces.'
               ]
             }
           ]
@@ -166,7 +168,7 @@ window.Guide.register('reading', {
         {
           id: 'l2',
           code: '3.B',
-          title: 'Nuestro plan familiar en tres pasos',
+          title: 'Cómo organizar mi tarde en tres pasos',
           goal: 'reconocer un texto instructivo y seguir su orden.',
           blocks: [
             {
@@ -183,44 +185,44 @@ window.Guide.register('reading', {
             {
               type: 'text',
               paragraphs: [
-                'El **TEXTO INSTRUCTIVO** sirve para enseñar a hacer algo. Se reconoce porque tiene pasos numerados o con viñetas, usa verbos que ordenan (busca, escribe, guarda, avisa) y sigue un orden que no se puede cambiar. Ejemplos: una receta, el manual de un juguete, un plan de emergencia.'
+                'El **TEXTO INSTRUCTIVO** sirve para enseñar a hacer algo. Se reconoce porque tiene pasos numerados o con viñetas, usa verbos que ordenan (busca, saca, guarda, apaga) y sigue un orden que no se puede cambiar. Ejemplos: una receta, el manual de un juguete, una rutina.'
               ]
             },
             {
               type: 'reading',
-              title: 'Texto 2 · Nuestro plan familiar en tres pasos',
-              lead: 'Cada familia necesita un plan. No es para tener miedo: es para tener claro qué hacer y no perder tiempo. Reúne a tu familia una tarde y sigan estos pasos.',
+              title: 'Texto 2 · Cómo organizar mi tarde en tres pasos',
+              lead: 'Las tardes se van volando y uno termina haciendo la tarea de afán, a las carreras, cuando ya tiene sueño. Con un orden sencillo alcanza para todo: para la tarea, para jugar y para descansar. Prueba estos tres pasos durante una semana.',
               paragraphs: [
                 {
-                  heading: 'Paso 1. Escojan el punto de encuentro.',
+                  heading: 'Paso 1. Llega y descansa.',
                   steps: [
-                    'Salgan juntos a la calle y busquen un lugar abierto y cercano: un parque, una cancha, una esquina amplia.',
-                    'Revisen que no tenga postes de luz, muros altos ni vidrios encima.',
-                    'Escriban la dirección de ese lugar en un papel y péguenlo en la nevera.',
-                    'Repitan en voz alta el nombre del lugar hasta que todos lo recuerden.'
+                    'Deja el morral siempre en el mismo lugar, para no perder tiempo buscándolo mañana.',
+                    'Lávate las manos y come algo antes de empezar cualquier otra cosa.',
+                    'Descansa veinte minutos: juega, conversa con alguien de tu casa o simplemente quédate quieto.',
+                    'No empieces la tarea con hambre ni con afán. Cansado, todo se demora el doble.'
                   ]
                 },
                 {
-                  heading: 'Paso 2. Preparen la maleta de emergencia.',
+                  heading: 'Paso 2. Prepara el puesto y haz la tarea.',
                   steps: [
-                    'Consigan un morral que no pese mucho y déjenlo cerca de la puerta.',
-                    'Guarden dentro: agua, una linterna, pilas, una cobija, comida que no se dañe, papeles importantes en una bolsa plástica y los medicamentos que alguien de la casa necesite.',
-                    'Agreguen algo tuyo que te dé tranquilidad: un juguete pequeño, un cuaderno, unos colores.',
-                    'Revisen la maleta cada tres meses y cambien lo que ya esté vencido.'
+                    'Busca una mesa despejada, con buena luz y lejos del televisor.',
+                    'Saca solo lo que vas a usar: el cuaderno, el lápiz, el borrador y el sacapuntas.',
+                    'Empieza por la tarea más difícil, mientras todavía tienes energía.',
+                    'Cuando termines una materia, levántate, estírate y vuelve. Descansar cinco minutos no es perder el tiempo.',
+                    'Guarda cada cuaderno apenas lo termines, así no se te queda ninguno por fuera.'
                   ]
                 },
                 {
-                  heading: 'Paso 3. Aprendan qué hacer durante el movimiento.',
+                  heading: 'Paso 3. Deja todo listo para mañana.',
                   steps: [
-                    'Si estás adentro, quédate adentro. La mayoría de los golpes ocurren cuando la gente corre.',
-                    'Agáchate, cúbrete la cabeza con los brazos y sostente de algo firme, debajo de una mesa o al lado de un muro interno.',
-                    'Aléjate de ventanas, espejos y de todo lo que pueda caerse.',
-                    'Cuando el movimiento pare, salgan con calma hacia el punto de encuentro que escogieron.',
-                    'No usen el ascensor y no vuelvan a entrar a la casa hasta que un adulto revise que es seguro.'
+                    'Revisa qué necesitas llevar y empaca el morral esta noche, no en la mañana.',
+                    'Alista el uniforme y los zapatos donde puedas verlos apenas te levantes.',
+                    'Apaga las pantallas un buen rato antes de acostarte.',
+                    'Acuéstate a la misma hora todos los días, para que el sueño llegue solo.'
                   ]
                 }
               ],
-              source: 'Practiquen el plan una vez al mes. Al principio parecerá un juego; con el tiempo, el cuerpo lo aprende solo.'
+              source: 'Hazlo una semana seguida. Al principio hay que acordarse; después el cuerpo lo hace solo.'
             },
             {
               type: 'notebook',
@@ -229,35 +231,35 @@ window.Guide.register('reading', {
               intro: 'Busca en el Texto 2 los verbos que dan una orden y escribe **cinco** en tu cuaderno, uno debajo del otro.',
               ordered: false,
               items: ['Verbo 1 · Verbo 2 · Verbo 3 · Verbo 4 · Verbo 5'],
-              key: ['Salgan, busquen, revisen, escriban, repitan, consigan, guarden, agreguen, cambien, quédate, agáchate, cúbrete, sostente, aléjate, practiquen. Cualesquiera cinco de esos están bien.']
+              key: ['Prueba, deja, lávate, come, descansa, juega, conversa, quédate, busca, saca, empieza, levántate, estírate, vuelve, guarda, revisa, empaca, alista, apaga, acuéstate. Cualesquiera cinco de esos están bien.']
             },
             {
               type: 'notebook',
               id: '3B2',
               title: 'Pongo los pasos en orden',
-              intro: 'Estas cinco acciones están **en desorden**. Cópialas en tu cuaderno numeradas del 1 al 5, en el orden en que hay que hacerlas durante un movimiento. Piensa qué pasa primero: ¿te agachas o sales?',
+              intro: 'Estas cinco acciones están **en desorden**. Cópialas en tu cuaderno numeradas del 1 al 5, en el orden en que el texto dice que hay que hacerlas. Piensa qué va primero: ¿comes o sacas los cuadernos?',
               ordered: false,
               items: [
-                'Salir con calma hacia el punto de encuentro',
-                'Agacharse y cubrirse la cabeza',
-                'Esperar a que el movimiento pare',
-                'Sostenerse de algo firme',
-                'Alejarse de las ventanas'
+                'Empacar el morral para el día siguiente',
+                'Dejar el morral en su lugar al llegar',
+                'Hacer primero la tarea más difícil',
+                'Comer algo y descansar un rato',
+                'Buscar una mesa despejada y sacar los útiles'
               ],
               key: [
-                'Agacharse y cubrirse la cabeza',
-                'Sostenerse de algo firme',
-                'Alejarse de las ventanas',
-                'Esperar a que el movimiento pare',
-                'Salir con calma hacia el punto de encuentro'
+                'Dejar el morral en su lugar al llegar',
+                'Comer algo y descansar un rato',
+                'Buscar una mesa despejada y sacar los útiles',
+                'Hacer primero la tarea más difícil',
+                'Empacar el morral para el día siguiente'
               ],
-              keyNote: 'Primero protegerse, y solo al final salir con calma.'
+              keyNote: 'Primero descansar, después trabajar y de último dejar todo listo. Ese orden es el que hace que alcance el tiempo.'
             },
             {
               type: 'notebook',
               id: '3B3',
               title: 'Escribo mi propio texto instructivo',
-              intro: 'Escribe en tu cuaderno un texto instructivo de **cuatro pasos** titulado: "Cómo calmarme cuando me pongo nervioso". Usa verbos que ordenen y numera los pasos. Puedes usar lo que practicaste el martes con la respiración cuadrada.',
+              intro: 'Escribe en tu cuaderno un texto instructivo de **cuatro pasos** titulado: "Cómo calmarme cuando me pongo nervioso". Usa verbos que ordenen y numera los pasos. Puedes usar lo que practicaste en la **Sección 1** con la respiración cuadrada.',
               ordered: false,
               items: [
                 'Título: Cómo calmarme cuando me pongo nervioso',
@@ -292,9 +294,9 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3C0',
               title: 'Antes de comparar',
-              intro: 'Los dos textos hablan de sismos. Si tuvieras que escoger uno para un examen de ciencias y otro para pegar en la pared de tu casa, ¿cuál escogerías para cada cosa? Copia las dos frases en tu cuaderno y complétalas.',
+              intro: 'Los dos textos hablan de descansar y organizarse. Si tuvieras que escoger uno para una exposición de ciencias y otro para pegar en la puerta de tu cuarto, ¿cuál escogerías para cada cosa? Copia las dos frases en tu cuaderno y complétalas.',
               ordered: false,
-              items: ['Para el examen de ciencias escogería… porque…', 'Para pegar en la pared escogería… porque…'],
+              items: ['Para la exposición de ciencias escogería… porque…', 'Para pegar en la puerta escogería… porque…'],
               note: 'Estas las escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
@@ -317,9 +319,9 @@ window.Guide.register('reading', {
               ],
               key: [
                 'Tipo: el Texto 1 es informativo; el Texto 2 es instructivo.',
-                'Finalidad: el 1 explica por qué ocurren los sismos; el 2 enseña qué hacer y cómo prepararse.',
+                'Finalidad: el 1 explica por qué necesitamos dormir; el 2 enseña a organizar la tarde.',
                 'Organización: el 1 va en párrafos, uno por idea; el 2 va en pasos numerados, en orden.',
-                'Palabras: el 1 da datos, fechas y cifras; el 2 da órdenes, con verbos de acción.',
+                'Palabras: el 1 da datos y cifras; el 2 da órdenes, con verbos de acción.',
                 'Lo que aprendí: esta fila es tu respuesta personal, no tiene clave.'
               ]
             },
@@ -329,10 +331,10 @@ window.Guide.register('reading', {
               title: 'Preguntas para opinar',
               intro: 'Aquí no hay una sola respuesta correcta y tampoco están en el solucionario. Lo importante es que expliques tu razón. Copia cada pregunta en el cuaderno y responde.',
               items: [
-                'El Texto 1 dice que prepararse "no evita los sismos, pero sí ayuda a que hagan mucho menos daño". ¿Estás de acuerdo? Explica por qué.',
-                '¿Cuál de los dos textos te pareció más útil a ti y a tu familia en este momento? Justifica tu respuesta.',
+                'El Texto 2 dice que "descansar cinco minutos no es perder el tiempo". ¿Estás de acuerdo? Explica por qué.',
+                '¿Cuál de los dos textos te pareció más útil a ti en este momento? Justifica tu respuesta.',
                 'Si tuvieras que agregarle un paso más al Texto 2, ¿cuál agregarías y por qué?',
-                '¿Qué le dirías a un niño más pequeño que te pregunta si va a volver a temblar? Escribe tu respuesta como si se la estuvieras diciendo.'
+                '¿Qué le dirías a un compañero que se acuesta muy tarde todas las noches? Escribe tu respuesta como si se la estuvieras diciendo.'
               ],
               note: 'Si alguna no quieres responderla, déjala en blanco y sigue. Está bien.'
             },
@@ -355,7 +357,7 @@ window.Guide.register('reading', {
               ordered: false,
               items: ['Resumen del Texto 1 (máximo 5 renglones)'],
               key: [
-                'Un resumen posible: la capa exterior de la Tierra está partida en placas que se mueven muy despacio y a veces se traban. Cuando se sueltan de golpe ocurre un sismo. El 10 de agosto de 2026 pasó uno que empezó en el Chocó y se sintió en muchas ciudades. Después vienen réplicas, que son normales. Nadie puede saber cuándo va a temblar, pero sí podemos prepararnos.'
+                'Un resumen posible: dormir parece perder el tiempo, pero mientras tanto el cuerpo trabaja. Los niños de seis a doce años necesitan entre nueve y doce horas. Mientras duermen, el cerebro guarda lo aprendido, el cuerpo crece y repara los músculos y las defensas. Las pantallas dificultan el sueño, y acostarse siempre a la misma hora ayuda.'
               ],
               keyNote: 'El tuyo no tiene que decir exactamente lo mismo, pero sí debe recoger la idea principal de cada párrafo y estar escrito con tus palabras.'
             },
@@ -363,26 +365,27 @@ window.Guide.register('reading', {
               type: 'notebook',
               id: '3C4',
               title: 'Vuelvo al principio',
-              intro: 'Busca en tu cuaderno lo que escribiste al comienzo de la guía sobre por qué tiembla la tierra. Léelo otra vez y escribe debajo tu respuesta.',
+              intro: 'Busca en tu cuaderno lo que escribiste al comienzo sobre cuántas horas necesita dormir un niño. Léelo otra vez y escribe debajo tu respuesta.',
               ordered: false,
               items: ['¿Cambió mi idea? ¿En qué cambió?'],
               note: 'Esta la escribes con tus palabras: no hay respuesta en el solucionario.'
             },
             {
-              type: 'links',
-              title: 'Para seguir aprendiendo',
-              items: [
-                { label: 'Servicio Geológico Colombiano', href: 'https://www.sgc.gov.co', note: 'La entidad que estudia el suelo del país.' },
-                { label: 'Cómo hacer un resumen (video)', href: 'https://www.youtube.com/watch?v=vuuagyKU55Y' }
-              ]
+              type: 'notebook',
+              id: '3C5',
+              title: 'Mi compromiso',
+              intro: 'Escoge **un solo** paso del Texto 2 para cumplir esta semana. Uno solo, el que creas que sí puedes sostener. Cópialo en tu cuaderno y escribe al lado los días que lo lograste.',
+              ordered: false,
+              items: ['Esta semana me comprometo a…', 'Lo logré los días: …'],
+              note: 'Cambiar una costumbre cuesta. Si un día no se pudo, no pasa nada: se sigue al otro.'
             },
             {
               type: 'adult',
               title: 'Nota para la profesora Ruby',
               paragraphs: [
-                'La pregunta 4 de **3.C.2** ("¿Qué le dirías a un niño más pequeño que te pregunta si va a volver a temblar?") suele ser la más reveladora del estado emocional del grupo.',
-                'Como toda la guía se escribe en el cuaderno, vale la pena leerla con atención en todas las entregas físicas y marcar las que requieran seguimiento.',
-                'Las preguntas de opinión (3.A.0, 3.B.0, 3.C.0, 3.C.2 y 3.C.4) no aparecen en el solucionario a propósito: no tienen respuesta correcta y no deben corregirse como si la tuvieran.'
+                'Los dos textos son originales y están calibrados para 7 a 9 años: frases cortas, una idea por párrafo y vocabulario cotidiano. La cifra de sueño que aparece en el Texto 1 —de nueve a doce horas para niños de seis a doce años— corresponde a la recomendación que manejan los especialistas en sueño infantil.',
+                'La pregunta 4 de **3.C.2** y la actividad **3.C.5** conectan la lectura con la vida del estudiante. Vale la pena leerlas: suelen mostrar quién no está durmiendo bien en la casa.',
+                'Las preguntas de opinión (3.A.0, 3.B.0, 3.C.0, 3.C.2, 3.C.4 y 3.C.5) no aparecen en el solucionario a propósito: no tienen respuesta correcta y no deben corregirse como si la tuvieran.'
               ]
             }
           ]

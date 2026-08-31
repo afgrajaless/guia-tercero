@@ -533,7 +533,7 @@ ul.answers__list li::before {
   .site-nav__short { display: inline; }
 }
 
-/* --- Tarjeta de día en la agenda de la portada ---------------------------- */
+/* --- Tarjeta de sección en la portada ------------------------------------- */
 
 .area-card__top {
   display: flex;

@@ -1,11 +1,11 @@
 /* ==========================================================================
-   data/math.js — Miércoles 2 de septiembre · Matemáticas
+   data/math.js — Sección 2 · Matemáticas
    DBA 2 · Razonamiento y resolución de problemas · Componente numérico-variacional
 
    Toda esta sección se trabaja en el cuaderno. La página explica, muestra los
    ejemplos y deja la consigna; el estudiante copia y resuelve en su cuaderno.
    Las respuestas de cada actividad se reúnen al final de la página, en el
-   solucionario "Respuestas de hoy", para que también las pase al cuaderno.
+   solucionario "Respuestas de esta sección", para que también las pase al cuaderno.
    ========================================================================== */
 
 window.Guide.register('math', {
@@ -13,7 +13,7 @@ window.Guide.register('math', {
   short: 'Matemáticas',
   icon: 'numbers',
   href: 'math.html',
-  day: { label: 'Miércoles 2 de septiembre', short: 'Miércoles 2', weekday: 'Miércoles' },
+  section: { number: 2, label: 'Sección 2', short: 'Sección 2' },
   subject: 'DBA 2 · Componente numérico-variacional',
   description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Copia cada actividad en el cuaderno, resuélvela allí y al final compara con las respuestas.',
   learning: 'Uso las cuatro operaciones y las propiedades de los números naturales hasta seis cifras para resolver situaciones de mi entorno.',
@@ -24,7 +24,7 @@ window.Guide.register('math', {
     paragraphs: [
       'Esta guía **no se responde en el computador**. Todo se copia y se resuelve en el cuaderno: el título de la actividad, cada operación y su resultado.',
       'Desarrolla las operaciones bien alineadas por columnas. Escribe los números con punto de miles (**424.002**), como aparecen aquí.',
-      'Al final de la página está **Respuestas de hoy**. Ve allí cuando ya hayas resuelto, compara con lo tuyo y pasa también la respuesta al cuaderno.',
+      'Al final de la página está **Respuestas de esta sección**. Ve allí cuando ya hayas resuelto, compara con lo tuyo y pasa también la respuesta al cuaderno.',
       'Si te trabas, abre **Ver el procedimiento**. Usarlo no es hacer trampa.'
     ]
   },
@@ -470,8 +470,8 @@ window.Guide.register('math', {
                 'Un colegio recibió 3.456 cuadernos y los repartió por partes iguales entre sus 24 salones. ¿Cuántos cuadernos recibió cada salón?',
                 'En una bodega hay 315 cajas y cada caja trae 148 lápices. ¿Cuántos lápices hay en total?',
                 'Una fundación tenía 520.000 pesos para materiales escolares y gastó 348.750 pesos. ¿Cuánto dinero le quedó?',
-                'Un grupo de voluntarios armó 1.248 kits de aseo. Si en cada caja caben 24 kits, ¿cuántas cajas necesitan?',
-                'La placa de Nazca se mueve 60 milímetros cada año. ¿Cuántos milímetros se mueve en 100 años?',
+                'En una panadería hornearon 1.248 panes y los empacan en bolsas de 24. ¿Cuántas bolsas necesitan?',
+                'Una planta trepadora sube 60 milímetros cada semana. ¿Cuántos milímetros sube en 100 semanas?',
                 'Un camión recorrió 1.256 kilómetros en un viaje. Si hizo 8 viajes iguales, ¿cuántos kilómetros recorrió en total?',
                 'Tres escuelas reunieron útiles: la primera 12.480, la segunda 9.755 y la tercera 15.302. ¿Cuántos reunieron entre las tres?',
                 'De las tres escuelas anteriores, ¿cuántos útiles más reunió la tercera que la segunda?',
@@ -483,7 +483,7 @@ window.Guide.register('math', {
                 '3.456 ÷ 24 = 144 cuadernos',
                 '315 × 148 = 46.620 lápices',
                 '520.000 − 348.750 = 171.250 pesos',
-                '1.248 ÷ 24 = 52 cajas',
+                '1.248 ÷ 24 = 52 bolsas',
                 '60 × 100 = 6.000 milímetros',
                 '1.256 × 8 = 10.048 kilómetros',
                 '12.480 + 9.755 + 15.302 = 37.537 útiles',
@@ -496,7 +496,7 @@ window.Guide.register('math', {
               type: 'notebook',
               id: '2E2',
               title: 'De milímetros a metros',
-              intro: 'En el problema 7 calculaste 6.000 milímetros. Sabiendo que **1.000 mm = 1 m**, escribe en tu cuaderno a cuántos metros equivale y con qué operación lo averiguaste.',
+              intro: 'En el problema 7 calculaste que la planta sube 6.000 milímetros. Sabiendo que **1.000 mm = 1 m**, escribe en tu cuaderno a cuántos metros equivale y con qué operación lo averiguaste.',
               ordered: false,
               items: ['6.000 mm = ______ metros'],
               key: ['6.000 ÷ 1.000 = 6. Entonces 6.000 mm = 6 metros.']
@@ -515,11 +515,11 @@ window.Guide.register('math', {
               type: 'adult',
               title: 'Nota editorial para la profesora Ruby',
               paragraphs: [
-                'Los contextos de los problemas se escogieron a propósito: bibliotecas, acueductos, útiles escolares, voluntarios y datos científicos. **No se usan cifras de personas fallecidas, heridas ni de edificios colapsados.**',
-                'Convertir la tragedia en un enunciado matemático obliga al niño a manipular numéricamente aquello que todavía le duele, y a esta edad eso reactiva la angustia en lugar de elaborarla. Los contextos de ayuda y reconstrucción sí se conservan porque refuerzan que la comunidad está respondiendo.',
+                'Los contextos de los problemas son todos cotidianos y reconocibles para un niño de 7 a 9 años: bibliotecas, acueductos, útiles escolares, una panadería, una planta que crece. **Ningún enunciado se apoya en sucesos difíciles ni en situaciones que puedan angustiar.**',
+                'A esta edad el contexto no es decoración: si el enunciado inquieta, el niño deja de pensar en la operación y se queda en la historia. Por eso conviene que los problemas hablen de cosas que ya conoce y que no le pesan.',
                 'El solucionario del final está pensado para comparar y transcribir **después** de resolver. Si prefiere que el estudiante no lo vea antes de tiempo, pídale que trabaje con la página cerrada y la abra solo al terminar.'
               ],
-              items: ['Si se agregan problemas nuevos, mantener este criterio.']
+              items: ['Si se agregan problemas nuevos, mantener este criterio.', 'Al cambiar el contexto de un problema, revisar que la operación y el resultado del solucionario sigan cuadrando. El validador lo recalcula.']
             }
           ]
         }

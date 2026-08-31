@@ -1,36 +1,37 @@
 /* ==========================================================================
-   data/wellbeing.js — Martes 1 de septiembre · Psicosocial
+   data/wellbeing.js — Sección 1 · Emociones
    Ética y Valores / Orientación de grupo.
 
    REGLA DE ESTA SECCIÓN: no se califica y no hay respuestas malas.
    Todo se escribe en el cuaderno. Lo único que se hace en la página es la
    práctica de respiración cuadrada, que no pide respuesta ni deja registro.
    El bloque de cierre no se titula "Respuestas": se llama "Para comparar en
-   familia" y solo trae la clave de dos actividades: los dos círculos (1.B.1) y
-   lo que sí ayuda (1.E.1). La lección 1.E recoge el taller "Después del
-   terremoto: juntos nos cuidamos".
+   familia" y solo trae la clave de dos actividades: los dos círculos (1.B.1)
+   y lo que sí ayuda (1.E.1).
+
+   El contenido habla de emociones cotidianas y de autocontrol. No se apoya en
+   ningún suceso concreto ni en ninguna fecha.
    ========================================================================== */
 
 window.Guide.register('wellbeing', {
   title: 'Hablemos de cómo nos sentimos',
-  short: 'Psicosocial',
+  short: 'Emociones',
   icon: 'heart',
   href: 'wellbeing.html',
   grades: false,
-  day: { label: 'Martes 1 de septiembre', short: 'Martes 1', weekday: 'Martes' },
+  section: { number: 1, label: 'Sección 1', short: 'Sección 1' },
   subject: 'Ética y Valores · Orientación de grupo',
-  description: 'Reconocer lo que siento después del temblor, aprender a calmar mi cuerpo, saber a quién puedo pedir ayuda y acompañar al que lo necesite. Aquí no hay nota ni respuestas malas: todo se escribe en el cuaderno.',
-  learning: 'Reconozco y nombro lo que siento después de una situación difícil, aplico estrategias sencillas para calmar mi cuerpo, sé a quién puedo pedir ayuda y acompaño a quien lo está pasando mal.',
+  description: 'Reconocer lo que siento, aprender a calmar mi cuerpo, saber a quién puedo pedir ayuda y acompañar al que lo necesite. Aquí no hay nota ni respuestas malas: todo se escribe en el cuaderno.',
+  learning: 'Reconozco y nombro lo que siento, aplico estrategias sencillas para calmar mi cuerpo, sé a quién puedo pedir ayuda y acompaño a quien lo está pasando mal.',
 
   banner: {
     title: 'Para la familia: léalo antes de empezar',
     dismissLabel: 'Ya lo leí',
     paragraphs: [
-      'Esta guía no es una tarea que se califica con nota. Es un espacio para que su hijo o hija pueda contar cómo se ha sentido después de lo que vivimos el 10 de agosto.',
+      'Esta sección no es una tarea que se califica con nota. Es un espacio para que su hijo o hija aprenda a reconocer lo que siente y a calmarse cuando lo necesita.',
       'Todo se escribe en el cuaderno. La página solo explica y propone; no le pide al niño responder nada en el computador ni guarda lo que escriba.',
       'Acompáñelo mientras la desarrolla. No hace falta que sepa qué decir: basta con estar al lado, escuchar sin interrumpir y no apurar la conversación.',
       'Si el niño o la niña no quiere hablar de algo, no insista. Puede dejar el punto en blanco y volver a él otro día. Todo lo que escriba está bien.',
-      'Evite dejarlo viendo noticias o videos del rescate. A esta edad, las imágenes repetidas aumentan el miedo en lugar de explicarlo.',
       'Si nota que hace más de un mes no duerme, no juega, no come o no quiere separarse de usted, comuníquese con la profesora Ruby y llame a la **Línea Amiga 106**.'
     ]
   },
@@ -59,7 +60,7 @@ window.Guide.register('wellbeing', {
             {
               type: 'callout',
               title: 'Un mensaje de tu profe',
-              paragraphs: ['Hola. Soy la profesora Ruby y quiero contarte algo: el 10 de agosto todos vivimos un temblor muy fuerte. Muchos adultos también sentimos miedo ese día. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
+              paragraphs: ['Hola. Soy la profesora Ruby y quiero contarte algo: todos, hasta los adultos, tenemos días buenos y días difíciles. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
             },
             {
               type: 'notebook',
@@ -71,10 +72,11 @@ window.Guide.register('wellbeing', {
                 'Nombre: ____________________',
                 'Grado: 3°A',
                 'Fecha: ____________________',
-                'Área: Psicosocial — Hablemos de cómo nos sentimos'
+                'Área: Emociones — Hablemos de cómo nos sentimos'
               ],
               note: 'Así la profesora Ruby sabe de quién es cada hoja cuando revise los cuadernos.'
-            },            {
+            },
+            {
               type: 'text',
               paragraphs: [
                 'Las emociones son señales. No son buenas ni malas: son avisos que nos manda el cuerpo para cuidarnos.'
@@ -97,7 +99,7 @@ window.Guide.register('wellbeing', {
               title: 'Algo importante',
               paragraphs: [
                 'Las emociones vienen en olas. Suben, se quedan un rato y bajan. Ninguna se queda para siempre, aunque a veces parezca.',
-                'También es normal que después de un temblor uno sienta cosas que antes no sentía: querer dormir con los papás, sobresaltarse con un ruido fuerte, no tener ganas de jugar, tener pesadillas o dolor de barriga. No estás enfermo ni te estás portando mal. Tu cuerpo está aprendiendo a sentirse seguro otra vez.'
+                'Tampoco hay emociones prohibidas. La rabia no es mala: lo que puede hacer daño es lo que uno hace con ella. Sentir es una cosa y actuar es otra, y entre las dos siempre hay un momentico para pensar.'
               ]
             },
             {
@@ -143,13 +145,13 @@ window.Guide.register('wellbeing', {
               title: 'Completo las frases',
               intro: 'Copia estas frases en tu cuaderno y complétalas.',
               items: [
-                'El día del temblor yo estaba en…',
-                'Lo primero que pensé fue…',
-                'Después del temblor me he sentido…',
-                'Algo que me da miedo ahora es…',
+                'Hoy me sentí ______ cuando…',
+                'Algo que me pone nervioso o nerviosa es…',
                 'Algo que me hace sentir seguro o segura es…',
-                'Alguien que me ayudó ese día fue…',
-                'Algo bonito que vi hacer a la gente fue…'
+                'Cuando me da rabia, yo…',
+                'Lo que más me gusta de mí es…',
+                'Alguien que me hace sentir bien es…',
+                'Algo bonito que alguien hizo por mí fue…'
               ],
               note: 'Si alguna no quieres responderla, déjala en blanco y sigue. Está bien.'
             },
@@ -185,15 +187,15 @@ window.Guide.register('wellbeing', {
             {
               type: 'text',
               paragraphs: [
-                'Hay cosas que están DENTRO de nuestro círculo: podemos decidirlas. Y hay cosas que están FUERA: nadie las puede decidir, ni los niños ni los adultos.',
+                'Hay cosas que están DENTRO de nuestro círculo: podemos decidirlas. Y hay cosas que están FUERA: no dependen de nosotros, por más que queramos.',
                 'Cuando pasamos mucho tiempo pensando en lo de afuera, la preocupación crece. Cuando dedicamos nuestra energía a lo de adentro, nos sentimos más tranquilos y más fuertes. Eso no significa que lo de afuera no importe: significa que no es nuestra responsabilidad.'
               ]
             },
             {
               type: 'callout',
-              title: 'Un dato que ayuda',
+              title: 'Un truco que sirve',
               paragraphs: [
-                'Nadie en el mundo, en ningún país, puede saber el día ni la hora en que va a temblar. Ni los científicos más estudiados. Por eso lo importante no es adivinar, sino estar preparados. Y eso sí lo podemos hacer.'
+                'Preocuparse por algo que no depende de ti no lo cambia: solo te cansa. En cambio, hacer **una sola cosa pequeña** de las que sí dependen de ti ya te hace sentir distinto. Pruébalo la próxima vez que algo te dé vueltas en la cabeza.'
               ]
             },
             {
@@ -203,20 +205,20 @@ window.Guide.register('wellbeing', {
               intro: 'Dibuja en tu cuaderno dos círculos grandes, uno al lado del otro. Titula el primero **LO QUE SÍ PUEDO CONTROLAR** y el segundo **LO QUE NO PUEDO CONTROLAR**. Copia cada una de estas frases dentro del círculo que le corresponde.',
               ordered: false,
               items: [
-                'Que vuelva a temblar',
-                'Saber qué hacer si tiembla',
-                'Cuánto duró el temblor',
-                'Tener mi maleta lista',
-                'Lo que dicen las noticias',
-                'Ayudar a mi hermanito',
-                'Cuándo arreglan mi colegio',
-                'Avisarle a un adulto si tengo miedo',
-                'Lo que hizo la tierra',
-                'Cómo trato a mis compañeros'
+                'Que llueva el día del paseo',
+                'Cómo trato a mis compañeros',
+                'Lo que otro niño piense de mí',
+                'Pedir ayuda cuando no entiendo algo',
+                'Que un amigo se cambie de colegio',
+                'Cuánto me esfuerzo en una tarea',
+                'El genio con que amanezca otra persona',
+                'La hora a la que me acuesto',
+                'Ganar siempre en un juego',
+                'Avisarle a un adulto si me siento mal'
               ],
               key: [
-                'Lo que sí puedo controlar: saber qué hacer si tiembla · tener mi maleta lista · ayudar a mi hermanito · avisarle a un adulto si tengo miedo · cómo trato a mis compañeros.',
-                'Lo que no puedo controlar: que vuelva a temblar · cuánto duró el temblor · lo que dicen las noticias · cuándo arreglan mi colegio · lo que hizo la tierra.'
+                'Lo que sí puedo controlar: cómo trato a mis compañeros · pedir ayuda cuando no entiendo algo · cuánto me esfuerzo en una tarea · la hora a la que me acuesto · avisarle a un adulto si me siento mal.',
+                'Lo que no puedo controlar: que llueva el día del paseo · lo que otro niño piense de mí · que un amigo se cambie de colegio · el genio con que amanezca otra persona · ganar siempre en un juego.'
               ],
               keyNote: 'Si alguna te quedó en el otro círculo, no está mal: vuelve a leerla con un adulto y pregúntate "¿esto lo decido yo?". Fíjate en todo lo que sí está en tus manos: ahí es donde vale la pena poner tu energía.'
             },
@@ -248,7 +250,7 @@ window.Guide.register('wellbeing', {
             {
               type: 'text',
               paragraphs: [
-                'Cuando nos asustamos, el cuerpo respira rápido y corto, como si tuviéramos que salir corriendo. Si le enseñamos al cuerpo a respirar despacio, el cerebro entiende el mensaje: "ya estamos a salvo". Es un truco real, no un cuento.'
+                'Cuando nos asustamos o nos da mucha rabia, el cuerpo respira rápido y corto, como si tuviéramos que salir corriendo. Si le enseñamos al cuerpo a respirar despacio, el cerebro entiende el mensaje: "ya estamos bien". Es un truco real, no un cuento.'
               ]
             },
             {
@@ -337,7 +339,7 @@ window.Guide.register('wellbeing', {
               type: 'notebook',
               id: '1D2',
               title: 'Una carta que abraza',
-              intro: 'Escribe en tu cuaderno una carta corta para un niño o una niña de otra ciudad que también vivió el temblor. Cuéntale algo que a ti te haya ayudado.',
+              intro: 'Escribe en tu cuaderno una carta corta para alguien que te importa, contándole algo bueno que esa persona hace por ti. Si quieres, después se la entregas.',
               ordered: false,
               items: ['Querido amigo o amiga: …'],
               note: 'Si no quieres escribirla, déjalo para otro día. Está bien.'
@@ -345,12 +347,12 @@ window.Guide.register('wellbeing', {
             {
               type: 'notebook',
               id: '1D3',
-              title: 'Nuestro plan familiar',
-              intro: 'Con un adulto de tu casa, copien y respondan en el cuaderno estas tres preguntas. El jueves vas a leer un texto que explica cómo hacerlo paso a paso.',
+              title: 'Nuestro acuerdo en casa',
+              intro: 'Con un adulto de tu casa, copien y respondan en el cuaderno estas tres preguntas. La idea es dejar claro, antes de necesitarlo, cómo se pide ayuda en tu casa.',
               items: [
-                '¿Dónde nos encontramos si estamos separados?',
-                '¿Qué llevamos en la maleta de emergencia?',
-                '¿A quién llamamos?'
+                '¿Cómo aviso en la casa cuando algo me está preocupando?',
+                '¿Qué palabra o señal podemos usar para decir "necesito hablar"?',
+                '¿En qué momento del día podemos hablar con calma, sin afán?'
               ]
             },
             {
@@ -358,22 +360,22 @@ window.Guide.register('wellbeing', {
               title: 'Cuentos para leer en familia',
               items: [
                 {
-                  label: 'Cuando la tierra se movió',
-                  href: 'http://www.buentrato.cl/pdf/Cuando_la_Tierra_se_Movio.pdf',
-                  note: 'Josefina Martínez, Elena Sepúlveda y Rossana Culaciati · Pontificia Universidad Católica de Chile.'
+                  label: 'Tres cuentos sobre las emociones',
+                  href: 'https://www.unicef.org/peru/informes/cuentos-sobre-desarrollo-socioemocional',
+                  note: 'Ministerio de Educación del Perú con apoyo de UNICEF · "Mono y su gran corazón", "La furia de otorongo" y "El regalo de ratón". Descarga gratuita.'
                 },
                 {
-                  label: 'Trinka y Juan: el día que la Tierra se movió',
-                  href: 'https://piploproductions.com/nuestros-cuentos/trinka-y-juan-terremotos/',
-                  note: 'Piplo Productions · descarga gratuita, incluye guía para adultos.'
+                  label: 'La furia de otorongo',
+                  href: 'https://www.unicef.org/peru/media/10296/file/La%20furia%20de%20otorongo.pdf',
+                  note: 'El de la rabia, que es el que más se parece a lo que trabajamos aquí. Va directo al PDF: pesa unos 6 MB, mejor con wifi.'
                 },
                 {
-                  label: 'El día que todo se movió',
-                  href: 'https://aprendeencasa.sep.gob.mx/multimedia/RSC/Documento/202010/202010-RSC-vB6veFy91v-El_da_que_todo_se_movio.pdf',
-                  note: 'Festival Pixelatl / SEP México · versión en blanco y negro, fácil de imprimir.'
+                  label: 'Colombia Aprende · habilidades socioemocionales',
+                  href: 'https://www.colombiaaprende.edu.co/recurso-coleccion/catalogo-de-contenidos-competencias-ciudadanas-y-habilidades-socioemocionales',
+                  note: 'Catálogo del Ministerio de Educación, con videos y actividades para 1.°, 2.° y 3.°.'
                 }
               ]
-            },
+            }
           ]
         }
       ]
@@ -387,14 +389,14 @@ window.Guide.register('wellbeing', {
         {
           id: 'l5',
           code: '1.E',
-          title: 'Después del terremoto: juntos nos cuidamos',
+          title: 'Cuando un compañero lo está pasando mal',
           goal: 'acompañar a un compañero que lo está pasando mal y guardar tu propio mensaje de esperanza.',
           blocks: [
             {
               type: 'text',
               paragraphs: [
-                'Todo lo que hiciste hoy fue para entender lo que **tú** sientes. Esta última parte es distinta: es para mirar al de al lado.',
-                'Después de algo difícil, no todos nos recuperamos al mismo tiempo. Puede que a ti ya se te esté pasando el susto y que un compañero todavía esté asustado, o al revés. Eso no significa que uno sea más valiente que el otro: significa que cada quien lleva su ritmo.'
+                'Todo lo que hiciste hasta aquí fue para entender lo que **tú** sientes. Esta última parte es distinta: es para mirar al de al lado.',
+                'No todos los días son iguales para todos. Puede que tú estés contento y que un compañero llegue triste, o al revés. Eso no significa que uno sea más fuerte que el otro: significa que cada quien lleva su ritmo, y que a veces uno necesita que lo acompañen.'
               ]
             },
             {
@@ -428,10 +430,10 @@ window.Guide.register('wellbeing', {
               ],
               key: [
                 'Lo que sí ayuda: escucharlo · acompañarlo · avisar a un adulto de confianza · hablarle con cariño.',
-                'Las dos que hacen daño son burlarse de él y decirle que sus sentimientos no importan. Burlarse de alguien que tiene miedo hace que se calle y se quede solo con lo que siente.',
+                'Las dos que hacen daño son burlarse de él y decirle que sus sentimientos no importan. Burlarse de alguien que se siente mal hace que se calle y se quede solo con lo que siente.',
                 'La frase es tuya: no hay una correcta. Sirve cualquiera que él pudiera escuchar sin sentirse juzgado.'
               ],
-              keyNote: 'Esto no es un examen. Es para conversarlo: pregúntele qué haría si el preocupado fuera él.'
+              keyNote: 'Esto no es un examen. Es para conversarlo: pregúntele qué le gustaría que le dijeran a él si fuera el preocupado.'
             },
             {
               type: 'notebook',
@@ -448,7 +450,7 @@ window.Guide.register('wellbeing', {
               title: 'Mi mensaje de esperanza',
               intro: 'Copia estas tres frases en tu cuaderno y complétalas. Fíjate que van de lo más pequeño a lo más grande: primero tú, luego los que te quieren, luego todos.',
               items: [
-                'Después de un momento difícil, yo puedo…',
+                'Cuando algo me sale mal, yo puedo…',
                 'Las personas que me quieren pueden…',
                 'Juntos podemos…'
               ]
@@ -456,8 +458,8 @@ window.Guide.register('wellbeing', {
             {
               type: 'notebook',
               id: '1E4',
-              title: 'Para cerrar el día',
-              intro: 'Termina la página de hoy en tu cuaderno con esta frase, y escribe la fecha al lado.',
+              title: 'Para cerrar',
+              intro: 'Termina la página en tu cuaderno con esta frase, y escribe la fecha al lado.',
               ordered: false,
               items: ['"Hoy quiero recordar que…"'],
               note: 'Guárdala. Sirve volver a leerla el día que estés bajoneado.'
@@ -466,7 +468,7 @@ window.Guide.register('wellbeing', {
               type: 'callout',
               title: 'Un mensaje para ti',
               paragraphs: [
-                'Es normal sentir miedo, tristeza o preocupación después de una situación difícil. Podemos hablar de lo que sentimos, buscar ayuda en un adulto de confianza, respirar, acompañarnos y recordar que **no estamos solos**.'
+                'Es normal sentir miedo, tristeza o rabia. Podemos hablar de lo que sentimos, buscar ayuda en un adulto de confianza, respirar, acompañarnos y recordar que **no estamos solos**.'
               ]
             },
             {
@@ -475,7 +477,7 @@ window.Guide.register('wellbeing', {
               paragraphs: [
                 'Esta sección no tiene calificación y ningún ítem se marca como correcto o incorrecto. La página no recoge nada de lo que el niño escriba: todo queda en su cuaderno.',
                 'Solo dos actividades tienen clave —los dos círculos (**1.B.1**) y lo que sí ayuda (**1.E.1**)— y aparecen al final bajo el título "Para comparar en familia". No son correcciones: son excusas para conversar.',
-                'La lección **1.E** recoge el taller "Después del terremoto: juntos nos cuidamos". Se dejó al final a propósito: el niño primero nombra lo suyo y solo después mira al compañero. Al revés no funciona a esta edad.'
+                'La lección **1.E** va al final a propósito: el niño primero nombra lo suyo y solo después mira al compañero. Al revés no funciona a esta edad.'
               ],
               items: [
                 'Revise el cuaderno con el niño sin corregir la ortografía primero.',

@@ -1,20 +1,21 @@
 # Guía de Tercero
 
 Guía de trabajo para grado **3°A** de la I.E. Pablo Sexto, sede Antonio José de Sucre.
-**Semana del 1 al 4 de septiembre de 2026**, en modalidad virtual tras el sismo del 10 de agosto
-(Directiva 009 de 2026, MinEducación). Docente: profesora Ruby.
+Tres secciones para trabajar en casa, sin fechas ni calendario. Docente: profesora Ruby.
 
 Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pages:
 **https://afgrajaless.github.io/guia-tercero/**
 
-## La semana
+## Las tres secciones
 
-| Día | Área | Página |
+| # | Área | Página |
 |---|---|---|
-| Martes 1 | Psicosocial — *Hablemos de cómo nos sentimos* (incluye el taller *Juntos nos cuidamos*) | `wellbeing.html` |
-| Miércoles 2 | Matemáticas — *Analizo, calculo, reparto* | `math.html` |
-| Jueves 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
-| Viernes 4 | Aún por definir | tarjeta reservada en la portada |
+| 1 | Emociones — *Hablemos de cómo nos sentimos* | `wellbeing.html` |
+| 2 | Matemáticas — *Analizo, calculo, reparto* | `math.html` |
+| 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
+
+El contenido habla de emociones cotidianas, autocontrol y hábitos. **No se apoya en ningún
+suceso concreto ni en ninguna fecha**, y está calibrado para 7 a 9 años.
 
 ## Tres reglas que rigen todo el sitio
 
@@ -23,8 +24,8 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
    la página:** ni selección múltiple, ni campos de texto, ni tarjetas que arrastrar, ni casillas
    que marcar. Tampoco hay avance guardado, porcentajes ni puntaje. La profesora Ruby revisa el cuaderno
    físico.
-2. **Las respuestas van al final del día.** Cada página cierra con el solucionario
-   **"Respuestas de hoy"**, con una entrada por actividad. El estudiante resuelve primero, luego
+2. **Las respuestas van al final de la sección.** Cada página cierra con el solucionario
+   **"Respuestas de esta sección"**, con una entrada por actividad. El estudiante resuelve primero, luego
    compara y pasa también la respuesta al cuaderno. Cada entrada enlaza de vuelta a su consigna.
 3. **La sección psicosocial no califica.** Ninguna de sus actividades tiene respuesta correcta.
    Su bloque de cierre no se llama "Respuestas" sino **"Para comparar en familia"**, y solo trae
@@ -32,16 +33,16 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
    con un adulto.
    Esto se declara con `grades: false` en `data/wellbeing.js`.
 
-La única parte que se usa en pantalla es la **respiración cuadrada** del martes: una animación que
-marca el ritmo de la respiración. No pide respuestas ni guarda nada.
+La única parte que se usa en pantalla es la **respiración cuadrada** de la Sección 1: una animación
+que marca el ritmo de la respiración. No pide respuestas ni guarda nada.
 
 ## Estructura
 
 ```
-index.html            Agenda de la semana
-wellbeing.html        Martes · Psicosocial
-math.html             Miércoles · Matemáticas
-reading.html          Jueves · Comprensión lectora
+index.html            Portada con las tres secciones
+wellbeing.html        Sección 1 · Emociones
+math.html             Sección 2 · Matemáticas
+reading.html          Sección 3 · Comprensión lectora
 
 assets/css/
   tokens.css          Colores, tipografía y espaciados
@@ -54,13 +55,13 @@ assets/js/
   core.js             Registro de contenido, iconos y utilidades
   figures.js          Diagramas SVG generados por parámetros
   blocks.js           Renderizado de los bloques de contenido
-  area.js             Arma la página de un día, con su índice y su solucionario
+  area.js             Arma la página de una sección, con su índice y su solucionario
   home.js             Arma la agenda de la portada
 
 data/
-  wellbeing.js        Contenido del martes
-  math.js             Contenido del miércoles
-  reading.js          Contenido del jueves
+  wellbeing.js        Contenido de la Sección 1
+  math.js             Contenido de la Sección 2
+  reading.js          Contenido de la Sección 3
 
 CONTENIDO_GUIA_TERCERO.md   Documento fuente del contenido
 _local/                     Scripts de desarrollo y pruebas (no se sube a origin)
@@ -77,7 +78,7 @@ window.Guide.register('math', {
   icon: 'numbers',              // book | numbers | heart | compass
   href: 'math.html',
   grades: false,                // opcional: la sección no califica
-  day: { label: 'Miércoles 2 de septiembre', short: 'Miércoles 2' },
+  section: { number: 2, label: 'Sección 2', short: 'Sección 2' },
   description: '...',
   learning: '...',              // el aprendizaje del DBA
   notice: { title, paragraphs },// aviso que se puede cerrar
@@ -189,10 +190,11 @@ GitHub Pages reconstruye solo en aproximadamente un minuto.
 
 ## Criterios de contenido que no se cambian sin consultar a la profesora Ruby
 
-- No se usan cifras de personas fallecidas, heridas ni de edificios colapsados en ningún
-  enunciado. Los contextos de ayuda y reconstrucción sí se conservan.
-- No se incluyen imágenes de escombros ni de rescates.
-- Los cuentos de apoyo se **enlazan**, no se copian: tienen condiciones de uso propias.
+- Los enunciados y los textos hablan de situaciones cotidianas. **Ninguno se apoya en sucesos
+  difíciles, fechas concretas ni contextos que puedan angustiar a un niño de 7 a 9 años.**
+- Los cuentos de apoyo se **enlazan**, no se copian: tienen condiciones de uso propias. Solo se
+  enlazan fuentes institucionales o del propio editor, nunca copias sueltas de libros con derechos.
+  Cada enlace se verifica antes de publicar.
 - El bloque de Línea Amiga 106 permanece siempre visible al pie de la sección psicosocial.
 - En la sección psicosocial no se agregan consignas con `key` que impliquen respuesta correcta.
   La única que la tiene es la de los dos círculos, y su clave está redactada para conversar,
