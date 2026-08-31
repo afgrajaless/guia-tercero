@@ -62,6 +62,19 @@ window.Guide.register('wellbeing', {
               paragraphs: ['Hola. Soy la profesora Ruby y quiero contarte algo: el 10 de agosto todos vivimos un temblor muy fuerte. Muchos adultos también sentimos miedo ese día. Sentir miedo, rabia, tristeza o incluso no sentir nada especial: todo eso está bien. Aquí no hay respuestas malas.']
             },
             {
+              type: 'notebook',
+              id: '1ENC',
+              title: 'Encabezado',
+              intro: 'Abre una hoja nueva del cuaderno y escribe arriba el encabezado, como lo hacemos siempre.',
+              ordered: false,
+              items: [
+                'Nombre: ____________________',
+                'Grado: 3°A',
+                'Fecha: ____________________',
+                'Área: Psicosocial — Hablemos de cómo nos sentimos'
+              ],
+              note: 'Así la profesora Ruby sabe de quién es cada hoja cuando revise los cuadernos.'
+            },            {
               type: 'text',
               paragraphs: [
                 'Las emociones son señales. No son buenas ni malas: son avisos que nos manda el cuerpo para cuidarnos.'

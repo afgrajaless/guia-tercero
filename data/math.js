@@ -42,6 +42,20 @@ window.Guide.register('math', {
           goal: 'leer, escribir y comparar números de hasta seis cifras.',
           blocks: [
             {
+              type: 'notebook',
+              id: '2ENC',
+              title: 'Encabezado',
+              intro: 'Abre una hoja nueva del cuaderno y escribe arriba el encabezado, como lo hacemos siempre.',
+              ordered: false,
+              items: [
+                'Nombre: ____________________',
+                'Grado: 3°A',
+                'Fecha: ____________________',
+                'Área: Matemáticas — Analizo, calculo, reparto'
+              ],
+              note: 'Así la profesora Ruby sabe de quién es cada hoja cuando revise los cuadernos.'
+            },
+            {
               type: 'text',
               paragraphs: [
                 'Un número de 6 cifras llega hasta las **CENTENAS DE MIL**. Para leerlo:'

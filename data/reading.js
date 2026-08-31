@@ -46,6 +46,20 @@ window.Guide.register('reading', {
           blocks: [
             {
               type: 'notebook',
+              id: '3ENC',
+              title: 'Encabezado',
+              intro: 'Abre una hoja nueva del cuaderno y escribe arriba el encabezado, como lo hacemos siempre.',
+              ordered: false,
+              items: [
+                'Nombre: ____________________',
+                'Grado: 3°A',
+                'Fecha: ____________________',
+                'Área: Comprensión lectora — Comparo textos'
+              ],
+              note: 'Así la profesora Ruby sabe de quién es cada hoja cuando revise los cuadernos.'
+            },
+            {
+              type: 'notebook',
               id: '3A0',
               title: 'Antes de leer: lo que ya pienso',
               intro: '¿Qué crees tú que hace que la tierra tiemble? Escribe tu idea en el cuaderno, aunque no estés seguro. Al final de la guía vas a volver a leerla, así que **ponle la fecha**.',

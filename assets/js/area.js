@@ -80,23 +80,6 @@
   }
 
   /**
-   * Cuenta cuantas consignas de cuaderno tiene el dia.
-   * @param {Object} area - Contenido del area.
-   * @returns {number} Numero de consignas.
-   */
-  function countTasks(area) {
-    var total = 0;
-    (area.units || []).forEach(function (unit) {
-      (unit.lessons || []).forEach(function (lesson) {
-        (lesson.blocks || []).forEach(function (block) {
-          if (block.type === 'notebook') { total += 1; }
-        });
-      });
-    });
-    return total;
-  }
-
-  /**
    * Dibuja una leccion completa con su objetivo y todos sus bloques.
    * @param {Object} params - { lesson, index, ctx } de la leccion a dibujar.
    * @returns {HTMLElement} Tarjeta de la leccion.
@@ -351,13 +334,9 @@
         }));
       }
 
-      var lessons = 0;
-      (area.units || []).forEach(function (unit) { lessons += (unit.lessons || []).length; });
-      headHost.appendChild(el('p', {
-        className: 'area-head__count',
-        html: ICONS.pencil + '<span>' + lessons + ' lecciones · ' + countTasks(area) +
-              ' actividades para el cuaderno</span>'
-      }));
+      /* No se anuncia cuantas actividades trae el dia: un numero grande a la
+         entrada desanima antes de empezar. El indice de la derecha ya deja ver
+         de que se trata la jornada. */
     }
 
     /**

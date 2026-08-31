@@ -1,7 +1,8 @@
 /* ==========================================================================
    home.js — Portada: agenda de la semana con lo que trae cada día.
-   No hay avance ni porcentajes: la guía se resuelve en el cuaderno, así que
-   cada tarjeta anuncia cuántas lecciones y cuántas actividades trae el día.
+   No hay avance ni porcentajes: la guía se resuelve en el cuaderno. Tampoco se
+   anuncia cuántas actividades trae cada día, solo cuántas lecciones: el número
+   grande asusta antes de empezar.
    ========================================================================== */
 
 (function (global) {
@@ -22,22 +23,18 @@
   ];
 
   /**
-   * Cuenta las lecciones y las consignas de cuaderno de un área.
+   * Cuenta las lecciones de un área.
+   * A propósito no se cuentan las consignas: anunciarle a un niño de ocho años
+   * que el día trae quince actividades lo desanima antes de abrir el cuaderno.
    * @param {Object} area - Contenido del área.
-   * @returns {{lessons:number, tasks:number}} Resumen de lo que trae el día.
+   * @returns {number} Número de lecciones del día.
    */
-  function countArea(area) {
+  function countLessons(area) {
     var lessons = 0;
-    var tasks = 0;
     (area.units || []).forEach(function (unit) {
-      (unit.lessons || []).forEach(function (lesson) {
-        lessons += 1;
-        (lesson.blocks || []).forEach(function (block) {
-          if (block.type === 'notebook') { tasks += 1; }
-        });
-      });
+      lessons += (unit.lessons || []).length;
     });
-    return { lessons: lessons, tasks: tasks };
+    return lessons;
   }
 
   /**
@@ -46,7 +43,6 @@
    * @returns {HTMLElement} Enlace con forma de tarjeta.
    */
   function renderDayCard(area) {
-    var counts = countArea(area);
     var card = el('a', {
       className: 'area-card reveal',
       attrs: { href: area.href, 'data-area': area.id }
@@ -67,13 +63,8 @@
     card.appendChild(el('h3', { className: 'area-card__title', text: area.title }));
     card.appendChild(el('p', { className: 'area-card__text', text: area.description }));
 
-    card.appendChild(el('p', {
-      className: 'area-card__count',
-      html: ICONS.pencil + '<span>' + counts.tasks + ' actividades para el cuaderno</span>'
-    }));
-
     var foot = el('div', { className: 'area-card__foot' });
-    foot.appendChild(el('span', { text: counts.lessons + ' lecciones' }));
+    foot.appendChild(el('span', { text: countLessons(area) + ' lecciones' }));
     foot.appendChild(el('span', {
       className: 'area-card__cta',
       html: '<span>Entrar</span>' + ICONS.arrow
@@ -107,20 +98,15 @@
   }
 
   /**
-   * Escribe el resumen de la semana sumando los días con contenido.
-   * @param {HTMLElement} host - Contenedor donde escribir el resumen.
+   * Escribe el recordatorio de la portada. Es una frase que tranquiliza, no
+   * una cuenta: la guía no se mide en cantidad de ejercicios.
+   * @param {HTMLElement} host - Contenedor donde escribir el recordatorio.
    * @returns {void}
    */
   function renderSummary(host) {
-    var days = 0;
-    var tasks = 0;
-    Guide.list().forEach(function (area) {
-      days += 1;
-      tasks += countArea(area).tasks;
-    });
     host.innerHTML = '';
     host.appendChild(el('span', { html: ICONS.pencil }));
-    host.appendChild(el('span', { text: days + ' días · ' + tasks + ' actividades para el cuaderno' }));
+    host.appendChild(el('span', { text: 'Sin nota y sin afán · todo va en el cuaderno' }));
   }
 
   /**

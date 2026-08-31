@@ -577,3 +577,22 @@ ul.answers__list li::before {
 .area-card--pending .area-card__title { color: var(--ink-muted); }
 .area-card--pending .area-card__foot { color: var(--ink-muted); }
 
+/* --- Regla general: ningun texto puede empujar el ancho de la pagina ------ */
+
+/* Una secuencia sin espacios —una linea de guiones bajos para rellenar, una
+   direccion web larga, un numero muy grande— tiene un ancho minimo propio que
+   impide encoger a su contenedor y desborda la pagina en pantallas angostas.
+   `anywhere` permite partirla, y a diferencia de `break-word` si reduce el
+   ancho minimo, que es lo que hace falta dentro de un grid o un flex. */
+.notebook__items li,
+.notebook__intro,
+.notebook__note,
+.answers__list li,
+.answers__note,
+.prose li,
+.prose p,
+.example p,
+.callout p,
+.links__note {
+  overflow-wrap: anywhere;
+}

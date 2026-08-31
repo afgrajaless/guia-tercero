@@ -350,20 +350,6 @@
   color: var(--ink-soft);
 }
 
-.area-head__count,
-.area-card__count {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 800;
-  color: var(--area-deep);
-}
-
-.area-head__count svg,
-.area-card__count svg { flex: none; width: 1.1rem; height: 1.1rem; }
-
 /* --- Riel de unidades ------------------------------------------------------ */
 
 .area-layout {

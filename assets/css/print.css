@@ -96,8 +96,7 @@ body::after {
 .help__title svg,
 .callout__title svg,
 .answers__title svg,
-.notebook__tag svg,
-.area-head__count svg {
+.notebook__tag svg {
   display: none !important;
 }
 
