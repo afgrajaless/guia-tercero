@@ -154,110 +154,6 @@
   font-style: italic;
 }
 
-.notebook__pointer { font-size: var(--step--1); }
-
-.notebook__pointer a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-weight: 700;
-  color: var(--area-deep);
-}
-
-.notebook__pointer a::after { content: "↓"; }
-
-/* --- Solucionario del final ---------------------------------------------- */
-
-.answers {
-  display: grid;
-  gap: var(--sp-5);
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  background: var(--surface-2);
-  scroll-margin-top: var(--sp-6);
-}
-
-.answers__title {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  font-size: var(--step-3);
-  color: var(--area-deep);
-}
-
-.answers__title svg { flex: none; width: 1.6rem; height: 1.6rem; color: var(--star); }
-.answers__lead { color: var(--ink-soft); max-width: var(--measure); }
-
-.answers__item {
-  display: grid;
-  gap: var(--sp-2);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--line);
-}
-
-.answers__kicker {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.answers__name { font-size: var(--step-1); }
-.answers__name a { color: var(--ink); text-decoration: none; }
-.answers__name a:hover { color: var(--area-deep); text-decoration: underline; }
-
-.answers__list {
-  display: grid;
-  gap: var(--sp-2);
-  counter-reset: answer;
-}
-
-.answers__list li {
-  position: relative;
-  padding-inline-start: 2.1rem;
-  line-height: 1.8;
-}
-
-ol.answers__list li::before {
-  counter-increment: answer;
-  content: counter(answer);
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0.15em;
-  display: grid;
-  place-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: var(--r-pill);
-  background: var(--ok-soft);
-  color: var(--ok);
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 800;
-}
-
-ul.answers__list li { padding-inline-start: 1.4rem; }
-
-ul.answers__list li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0.2rem;
-  top: 0.68em;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: var(--r-pill);
-  background: var(--ok);
-}
-
-.answers__note {
-  font-size: var(--step--1);
-  color: var(--ink-muted);
-  font-style: italic;
-}
-
 /* --- Respiración cuadrada ------------------------------------------------ */
 
 .breathing {
@@ -587,8 +483,6 @@ ul.answers__list li::before {
 .notebook__items li,
 .notebook__intro,
 .notebook__note,
-.answers__list li,
-.answers__note,
 .prose li,
 .prose p,
 .example p,

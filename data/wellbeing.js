@@ -5,9 +5,10 @@
    REGLA DE ESTA SECCIÓN: no se califica y no hay respuestas malas.
    Todo se escribe en el cuaderno. Lo único que se hace en la página es la
    práctica de respiración cuadrada, que no pide respuesta ni deja registro.
-   El bloque de cierre no se titula "Respuestas": se llama "Para comparar en
-   familia" y solo trae la clave de dos actividades: los dos círculos (1.B.1)
-   y lo que sí ayuda (1.E.1).
+   Las respuestas no se muestran en la página. Solo dos actividades tienen
+   clave —los dos círculos (1.B.1) y lo que sí ayuda (1.E.1)— y viven en
+   RESPUESTAS_GUIA_TERCERO.md, que es para la profesora. Ahí están redactadas
+   para conversar, no para corregir.
 
    El contenido habla de emociones cotidianas y de autocontrol. No se apoya en
    ningún suceso concreto ni en ninguna fecha.
@@ -476,7 +477,7 @@ window.Guide.register('wellbeing', {
               title: 'Para el adulto que acompaña',
               paragraphs: [
                 'Esta sección no tiene calificación y ningún ítem se marca como correcto o incorrecto. La página no recoge nada de lo que el niño escriba: todo queda en su cuaderno.',
-                'Solo dos actividades tienen clave —los dos círculos (**1.B.1**) y lo que sí ayuda (**1.E.1**)— y aparecen al final bajo el título "Para comparar en familia". No son correcciones: son excusas para conversar.',
+                'Solo dos actividades tienen clave —los dos círculos (**1.B.1**) y lo que sí ayuda (**1.E.1**)—, y esa clave la tiene la profesora Ruby, no la página. No son correcciones: son excusas para conversar.',
                 'La lección **1.E** va al final a propósito: el niño primero nombra lo suyo y solo después mira al compañero. Al revés no funciona a esta edad.'
               ],
               items: [

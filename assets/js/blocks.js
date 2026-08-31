@@ -4,10 +4,10 @@
    area.js para que cada archivo tenga una sola responsabilidad: area.js arma
    la pagina y este archivo arma el contenido.
 
-   La guia no recoge respuestas: todo se resuelve en el cuaderno. Por eso aqui
-   no hay botones de responder ni de marcar. Las respuestas declaradas en el
-   campo "key" de cada consigna no se dibujan junto a ella: area.js las reune
-   al final de la pagina, en el solucionario.
+   La guia no recoge respuestas ni las muestra: todo se resuelve en el cuaderno.
+   Por eso aqui no hay botones de responder ni de marcar. Las respuestas
+   declaradas en el campo "key" de cada consigna no se dibujan en ninguna parte:
+   alimentan RESPUESTAS_GUIA_TERCERO.md, que es solo para la profesora.
    ========================================================================== */
 
 (function (global) {
@@ -40,7 +40,7 @@
   }
 
   /**
-   * Calcula el ancla con la que se enlaza una consigna desde el solucionario.
+   * Calcula el ancla de una consigna, para poder enlazarla desde fuera.
    * @param {Object} block - Bloque de consigna con su id.
    * @returns {string} Identificador HTML del bloque.
    */
@@ -247,12 +247,12 @@
   /**
    * Dibuja una consigna para copiar y resolver en el cuaderno. No tiene
    * botones ni campos: la pagina propone y el estudiante escribe en su
-   * cuaderno. Si la consigna tiene respuestas, se enlaza al solucionario.
+   * cuaderno. El campo "key" no se dibuja: es solo para el documento de
+   * respuestas de la profesora.
    * @param {Object} block - Bloque con title, intro, items, note, ordered y key.
-   * @param {Object} ctx - Contexto con answersId, el ancla del solucionario.
    * @returns {HTMLElement} Bloque de consigna de cuaderno.
    */
-  function renderNotebook(block, ctx) {
+  function renderNotebook(block) {
     var section = el('section', {
       className: 'notebook',
       attrs: { id: notebookAnchor(block) }
@@ -275,15 +275,6 @@
 
     if (block.note) {
       section.appendChild(el('p', { className: 'notebook__note', html: inline(block.note) }));
-    }
-
-    if ((block.key || []).length && ctx && ctx.answersId) {
-      section.appendChild(el('p', {
-        className: 'notebook__pointer',
-        html: '<a href="#' + ctx.answersId + '">' +
-              escapeHtml(ctx.answersPointer || 'Las respuestas están al final de la página') +
-              '</a>'
-      }));
     }
 
     return section;
@@ -458,12 +449,11 @@
     /**
      * Dibuja un bloque de contenido segun su tipo.
      * @param {Object} block - Bloque definido en el archivo de contenido.
-     * @param {Object} [ctx] - Contexto con answersId y answersPointer.
      * @returns {HTMLElement|null} Elemento del bloque, o null si el tipo no existe.
      */
-    render: function (block, ctx) {
+    render: function (block) {
       var build = RENDERERS[block.type];
-      return build ? build(block, ctx || {}) : null;
+      return build ? build(block) : null;
     }
   };
 }(window));

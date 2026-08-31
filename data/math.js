@@ -4,8 +4,8 @@
 
    Toda esta sección se trabaja en el cuaderno. La página explica, muestra los
    ejemplos y deja la consigna; el estudiante copia y resuelve en su cuaderno.
-   Las respuestas de cada actividad se reúnen al final de la página, en el
-   solucionario "Respuestas de esta sección", para que también las pase al cuaderno.
+   Las respuestas ya no se muestran al estudiante: el campo "key" de cada
+   consigna alimenta RESPUESTAS_GUIA_TERCERO.md, que es solo para la profesora.
    ========================================================================== */
 
 window.Guide.register('math', {
@@ -18,13 +18,20 @@ window.Guide.register('math', {
   description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Copia cada actividad en el cuaderno, resuélvela allí y al final compara con las respuestas.',
   learning: 'Uso las cuatro operaciones y las propiedades de los números naturales hasta seis cifras para resolver situaciones de mi entorno.',
 
+  teacherNote: [
+    'Los contextos de los problemas son todos cotidianos y reconocibles para un niño de 7 a 9 años: bibliotecas, acueductos, útiles escolares, una panadería, una planta que crece. Ningún enunciado se apoya en sucesos difíciles ni en situaciones que puedan angustiar.',
+    'A esta edad el contexto no es decoración: si el enunciado inquieta, el niño deja de pensar en la operación y se queda en la historia. Conviene que los problemas hablen de cosas que ya conoce y que no le pesan.',
+    'La división llega hasta divisores de dos cifras. La multiplicación sí llega a tres cifras, en la lección 2.C.',
+    'Al cambiar el contexto de un problema, revise que la operación y el resultado sigan cuadrando: el validador los recalcula con node _local/validate-content.js.'
+  ],
+
   notice: {
     title: 'Antes de empezar',
     dismissLabel: 'Listo, ya tengo el cuaderno',
     paragraphs: [
       'Esta guía **no se responde en el computador**. Todo se copia y se resuelve en el cuaderno: el título de la actividad, cada operación y su resultado.',
       'Desarrolla las operaciones bien alineadas por columnas. Escribe los números con punto de miles (**424.002**), como aparecen aquí.',
-      'Al final de la página está **Respuestas de esta sección**. Ve allí cuando ya hayas resuelto, compara con lo tuyo y pasa también la respuesta al cuaderno.',
+      'Las respuestas las tiene la profesora Ruby. Resuelve con calma, y cuando termines revisen juntos el cuaderno.',
       'Si te trabas, abre **Ver el procedimiento**. Usarlo no es hacer trampa.'
     ]
   },
@@ -338,12 +345,12 @@ window.Guide.register('math', {
     {
       id: 'u4',
       title: 'División',
-      summary: 'Repartir por dos y tres cifras, con su cociente y su residuo.',
+      summary: 'Repartir en partes iguales, con su cociente y su residuo.',
       lessons: [
         {
           id: 'l4',
           code: '2.D',
-          title: 'Divido por 2 y 3 cifras',
+          title: 'Divido por 2 cifras',
           goal: 'dividir y saber siempre cuánto sobra.',
           blocks: [
             {
@@ -378,7 +385,7 @@ window.Guide.register('math', {
               type: 'notebook',
               id: '2D1',
               title: 'Divisiones por 2 cifras',
-              intro: 'Copia cada división en tu cuaderno con su casita y resuélvela. Escribe siempre las dos respuestas: **cociente** y **residuo**.',
+              intro: 'Copia cada división en tu cuaderno con su casita y resuélvela. Escribe siempre las dos respuestas: **cociente** y **residuo**. Al terminar, comprueba cada una: (cociente × divisor) + residuo debe darte el dividendo.',
               items: [
                 '9.135 ÷ 35',
                 '15.876 ÷ 42',
@@ -397,29 +404,6 @@ window.Guide.register('math', {
               ],
               keyNote: 'En todas, el residuo quedó menor que el divisor. Si el tuyo salió mayor, es que el cociente se quedó corto.'
             },
-            {
-              type: 'notebook',
-              id: '2D2',
-              title: 'Divisiones por 3 cifras',
-              intro: 'Ahora el divisor tiene tres cifras, así que hay que tomar más cifras del dividendo para empezar. Copia cada una y escribe cociente y residuo.',
-              items: [
-                '68.352 ÷ 356',
-                '91.500 ÷ 250',
-                '45.780 ÷ 120',
-                '137.592 ÷ 408',
-                '258.750 ÷ 375',
-                '504.432 ÷ 624'
-              ],
-              key: [
-                '68.352 ÷ 356 → cociente 192, residuo 0',
-                '91.500 ÷ 250 → cociente 366, residuo 0',
-                '45.780 ÷ 120 → cociente 381, residuo 60',
-                '137.592 ÷ 408 → cociente 337, residuo 96',
-                '258.750 ÷ 375 → cociente 690, residuo 0',
-                '504.432 ÷ 624 → cociente 808, residuo 240'
-              ],
-              keyNote: 'Comprueba cada una en el cuaderno: (cociente × divisor) + residuo debe darte el dividendo.'
-            }
           ]
         }
       ]
@@ -466,7 +450,7 @@ window.Guide.register('math', {
               intro: 'Copia cada problema en tu cuaderno. Debajo escribe **la operación** que usaste, desarróllala y termina con **la respuesta completa**, con su palabra: "Ahora tiene 280.400 libros".',
               items: [
                 'La biblioteca del municipio tenía 234.780 libros y recibió una donación de 45.620 libros más. ¿Cuántos libros tiene ahora?',
-                'Una empresa de agua embotelló 128.500 litros y los repartió en canecas iguales de 250 litros. ¿Cuántas canecas llenó?',
+                'Una empresa de agua embotelló 30.840 litros y los repartió en canecas iguales de 60 litros. ¿Cuántas canecas llenó?',
                 'Un colegio recibió 3.456 cuadernos y los repartió por partes iguales entre sus 24 salones. ¿Cuántos cuadernos recibió cada salón?',
                 'En una bodega hay 315 cajas y cada caja trae 148 lápices. ¿Cuántos lápices hay en total?',
                 'Una fundación tenía 520.000 pesos para materiales escolares y gastó 348.750 pesos. ¿Cuánto dinero le quedó?',
@@ -475,11 +459,11 @@ window.Guide.register('math', {
                 'Un camión recorrió 1.256 kilómetros en un viaje. Si hizo 8 viajes iguales, ¿cuántos kilómetros recorrió en total?',
                 'Tres escuelas reunieron útiles: la primera 12.480, la segunda 9.755 y la tercera 15.302. ¿Cuántos reunieron entre las tres?',
                 'De las tres escuelas anteriores, ¿cuántos útiles más reunió la tercera que la segunda?',
-                'En un acueducto se almacenan 604.800 litros de agua y se reparten en 144 tanques iguales. ¿Cuántos litros quedan en cada tanque?'
+                'En un acueducto se almacenan 604.800 litros de agua y se reparten en 72 tanques iguales. ¿Cuántos litros quedan en cada tanque?'
               ],
               key: [
                 '234.780 + 45.620 = 280.400 libros',
-                '128.500 ÷ 250 = 514 canecas',
+                '30.840 ÷ 60 = 514 canecas',
                 '3.456 ÷ 24 = 144 cuadernos',
                 '315 × 148 = 46.620 lápices',
                 '520.000 − 348.750 = 171.250 pesos',
@@ -488,7 +472,7 @@ window.Guide.register('math', {
                 '1.256 × 8 = 10.048 kilómetros',
                 '12.480 + 9.755 + 15.302 = 37.537 útiles',
                 '15.302 − 9.755 = 5.547 útiles',
-                '604.800 ÷ 144 = 4.200 litros'
+                '604.800 ÷ 72 = 8.400 litros'
               ],
               keyNote: 'La respuesta completa lleva la palabra: no basta con escribir "280.400", se escribe "280.400 libros".'
             },
@@ -507,20 +491,9 @@ window.Guide.register('math', {
               items: [
                 { label: 'Valor posicional', href: 'https://www.youtube.com/watch?v=eNodAB9v6YM', note: 'Desde las unidades hasta las centenas de mil, que es justo lo de la lección 2.A.' },
                 { label: 'Multiplicación por 2 cifras', href: 'https://www.youtube.com/watch?v=aIde9ulEs58', note: 'Muestra cómo se corre el segundo renglón.' },
-                { label: 'División por 2 cifras', href: 'https://www.youtube.com/watch?v=k_I6i8FtDJ4', note: 'La Eduteca. Va muy despacio, que es lo que se necesita aquí.' },
-                { label: 'División por 3 cifras', href: 'https://www.youtube.com/watch?v=onIQHLnoU2I', note: 'Para la lección 2.D, cuando el divisor tiene tres cifras.' }
+                { label: 'División por 2 cifras', href: 'https://www.youtube.com/watch?v=k_I6i8FtDJ4', note: 'La Eduteca. Va muy despacio, que es lo que se necesita aquí.' }
               ]
             },
-            {
-              type: 'adult',
-              title: 'Nota editorial para la profesora Ruby',
-              paragraphs: [
-                'Los contextos de los problemas son todos cotidianos y reconocibles para un niño de 7 a 9 años: bibliotecas, acueductos, útiles escolares, una panadería, una planta que crece. **Ningún enunciado se apoya en sucesos difíciles ni en situaciones que puedan angustiar.**',
-                'A esta edad el contexto no es decoración: si el enunciado inquieta, el niño deja de pensar en la operación y se queda en la historia. Por eso conviene que los problemas hablen de cosas que ya conoce y que no le pesan.',
-                'El solucionario del final está pensado para comparar y transcribir **después** de resolver. Si prefiere que el estudiante no lo vea antes de tiempo, pídale que trabaje con la página cerrada y la abra solo al terminar.'
-              ],
-              items: ['Si se agregan problemas nuevos, mantener este criterio.', 'Al cambiar el contexto de un problema, revisar que la operación y el resultado del solucionario sigan cuadrando. El validador lo recalcula.']
-            }
           ]
         }
       ]

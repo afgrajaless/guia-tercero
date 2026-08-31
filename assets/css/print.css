@@ -90,12 +90,10 @@ body::after {
 .theme-toggle,
 .breathing,
 .notice .row,
-.notebook__pointer,
 .area-card__cta,
 .notice__title svg,
 .help__title svg,
 .callout__title svg,
-.answers__title svg,
 .notebook__tag svg {
   display: none !important;
 }
@@ -113,7 +111,6 @@ body::after {
 .lesson,
 .lesson__goal,
 .notebook,
-.answers,
 .callout,
 .example,
 .reading-text,
@@ -132,8 +129,7 @@ body::after {
 .callout,
 .example,
 .help,
-.notice,
-.answers {
+.notice {
   border: 1pt solid #999;
   border-radius: 6pt;
 }
@@ -163,7 +159,6 @@ details > *:not(summary) { display: block !important; }
 
 /* Nada de lo que se copia al cuaderno debe partirse entre dos hojas. */
 .notebook,
-.answers__item,
 .callout,
 .example,
 .figure,
@@ -173,8 +168,7 @@ details > *:not(summary) { display: block !important; }
   page-break-inside: avoid;
 }
 
-.unit,
-.answers {
+.unit {
   break-before: page;
   page-break-before: always;
 }

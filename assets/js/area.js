@@ -5,9 +5,12 @@
    lectura siempre accesibles y bloque de ayuda).
 
    La pagina es un documento para leer y copiar al cuaderno: no hay pestanas,
-   no hay avance guardado y no hay nada que responder aqui. Las unidades se
-   muestran una tras otra para poder transcribirlas de corrido y para que la
-   pagina se pueda imprimir completa.
+   no hay avance guardado, no hay nada que responder y tampoco se muestran las
+   respuestas. Las unidades se muestran una tras otra para poder transcribirlas
+   de corrido y para que la pagina se pueda imprimir completa.
+
+   El solucionario vive fuera del sitio, en RESPUESTAS_GUIA_TERCERO.md, que se
+   genera con _local/build-answers.js y es solo para la profesora.
    ========================================================================== */
 
 (function (global) {
@@ -18,49 +21,6 @@
   var el = Guide.el;
   var escapeHtml = Guide.escapeHtml;
   var ICONS = Guide.ICONS;
-
-  /** Ancla del solucionario dentro de la pagina. */
-  var ANSWERS_ID = 'respuestas';
-
-  /**
-   * Devuelve los textos del solucionario segun si la seccion califica o no.
-   * En psicosocial no se habla de "respuestas": se habla de comparar.
-   * @param {Object} area - Contenido del area.
-   * @returns {{title:string, lead:string, pointer:string}} Textos del bloque.
-   */
-  function answersCopy(area) {
-    if (area.grades === false) {
-      return {
-        title: 'Para comparar en familia',
-        lead: 'Aquí no hay respuestas correctas ni incorrectas. Esto es solo para conversarlo con un adulto después de haber escrito en el cuaderno.',
-        pointer: 'Para comparar, mira el final de la página'
-      };
-    }
-    return {
-      title: 'Respuestas de esta sección',
-      lead: 'Resuelve primero en el cuaderno. Después compara con estas respuestas y pásalas también al cuaderno, debajo de cada actividad.',
-      pointer: 'Las respuestas están al final de la página'
-    };
-  }
-
-  /**
-   * Reune todas las consignas de cuaderno que traen respuestas.
-   * @param {Object} area - Contenido del area.
-   * @returns {Array<Object>} Lista de { unit, lesson, block } en orden de lectura.
-   */
-  function collectAnswers(area) {
-    var found = [];
-    (area.units || []).forEach(function (unit) {
-      (unit.lessons || []).forEach(function (lesson) {
-        (lesson.blocks || []).forEach(function (block) {
-          if (block.type === 'notebook' && (block.key || []).length) {
-            found.push({ unit: unit, lesson: lesson, block: block });
-          }
-        });
-      });
-    });
-    return found;
-  }
 
   /**
    * Reune todos los textos de lectura de la seccion para el panel flotante.
@@ -81,7 +41,7 @@
 
   /**
    * Dibuja una leccion completa con su objetivo y todos sus bloques.
-   * @param {Object} params - { lesson, index, ctx } de la leccion a dibujar.
+   * @param {Object} params - { lesson, index } de la leccion a dibujar.
    * @returns {HTMLElement} Tarjeta de la leccion.
    */
   function renderLesson(params) {
@@ -107,7 +67,7 @@
     }
 
     (lesson.blocks || []).forEach(function (block) {
-      var node = Blocks.render(block, params.ctx);
+      var node = Blocks.render(block);
       if (node) { section.appendChild(node); }
     });
 
@@ -117,10 +77,9 @@
   /**
    * Dibuja una unidad completa: su titulo, su resumen y sus lecciones.
    * @param {Object} unit - Unidad a dibujar.
-   * @param {Object} ctx - Contexto que se pasa a cada bloque.
    * @returns {HTMLElement} Seccion de la unidad, con su ancla.
    */
-  function renderUnit(unit, ctx) {
+  function renderUnit(unit) {
     var section = el('section', {
       className: 'unit stack',
       attrs: { id: 'unidad-' + unit.id }
@@ -134,56 +93,7 @@
     section.appendChild(intro);
 
     (unit.lessons || []).forEach(function (lesson, index) {
-      section.appendChild(renderLesson({ lesson: lesson, index: index, ctx: ctx }));
-    });
-
-    return section;
-  }
-
-  /**
-   * Dibuja el solucionario del final con las respuestas de cada consigna.
-   * @param {Object} area - Contenido del area.
-   * @returns {HTMLElement|null} Seccion de respuestas, o null si no hay ninguna.
-   */
-  function renderAnswers(area) {
-    var entries = collectAnswers(area);
-    if (!entries.length) { return null; }
-
-    var copy = answersCopy(area);
-    var section = el('section', {
-      className: 'answers reveal',
-      attrs: { id: ANSWERS_ID }
-    });
-
-    section.appendChild(el('h2', {
-      className: 'answers__title',
-      html: ICONS.star + '<span>' + escapeHtml(copy.title) + '</span>'
-    }));
-    section.appendChild(el('p', { className: 'answers__lead', text: copy.lead }));
-
-    entries.forEach(function (entry) {
-      var block = entry.block;
-      var item = el('article', { className: 'answers__item' });
-
-      item.appendChild(el('p', {
-        className: 'answers__kicker',
-        text: 'Lección ' + (entry.lesson.code || entry.lesson.id)
-      }));
-      item.appendChild(el('h3', {
-        className: 'answers__name',
-        html: '<a href="#' + Blocks.notebookAnchor(block) + '">' + escapeHtml(block.title || 'Actividad') + '</a>'
-      }));
-
-      var numbered = block.ordered !== false && (block.items || []).length === block.key.length;
-      item.appendChild(el(numbered ? 'ol' : 'ul', {
-        className: 'answers__list',
-        children: block.key.map(function (line) { return el('li', { html: Blocks.inline(line) }); })
-      }));
-
-      if (block.keyNote) {
-        item.appendChild(el('p', { className: 'answers__note', html: Blocks.inline(block.keyNote) }));
-      }
-      section.appendChild(item);
+      section.appendChild(renderLesson({ lesson: lesson, index: index }));
     });
 
     return section;
@@ -313,8 +223,6 @@
 
     document.title = area.title + ' | Guía de Tercero';
 
-    var copy = answersCopy(area);
-    var ctx = { answersId: ANSWERS_ID, answersPointer: copy.pointer };
 
     /**
      * Pinta la cabecera con la seccion, el titulo y el aprendizaje.
@@ -354,16 +262,6 @@
         link.appendChild(el('span', { text: unit.title }));
         railHost.appendChild(link);
       });
-
-      if (collectAnswers(area).length) {
-        var answers = el('a', {
-          className: 'unit-chip unit-chip--answers',
-          attrs: { href: '#' + ANSWERS_ID }
-        });
-        answers.appendChild(el('span', { className: 'unit-chip__num', html: ICONS.star }));
-        answers.appendChild(el('span', { text: copy.title }));
-        railHost.appendChild(answers);
-      }
     }
 
     /**
@@ -380,11 +278,8 @@
       }
 
       area.units.forEach(function (unit) {
-        lessonHost.appendChild(renderUnit(unit, ctx));
+        lessonHost.appendChild(renderUnit(unit));
       });
-
-      var answers = renderAnswers(area);
-      if (answers) { lessonHost.appendChild(answers); }
 
       Guide.setupReveal(lessonHost);
     }

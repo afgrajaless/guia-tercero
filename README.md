@@ -12,7 +12,7 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias) publicado en GitHub Pa
 |---|---|---|
 | 1 | Emociones — *Hablemos de cómo nos sentimos* | `wellbeing.html` |
 | 2 | Matemáticas — *Analizo, calculo, reparto* | `math.html` |
-| 3 | Comprensión lectora — *Comparo textos* | `reading.html` |
+| 3 | Comprensión lectora — *Leo y entiendo un texto informativo* | `reading.html` |
 
 El contenido habla de emociones cotidianas, autocontrol y hábitos. **No se apoya en ningún
 suceso concreto ni en ninguna fecha**, y está calibrado para 7 a 9 años.
@@ -24,14 +24,12 @@ suceso concreto ni en ninguna fecha**, y está calibrado para 7 a 9 años.
    la página:** ni selección múltiple, ni campos de texto, ni tarjetas que arrastrar, ni casillas
    que marcar. Tampoco hay avance guardado, porcentajes ni puntaje. La profesora Ruby revisa el cuaderno
    físico.
-2. **Las respuestas van al final de la sección.** Cada página cierra con el solucionario
-   **"Respuestas de esta sección"**, con una entrada por actividad. El estudiante resuelve primero, luego
-   compara y pasa también la respuesta al cuaderno. Cada entrada enlaza de vuelta a su consigna.
-3. **La sección psicosocial no califica.** Ninguna de sus actividades tiene respuesta correcta.
-   Su bloque de cierre no se llama "Respuestas" sino **"Para comparar en familia"**, y solo trae
-   la clave de dos actividades —los dos círculos y lo que sí ayuda—, como excusa para conversarlas
-   con un adulto.
-   Esto se declara con `grades: false` en `data/wellbeing.js`.
+2. **Las respuestas no están en el sitio.** Ninguna página muestra el solucionario. Las respuestas
+   viven en `RESPUESTAS_GUIA_TERCERO.md`, que es solo para la profesora, y ese archivo **se genera**
+   desde `data/` con `node _local/build-answers.js`: así el documento y el sitio nunca se desfasan.
+3. **La sección de emociones no califica.** Ninguna de sus actividades tiene respuesta correcta.
+   Solo dos traen clave —los dos círculos y lo que sí ayuda—, y están redactadas para conversarlas
+   con un adulto, no para corregir. Esto se declara con `grades: false` en `data/wellbeing.js`.
 
 La única parte que se usa en pantalla es la **respiración cuadrada** de la Sección 1: una animación
 que marca el ritmo de la respiración. No pide respuestas ni guarda nada.
@@ -39,6 +37,8 @@ que marca el ritmo de la respiración. No pide respuestas ni guarda nada.
 ## Estructura
 
 ```
+RESPUESTAS_GUIA_TERCERO.md  Solucionario para la profesora (generado, no editar a mano)
+
 index.html            Portada con las tres secciones
 wellbeing.html        Sección 1 · Emociones
 math.html             Sección 2 · Matemáticas
@@ -127,8 +127,8 @@ múltiple, unir, ordenar, clasificar, operaciones— hoy es una consigna de esta
 }
 ```
 
-- **`key` no se dibuja junto a la consigna.** `area.js` recoge todas las `key` del día y las pinta
-  al final, en el solucionario. La consigna solo muestra un enlace hacia allá.
+- **`key` no se dibuja en ninguna parte del sitio.** Es lo único que alimenta
+  `RESPUESTAS_GUIA_TERCERO.md`. El estudiante nunca ve una respuesta en la página.
 - Si la consigna va numerada (`ordered` distinto de `false`) y tiene más de un punto, **`items` y
   `key` deben tener el mismo largo**: así la respuesta 3 corresponde al ejercicio 3. El validador
   lo hace cumplir.
@@ -156,10 +156,17 @@ También funciona abriendo `index.html` con doble clic: el contenido son archivo
 node _local/validate-content.js   # estructura, ids repetidos y RECALCULA toda la aritmética
 node _local/run-tests.js          # corre las pruebas de test.html sin abrir el navegador
 node _local/build-pages.js        # regenera las tres páginas desde la plantilla común
+node _local/build-answers.js      # regenera RESPUESTAS_GUIA_TERCERO.md desde /data
+node _local/check-layout.js 4321  # mide desbordamiento en un navegador de verdad
 ```
 
-`run-tests.js` necesita `jsdom`, que se instala una sola vez con `cd _local && npm install jsdom`.
-La carpeta `_local/` está en `.gitignore`, así que no se sube.
+**Después de tocar cualquier `key` en `data/`, corre `build-answers.js`.** Si no, el documento de
+la profesora queda diciendo algo distinto de lo que pide la guía.
+
+`run-tests.js` necesita `jsdom` y `check-layout.js` necesita `puppeteer-core`; se instalan una sola
+vez con `cd _local && npm install jsdom puppeteer-core`. La carpeta `_local/` está en `.gitignore`,
+así que no se sube: los scripts viven solo en la máquina de trabajo, pero lo que generan
+(`RESPUESTAS_GUIA_TERCERO.md` y las tres páginas HTML) sí se versiona.
 
 Con el servidor levantado:
 

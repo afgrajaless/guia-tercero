@@ -404,8 +404,7 @@
 .unit-chip { text-decoration: none; }
 .unit-chip:hover { background: var(--surface-2); color: var(--area-deep); }
 
-.unit-chip:target,
-.unit-chip--answers {
+.unit-chip:target {
   background: var(--area-soft);
   border-color: var(--area-line);
   color: var(--area-deep);
@@ -426,8 +425,6 @@
 }
 
 .unit-chip:hover .unit-chip__num { background: var(--area); color: #fff; }
-.unit-chip--answers .unit-chip__num { background: var(--surface); color: var(--star); }
-.unit-chip--answers .unit-chip__num svg { width: 1rem; height: 1rem; }
 
 @media (max-width: 60rem) {
   .unit-rail {
