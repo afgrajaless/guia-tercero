@@ -47,7 +47,7 @@ reading.html          Sección 3 · Comprensión lectora
 assets/css/
   tokens.css          Colores, tipografía y espaciados
   base.css            Reset, tipografía base y utilidades de layout
-  components.css      Cabecera, tarjetas, lecciones, índice, solucionario
+  components.css      Cabecera, tarjetas, lecciones e índice
   blocks.css          Bloques de contenido y panel de los textos de lectura
   print.css           Versión imprimible (media="print")
 
@@ -55,7 +55,7 @@ assets/js/
   core.js             Registro de contenido, iconos y utilidades
   figures.js          Diagramas SVG generados por parámetros
   blocks.js           Renderizado de los bloques de contenido
-  area.js             Arma la página de una sección, con su índice y su solucionario
+  area.js             Arma la página de una sección, con su índice
   home.js             Arma la agenda de la portada
 
 data/
@@ -89,7 +89,7 @@ window.Guide.register('math', {
 ```
 
 Los `id` de unidad, lección y consigna deben ser únicos dentro del área: con el id de la consigna
-se arma el ancla que la enlaza con su respuesta en el solucionario.
+se arma su ancla en la página y se la identifica en el documento de respuestas.
 
 ### Bloques de contenido
 
@@ -132,8 +132,9 @@ múltiple, unir, ordenar, clasificar, operaciones— hoy es una consigna de esta
 - Si la consigna va numerada (`ordered` distinto de `false`) y tiene más de un punto, **`items` y
   `key` deben tener el mismo largo**: así la respuesta 3 corresponde al ejercicio 3. El validador
   lo hace cumplir.
-- Sin `key`, la consigna es abierta y no aparece en el solucionario. Es lo correcto para las
-  preguntas de opinión y para todo lo personal.
+- Sin `key`, la consigna es abierta. En el documento de la profesora aparece en la lista de
+  actividades abiertas, no entre las que tienen respuesta. Es lo correcto para las preguntas de
+  opinión y para todo lo personal.
 - Formato de las respuestas que el validador sabe recalcular:
   - `234.567 + 189.435 = 424.002` (suma, resta, multiplicación, división)
   - `347.205 = 300.000 + 40.000 + 7.000 + 200 + 0 + 5` (descomposición)
@@ -184,8 +185,7 @@ Con el servidor levantado:
 
 `print.css` se carga con `media="print"` y prepara una versión en papel: quita la navegación, el
 índice y el panel de los textos, abre los desplegables para que el procedimiento quede visible,
-imprime cada unidad y el solucionario en su propia hoja, y evita que una consigna se parta entre
-dos páginas. Sirve para quien no tiene conexión estable en casa.
+imprime cada unidad en su propia hoja y evita que una consigna se parta entre dos páginas. Sirve para quien no tiene conexión estable en casa.
 
 ## Publicar
 

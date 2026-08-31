@@ -15,7 +15,7 @@ window.Guide.register('math', {
   href: 'math.html',
   section: { number: 2, label: 'Sección 2', short: 'Sección 2' },
   subject: 'DBA 2 · Componente numérico-variacional',
-  description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Copia cada actividad en el cuaderno, resuélvela allí y al final compara con las respuestas.',
+  description: 'Números naturales hasta seis cifras, las cuatro operaciones y problemas de nuestro entorno. Copia cada actividad en el cuaderno y resuélvela allí, bien alineada por columnas.',
   learning: 'Uso las cuatro operaciones y las propiedades de los números naturales hasta seis cifras para resolver situaciones de mi entorno.',
 
   teacherNote: [

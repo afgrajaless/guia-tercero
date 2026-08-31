@@ -1,8 +1,8 @@
 /* ==========================================================================
    area.js — Arma la pagina de una seccion: cabecera, indice, las lecciones
-   seguidas, el solucionario del final y los bloques fijos que cada seccion
-   necesita (banner para la familia, aviso previo, panel con los textos de
-   lectura siempre accesibles y bloque de ayuda).
+   seguidas y los bloques fijos que cada seccion necesita (banner para la
+   familia, aviso previo, panel con los textos de lectura siempre accesibles y
+   bloque de ayuda).
 
    La pagina es un documento para leer y copiar al cuaderno: no hay pestanas,
    no hay avance guardado, no hay nada que responder y tampoco se muestran las
@@ -265,7 +265,7 @@
     }
 
     /**
-     * Pinta todas las unidades de la seccion, una tras otra, y el solucionario.
+     * Pinta todas las unidades de la seccion, una tras otra.
      * @returns {void}
      */
     function paintLessons() {
